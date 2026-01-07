@@ -278,13 +278,14 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 ## 📋 **Decision Support**
 
 | **Stakeholder** | **Challenge Addressed** | **Framework Provides** |
-|-----------|---------------------|---------------------|---|
+|-----------------|-------------------------|------------------------|
 | **State DOTs** | Which scenarios dominate tail risk? | Scenario-to-scenario comparison with credal bounds |
 | **FEMA** | How does climate affect fragility? | Climate-driven hazard scenarios |
 | **Bridge Owners** | What's the retrofit priority under uncertainty? | Scenario-specific risk envelopes |
 | **Transportation Agencies** | Decision-relevant risk bounds | Uncertainty envelopes vs. fragile point estimates |
 | **Asset Managers** | Prioritization under deep uncertainty | Risk profiles without subjective probability assignments |
 | **Researchers** | Reproducible methodology | Modular, version-controllable codebase |
+
 
 ---
 
