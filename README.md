@@ -111,7 +111,7 @@ These scenarios represent **fundamentally different hazard regimes** with diverg
 ### **Project Structure**
 
 ```
-ScourCriticalBridgeSimulators/
+CriticalBridges-meeting-ClimateScenarioUncertainties/
 ├── config/                      # Centralized configuration
 │   ├── parameters.py            # All project parameters
 │   ├── paths.py                # File path management
@@ -156,7 +156,7 @@ ScourCriticalBridgeSimulators/
 ```bash
 # Clone repository
 git clone <repository-url>
-cd ScourCriticalBridgeSimulators
+cd CriticalBridges-meeting-ClimateScenarioUncertainties
 
 # Install dependencies
 pip install -r requirements.txt
@@ -225,7 +225,8 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 - **[README.md](README.md)** - This file (quick start, installation, features)
 - **[project_overview.md](project_overview.md)** - Technical architecture reference
 - **[PIPELINE_WORKFLOW.md](PIPELINE_WORKFLOW.md)** - Complete workflow documentation
-- **[SimulationCodeRefactoring.md](SimulationCodeRefactoring.md)** - Research to production guide
+<!--- - **[SimulationCodeRefactoring.md](SimulationCodeRefactoring.md)** - Research to production guide
+--->
 
 ---
 
