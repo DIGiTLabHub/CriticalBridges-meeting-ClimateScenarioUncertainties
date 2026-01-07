@@ -1,48 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
+"""
+Pushover analysis - Automated batch pushover analysis for multiple samples.
+Refactored to use central configuration and new module structure.
+"""
 
 import openseespy.opensees as op
 import pandas as pd
 from pathlib import Path
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
 from RecorderColFiber import *
 from model_setup import build_model
-
-# === Auto-load the latest Excel ===
-result_dir = Path("RecorderData/results")
-excel_path = max(result_dir.glob("Scour_Materials_20250425_142513 - Copy.xlsx"), key=lambda f: f.stat().st_mtime)
-print(f"📂 Using Excel file: {excel_path.name}")
-
-# === Scenario sheet mapping ===
-scenario_sheets = {
-    # "Missouri": "Scenario_1_Missouri_River"
-    # ,
-    # "Colorado": "Scenario_2_Colorado_River"
-    # ,
-    "Extreme": "Scenario_3_Extreme_Case"
-}
-
-# === User-defined input parameters ===
-IDctrlNode = 5201
-LCol = 13050.0
-Weight = 28.703462  # MN
-
-DmaxRatio  = 0.05
-DincrRatio = 0.0001
-maxNumIter = 100
-tol        = 1.0e-6
-
-IDctrlDOF   = 2
-loadNodeTag = 5201
-patternTag  = 200
-load_vector = [0.0, Weight, 0.0, 0.0, 0.0, 0.0]
-
-# === Derived ===
-Dmax  = DmaxRatio * LCol
-Dincr = DincrRatio * LCol
-Nsteps = int(Dmax / Dincr)
+from config.paths import get_latest_excel_file, get_simulation_output_folder
+from config.parameters import ANALYSIS
 
 # === Loop through each scenario ===
 for label, sheet_name in scenario_sheets.items():

@@ -1,0 +1,5448 @@
+{
+  "metadata": {
+    "description": "OpenSees equalDOF constraints",
+    "total_constraints": 615,
+    "created_date": "2025-01-06"
+  },
+  "constraints": [
+    {
+      "retained_node": 2110,
+      "constrained_node": 210,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2111,
+      "constrained_node": 211,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2112,
+      "constrained_node": 212,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2113,
+      "constrained_node": 213,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2117,
+      "constrained_node": 217,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2116,
+      "constrained_node": 216,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2115,
+      "constrained_node": 215,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2114,
+      "constrained_node": 214,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 201,
+      "constrained_node": 301,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 202,
+      "constrained_node": 302,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 203,
+      "constrained_node": 303,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 204,
+      "constrained_node": 304,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 205,
+      "constrained_node": 305,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 206,
+      "constrained_node": 306,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 207,
+      "constrained_node": 307,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 208,
+      "constrained_node": 308,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 209,
+      "constrained_node": 309,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 2110,
+      "constrained_node": 310,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2111,
+      "constrained_node": 311,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2112,
+      "constrained_node": 312,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2113,
+      "constrained_node": 313,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2117,
+      "constrained_node": 317,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2116,
+      "constrained_node": 316,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2115,
+      "constrained_node": 315,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2114,
+      "constrained_node": 314,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2210,
+      "constrained_node": 410,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2211,
+      "constrained_node": 411,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2212,
+      "constrained_node": 412,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2213,
+      "constrained_node": 413,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2217,
+      "constrained_node": 417,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2216,
+      "constrained_node": 416,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2215,
+      "constrained_node": 415,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2214,
+      "constrained_node": 414,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 401,
+      "constrained_node": 501,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 402,
+      "constrained_node": 502,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 403,
+      "constrained_node": 503,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 404,
+      "constrained_node": 504,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 405,
+      "constrained_node": 505,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 406,
+      "constrained_node": 506,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 407,
+      "constrained_node": 507,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 408,
+      "constrained_node": 508,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 409,
+      "constrained_node": 509,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 2210,
+      "constrained_node": 510,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2211,
+      "constrained_node": 511,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2212,
+      "constrained_node": 512,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2213,
+      "constrained_node": 513,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2217,
+      "constrained_node": 517,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2216,
+      "constrained_node": 516,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2215,
+      "constrained_node": 515,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2214,
+      "constrained_node": 514,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2310,
+      "constrained_node": 610,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2311,
+      "constrained_node": 611,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2312,
+      "constrained_node": 612,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2313,
+      "constrained_node": 613,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2317,
+      "constrained_node": 617,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2316,
+      "constrained_node": 616,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2315,
+      "constrained_node": 615,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2314,
+      "constrained_node": 614,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 601,
+      "constrained_node": 701,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 602,
+      "constrained_node": 702,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 603,
+      "constrained_node": 703,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 604,
+      "constrained_node": 704,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 605,
+      "constrained_node": 705,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 606,
+      "constrained_node": 706,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 607,
+      "constrained_node": 707,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 608,
+      "constrained_node": 708,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 609,
+      "constrained_node": 709,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 2310,
+      "constrained_node": 710,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2311,
+      "constrained_node": 711,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2312,
+      "constrained_node": 712,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2313,
+      "constrained_node": 713,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2317,
+      "constrained_node": 717,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2316,
+      "constrained_node": 716,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2315,
+      "constrained_node": 715,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 2314,
+      "constrained_node": 714,
+      "dofs": [
+        3
+      ]
+    },
+    {
+      "retained_node": 6111,
+      "constrained_node": 8111,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6112,
+      "constrained_node": 8112,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6113,
+      "constrained_node": 8113,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6114,
+      "constrained_node": 8114,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6115,
+      "constrained_node": 8115,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6116,
+      "constrained_node": 8116,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710101,
+      "constrained_node": 810101,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710102,
+      "constrained_node": 810102,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710103,
+      "constrained_node": 810103,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710104,
+      "constrained_node": 810104,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710105,
+      "constrained_node": 810105,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710106,
+      "constrained_node": 810106,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710107,
+      "constrained_node": 810107,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710108,
+      "constrained_node": 810108,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710109,
+      "constrained_node": 810109,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710110,
+      "constrained_node": 810110,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710111,
+      "constrained_node": 810111,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710112,
+      "constrained_node": 810112,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710113,
+      "constrained_node": 810113,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710114,
+      "constrained_node": 810114,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710115,
+      "constrained_node": 810115,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710116,
+      "constrained_node": 810116,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710117,
+      "constrained_node": 810117,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710118,
+      "constrained_node": 810118,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710119,
+      "constrained_node": 810119,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710120,
+      "constrained_node": 810120,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710121,
+      "constrained_node": 810121,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710122,
+      "constrained_node": 810122,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710123,
+      "constrained_node": 810123,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710124,
+      "constrained_node": 810124,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710125,
+      "constrained_node": 810125,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710126,
+      "constrained_node": 810126,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710127,
+      "constrained_node": 810127,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710128,
+      "constrained_node": 810128,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710129,
+      "constrained_node": 810129,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710201,
+      "constrained_node": 810201,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710202,
+      "constrained_node": 810202,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710203,
+      "constrained_node": 810203,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710204,
+      "constrained_node": 810204,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710205,
+      "constrained_node": 810205,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710206,
+      "constrained_node": 810206,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710207,
+      "constrained_node": 810207,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710208,
+      "constrained_node": 810208,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710209,
+      "constrained_node": 810209,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710210,
+      "constrained_node": 810210,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710211,
+      "constrained_node": 810211,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710212,
+      "constrained_node": 810212,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710213,
+      "constrained_node": 810213,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710214,
+      "constrained_node": 810214,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710215,
+      "constrained_node": 810215,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710216,
+      "constrained_node": 810216,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710217,
+      "constrained_node": 810217,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710218,
+      "constrained_node": 810218,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710219,
+      "constrained_node": 810219,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710220,
+      "constrained_node": 810220,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710221,
+      "constrained_node": 810221,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710222,
+      "constrained_node": 810222,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710223,
+      "constrained_node": 810223,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710224,
+      "constrained_node": 810224,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710225,
+      "constrained_node": 810225,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710226,
+      "constrained_node": 810226,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710227,
+      "constrained_node": 810227,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710228,
+      "constrained_node": 810228,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710229,
+      "constrained_node": 810229,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710301,
+      "constrained_node": 810301,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710302,
+      "constrained_node": 810302,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710303,
+      "constrained_node": 810303,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710304,
+      "constrained_node": 810304,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710305,
+      "constrained_node": 810305,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710306,
+      "constrained_node": 810306,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710307,
+      "constrained_node": 810307,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710308,
+      "constrained_node": 810308,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710309,
+      "constrained_node": 810309,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710310,
+      "constrained_node": 810310,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710311,
+      "constrained_node": 810311,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710312,
+      "constrained_node": 810312,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710313,
+      "constrained_node": 810313,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710314,
+      "constrained_node": 810314,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710315,
+      "constrained_node": 810315,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710316,
+      "constrained_node": 810316,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710317,
+      "constrained_node": 810317,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710318,
+      "constrained_node": 810318,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710319,
+      "constrained_node": 810319,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710320,
+      "constrained_node": 810320,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710321,
+      "constrained_node": 810321,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710322,
+      "constrained_node": 810322,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710323,
+      "constrained_node": 810323,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710324,
+      "constrained_node": 810324,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710325,
+      "constrained_node": 810325,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710326,
+      "constrained_node": 810326,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710327,
+      "constrained_node": 810327,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710328,
+      "constrained_node": 810328,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710329,
+      "constrained_node": 810329,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710401,
+      "constrained_node": 810401,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710402,
+      "constrained_node": 810402,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710403,
+      "constrained_node": 810403,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710404,
+      "constrained_node": 810404,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710405,
+      "constrained_node": 810405,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710406,
+      "constrained_node": 810406,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710407,
+      "constrained_node": 810407,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710408,
+      "constrained_node": 810408,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710409,
+      "constrained_node": 810409,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710410,
+      "constrained_node": 810410,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710411,
+      "constrained_node": 810411,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710412,
+      "constrained_node": 810412,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710413,
+      "constrained_node": 810413,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710414,
+      "constrained_node": 810414,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710415,
+      "constrained_node": 810415,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710416,
+      "constrained_node": 810416,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710417,
+      "constrained_node": 810417,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710418,
+      "constrained_node": 810418,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710419,
+      "constrained_node": 810419,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710420,
+      "constrained_node": 810420,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710421,
+      "constrained_node": 810421,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710422,
+      "constrained_node": 810422,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710423,
+      "constrained_node": 810423,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710424,
+      "constrained_node": 810424,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710425,
+      "constrained_node": 810425,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710426,
+      "constrained_node": 810426,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710427,
+      "constrained_node": 810427,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710428,
+      "constrained_node": 810428,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710429,
+      "constrained_node": 810429,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710501,
+      "constrained_node": 810501,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710502,
+      "constrained_node": 810502,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710503,
+      "constrained_node": 810503,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710504,
+      "constrained_node": 810504,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710505,
+      "constrained_node": 810505,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710506,
+      "constrained_node": 810506,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710507,
+      "constrained_node": 810507,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710508,
+      "constrained_node": 810508,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710509,
+      "constrained_node": 810509,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710510,
+      "constrained_node": 810510,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710511,
+      "constrained_node": 810511,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710512,
+      "constrained_node": 810512,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710513,
+      "constrained_node": 810513,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710514,
+      "constrained_node": 810514,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710515,
+      "constrained_node": 810515,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710516,
+      "constrained_node": 810516,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710517,
+      "constrained_node": 810517,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710518,
+      "constrained_node": 810518,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710519,
+      "constrained_node": 810519,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710520,
+      "constrained_node": 810520,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710521,
+      "constrained_node": 810521,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710522,
+      "constrained_node": 810522,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710523,
+      "constrained_node": 810523,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710524,
+      "constrained_node": 810524,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710525,
+      "constrained_node": 810525,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710526,
+      "constrained_node": 810526,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710527,
+      "constrained_node": 810527,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710528,
+      "constrained_node": 810528,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710529,
+      "constrained_node": 810529,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710601,
+      "constrained_node": 810601,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710602,
+      "constrained_node": 810602,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710603,
+      "constrained_node": 810603,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710604,
+      "constrained_node": 810604,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710605,
+      "constrained_node": 810605,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710606,
+      "constrained_node": 810606,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710607,
+      "constrained_node": 810607,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710608,
+      "constrained_node": 810608,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710609,
+      "constrained_node": 810609,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710610,
+      "constrained_node": 810610,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710611,
+      "constrained_node": 810611,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710612,
+      "constrained_node": 810612,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710613,
+      "constrained_node": 810613,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710614,
+      "constrained_node": 810614,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710615,
+      "constrained_node": 810615,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710616,
+      "constrained_node": 810616,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710617,
+      "constrained_node": 810617,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710618,
+      "constrained_node": 810618,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710619,
+      "constrained_node": 810619,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710620,
+      "constrained_node": 810620,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710621,
+      "constrained_node": 810621,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710622,
+      "constrained_node": 810622,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710623,
+      "constrained_node": 810623,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710624,
+      "constrained_node": 810624,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710625,
+      "constrained_node": 810625,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710626,
+      "constrained_node": 810626,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710627,
+      "constrained_node": 810627,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710628,
+      "constrained_node": 810628,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 710629,
+      "constrained_node": 810629,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6211,
+      "constrained_node": 8211,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6212,
+      "constrained_node": 8212,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6213,
+      "constrained_node": 8213,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6214,
+      "constrained_node": 8214,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6215,
+      "constrained_node": 8215,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6216,
+      "constrained_node": 8216,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720101,
+      "constrained_node": 820101,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720102,
+      "constrained_node": 820102,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720103,
+      "constrained_node": 820103,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720104,
+      "constrained_node": 820104,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720105,
+      "constrained_node": 820105,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720106,
+      "constrained_node": 820106,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720107,
+      "constrained_node": 820107,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720108,
+      "constrained_node": 820108,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720109,
+      "constrained_node": 820109,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720110,
+      "constrained_node": 820110,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720111,
+      "constrained_node": 820111,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720112,
+      "constrained_node": 820112,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720113,
+      "constrained_node": 820113,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720114,
+      "constrained_node": 820114,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720115,
+      "constrained_node": 820115,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720116,
+      "constrained_node": 820116,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720117,
+      "constrained_node": 820117,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720118,
+      "constrained_node": 820118,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720119,
+      "constrained_node": 820119,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720120,
+      "constrained_node": 820120,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720121,
+      "constrained_node": 820121,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720122,
+      "constrained_node": 820122,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720123,
+      "constrained_node": 820123,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720124,
+      "constrained_node": 820124,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720125,
+      "constrained_node": 820125,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720126,
+      "constrained_node": 820126,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720127,
+      "constrained_node": 820127,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720128,
+      "constrained_node": 820128,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720129,
+      "constrained_node": 820129,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720201,
+      "constrained_node": 820201,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720202,
+      "constrained_node": 820202,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720203,
+      "constrained_node": 820203,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720204,
+      "constrained_node": 820204,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720205,
+      "constrained_node": 820205,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720206,
+      "constrained_node": 820206,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720207,
+      "constrained_node": 820207,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720208,
+      "constrained_node": 820208,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720209,
+      "constrained_node": 820209,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720210,
+      "constrained_node": 820210,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720211,
+      "constrained_node": 820211,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720212,
+      "constrained_node": 820212,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720213,
+      "constrained_node": 820213,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720214,
+      "constrained_node": 820214,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720215,
+      "constrained_node": 820215,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720216,
+      "constrained_node": 820216,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720217,
+      "constrained_node": 820217,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720218,
+      "constrained_node": 820218,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720219,
+      "constrained_node": 820219,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720220,
+      "constrained_node": 820220,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720221,
+      "constrained_node": 820221,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720222,
+      "constrained_node": 820222,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720223,
+      "constrained_node": 820223,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720224,
+      "constrained_node": 820224,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720225,
+      "constrained_node": 820225,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720226,
+      "constrained_node": 820226,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720227,
+      "constrained_node": 820227,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720228,
+      "constrained_node": 820228,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720229,
+      "constrained_node": 820229,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720301,
+      "constrained_node": 820301,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720302,
+      "constrained_node": 820302,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720303,
+      "constrained_node": 820303,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720304,
+      "constrained_node": 820304,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720305,
+      "constrained_node": 820305,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720306,
+      "constrained_node": 820306,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720307,
+      "constrained_node": 820307,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720308,
+      "constrained_node": 820308,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720309,
+      "constrained_node": 820309,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720310,
+      "constrained_node": 820310,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720311,
+      "constrained_node": 820311,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720312,
+      "constrained_node": 820312,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720313,
+      "constrained_node": 820313,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720314,
+      "constrained_node": 820314,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720315,
+      "constrained_node": 820315,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720316,
+      "constrained_node": 820316,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720317,
+      "constrained_node": 820317,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720318,
+      "constrained_node": 820318,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720319,
+      "constrained_node": 820319,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720320,
+      "constrained_node": 820320,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720321,
+      "constrained_node": 820321,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720322,
+      "constrained_node": 820322,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720323,
+      "constrained_node": 820323,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720324,
+      "constrained_node": 820324,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720325,
+      "constrained_node": 820325,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720326,
+      "constrained_node": 820326,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720327,
+      "constrained_node": 820327,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720328,
+      "constrained_node": 820328,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720329,
+      "constrained_node": 820329,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720401,
+      "constrained_node": 820401,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720402,
+      "constrained_node": 820402,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720403,
+      "constrained_node": 820403,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720404,
+      "constrained_node": 820404,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720405,
+      "constrained_node": 820405,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720406,
+      "constrained_node": 820406,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720407,
+      "constrained_node": 820407,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720408,
+      "constrained_node": 820408,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720409,
+      "constrained_node": 820409,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720410,
+      "constrained_node": 820410,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720411,
+      "constrained_node": 820411,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720412,
+      "constrained_node": 820412,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720413,
+      "constrained_node": 820413,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720414,
+      "constrained_node": 820414,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720415,
+      "constrained_node": 820415,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720416,
+      "constrained_node": 820416,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720417,
+      "constrained_node": 820417,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720418,
+      "constrained_node": 820418,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720419,
+      "constrained_node": 820419,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720420,
+      "constrained_node": 820420,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720421,
+      "constrained_node": 820421,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720422,
+      "constrained_node": 820422,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720423,
+      "constrained_node": 820423,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720424,
+      "constrained_node": 820424,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720425,
+      "constrained_node": 820425,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720426,
+      "constrained_node": 820426,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720427,
+      "constrained_node": 820427,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720428,
+      "constrained_node": 820428,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720429,
+      "constrained_node": 820429,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720501,
+      "constrained_node": 820501,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720502,
+      "constrained_node": 820502,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720503,
+      "constrained_node": 820503,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720504,
+      "constrained_node": 820504,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720505,
+      "constrained_node": 820505,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720506,
+      "constrained_node": 820506,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720507,
+      "constrained_node": 820507,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720508,
+      "constrained_node": 820508,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720509,
+      "constrained_node": 820509,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720510,
+      "constrained_node": 820510,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720511,
+      "constrained_node": 820511,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720512,
+      "constrained_node": 820512,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720513,
+      "constrained_node": 820513,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720514,
+      "constrained_node": 820514,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720515,
+      "constrained_node": 820515,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720516,
+      "constrained_node": 820516,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720517,
+      "constrained_node": 820517,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720518,
+      "constrained_node": 820518,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720519,
+      "constrained_node": 820519,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720520,
+      "constrained_node": 820520,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720521,
+      "constrained_node": 820521,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720522,
+      "constrained_node": 820522,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720523,
+      "constrained_node": 820523,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720524,
+      "constrained_node": 820524,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720525,
+      "constrained_node": 820525,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720526,
+      "constrained_node": 820526,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720527,
+      "constrained_node": 820527,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720528,
+      "constrained_node": 820528,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720529,
+      "constrained_node": 820529,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720601,
+      "constrained_node": 820601,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720602,
+      "constrained_node": 820602,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720603,
+      "constrained_node": 820603,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720604,
+      "constrained_node": 820604,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720605,
+      "constrained_node": 820605,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720606,
+      "constrained_node": 820606,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720607,
+      "constrained_node": 820607,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720608,
+      "constrained_node": 820608,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720609,
+      "constrained_node": 820609,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720610,
+      "constrained_node": 820610,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720611,
+      "constrained_node": 820611,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720612,
+      "constrained_node": 820612,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720613,
+      "constrained_node": 820613,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720614,
+      "constrained_node": 820614,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720615,
+      "constrained_node": 820615,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720616,
+      "constrained_node": 820616,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720617,
+      "constrained_node": 820617,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720618,
+      "constrained_node": 820618,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720619,
+      "constrained_node": 820619,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720620,
+      "constrained_node": 820620,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720621,
+      "constrained_node": 820621,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720622,
+      "constrained_node": 820622,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720623,
+      "constrained_node": 820623,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720624,
+      "constrained_node": 820624,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720625,
+      "constrained_node": 820625,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720626,
+      "constrained_node": 820626,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720627,
+      "constrained_node": 820627,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720628,
+      "constrained_node": 820628,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 720629,
+      "constrained_node": 820629,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6311,
+      "constrained_node": 8311,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6312,
+      "constrained_node": 8312,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6313,
+      "constrained_node": 8313,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6314,
+      "constrained_node": 8314,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6315,
+      "constrained_node": 8315,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 6316,
+      "constrained_node": 8316,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730101,
+      "constrained_node": 830101,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730102,
+      "constrained_node": 830102,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730103,
+      "constrained_node": 830103,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730104,
+      "constrained_node": 830104,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730105,
+      "constrained_node": 830105,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730106,
+      "constrained_node": 830106,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730107,
+      "constrained_node": 830107,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730108,
+      "constrained_node": 830108,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730109,
+      "constrained_node": 830109,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730110,
+      "constrained_node": 830110,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730111,
+      "constrained_node": 830111,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730112,
+      "constrained_node": 830112,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730113,
+      "constrained_node": 830113,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730114,
+      "constrained_node": 830114,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730115,
+      "constrained_node": 830115,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730116,
+      "constrained_node": 830116,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730117,
+      "constrained_node": 830117,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730118,
+      "constrained_node": 830118,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730119,
+      "constrained_node": 830119,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730120,
+      "constrained_node": 830120,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730121,
+      "constrained_node": 830121,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730122,
+      "constrained_node": 830122,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730123,
+      "constrained_node": 830123,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730124,
+      "constrained_node": 830124,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730125,
+      "constrained_node": 830125,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730126,
+      "constrained_node": 830126,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730127,
+      "constrained_node": 830127,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730128,
+      "constrained_node": 830128,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730129,
+      "constrained_node": 830129,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730201,
+      "constrained_node": 830201,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730202,
+      "constrained_node": 830202,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730203,
+      "constrained_node": 830203,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730204,
+      "constrained_node": 830204,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730205,
+      "constrained_node": 830205,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730206,
+      "constrained_node": 830206,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730207,
+      "constrained_node": 830207,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730208,
+      "constrained_node": 830208,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730209,
+      "constrained_node": 830209,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730210,
+      "constrained_node": 830210,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730211,
+      "constrained_node": 830211,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730212,
+      "constrained_node": 830212,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730213,
+      "constrained_node": 830213,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730214,
+      "constrained_node": 830214,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730215,
+      "constrained_node": 830215,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730216,
+      "constrained_node": 830216,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730217,
+      "constrained_node": 830217,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730218,
+      "constrained_node": 830218,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730219,
+      "constrained_node": 830219,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730220,
+      "constrained_node": 830220,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730221,
+      "constrained_node": 830221,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730222,
+      "constrained_node": 830222,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730223,
+      "constrained_node": 830223,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730224,
+      "constrained_node": 830224,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730225,
+      "constrained_node": 830225,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730226,
+      "constrained_node": 830226,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730227,
+      "constrained_node": 830227,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730228,
+      "constrained_node": 830228,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730229,
+      "constrained_node": 830229,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730301,
+      "constrained_node": 830301,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730302,
+      "constrained_node": 830302,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730303,
+      "constrained_node": 830303,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730304,
+      "constrained_node": 830304,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730305,
+      "constrained_node": 830305,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730306,
+      "constrained_node": 830306,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730307,
+      "constrained_node": 830307,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730308,
+      "constrained_node": 830308,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730309,
+      "constrained_node": 830309,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730310,
+      "constrained_node": 830310,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730311,
+      "constrained_node": 830311,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730312,
+      "constrained_node": 830312,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730313,
+      "constrained_node": 830313,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730314,
+      "constrained_node": 830314,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730315,
+      "constrained_node": 830315,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730316,
+      "constrained_node": 830316,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730317,
+      "constrained_node": 830317,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730318,
+      "constrained_node": 830318,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730319,
+      "constrained_node": 830319,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730320,
+      "constrained_node": 830320,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730321,
+      "constrained_node": 830321,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730322,
+      "constrained_node": 830322,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730323,
+      "constrained_node": 830323,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730324,
+      "constrained_node": 830324,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730325,
+      "constrained_node": 830325,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730326,
+      "constrained_node": 830326,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730327,
+      "constrained_node": 830327,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730328,
+      "constrained_node": 830328,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730329,
+      "constrained_node": 830329,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730401,
+      "constrained_node": 830401,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730402,
+      "constrained_node": 830402,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730403,
+      "constrained_node": 830403,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730404,
+      "constrained_node": 830404,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730405,
+      "constrained_node": 830405,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730406,
+      "constrained_node": 830406,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730407,
+      "constrained_node": 830407,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730408,
+      "constrained_node": 830408,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730409,
+      "constrained_node": 830409,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730410,
+      "constrained_node": 830410,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730411,
+      "constrained_node": 830411,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730412,
+      "constrained_node": 830412,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730413,
+      "constrained_node": 830413,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730414,
+      "constrained_node": 830414,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730415,
+      "constrained_node": 830415,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730416,
+      "constrained_node": 830416,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730417,
+      "constrained_node": 830417,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730418,
+      "constrained_node": 830418,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730419,
+      "constrained_node": 830419,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730420,
+      "constrained_node": 830420,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730421,
+      "constrained_node": 830421,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730422,
+      "constrained_node": 830422,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730423,
+      "constrained_node": 830423,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730424,
+      "constrained_node": 830424,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730425,
+      "constrained_node": 830425,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730426,
+      "constrained_node": 830426,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730427,
+      "constrained_node": 830427,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730428,
+      "constrained_node": 830428,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730429,
+      "constrained_node": 830429,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730501,
+      "constrained_node": 830501,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730502,
+      "constrained_node": 830502,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730503,
+      "constrained_node": 830503,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730504,
+      "constrained_node": 830504,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730505,
+      "constrained_node": 830505,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730506,
+      "constrained_node": 830506,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730507,
+      "constrained_node": 830507,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730508,
+      "constrained_node": 830508,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730509,
+      "constrained_node": 830509,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730510,
+      "constrained_node": 830510,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730511,
+      "constrained_node": 830511,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730512,
+      "constrained_node": 830512,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730513,
+      "constrained_node": 830513,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730514,
+      "constrained_node": 830514,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730515,
+      "constrained_node": 830515,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730516,
+      "constrained_node": 830516,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730517,
+      "constrained_node": 830517,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730518,
+      "constrained_node": 830518,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730519,
+      "constrained_node": 830519,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730520,
+      "constrained_node": 830520,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730521,
+      "constrained_node": 830521,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730522,
+      "constrained_node": 830522,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730523,
+      "constrained_node": 830523,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730524,
+      "constrained_node": 830524,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730525,
+      "constrained_node": 830525,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730526,
+      "constrained_node": 830526,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730527,
+      "constrained_node": 830527,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730528,
+      "constrained_node": 830528,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730529,
+      "constrained_node": 830529,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730601,
+      "constrained_node": 830601,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730602,
+      "constrained_node": 830602,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730603,
+      "constrained_node": 830603,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730604,
+      "constrained_node": 830604,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730605,
+      "constrained_node": 830605,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730606,
+      "constrained_node": 830606,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730607,
+      "constrained_node": 830607,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730608,
+      "constrained_node": 830608,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730609,
+      "constrained_node": 830609,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730610,
+      "constrained_node": 830610,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730611,
+      "constrained_node": 830611,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730612,
+      "constrained_node": 830612,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730613,
+      "constrained_node": 830613,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730614,
+      "constrained_node": 830614,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730615,
+      "constrained_node": 830615,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730616,
+      "constrained_node": 830616,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730617,
+      "constrained_node": 830617,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730618,
+      "constrained_node": 830618,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730619,
+      "constrained_node": 830619,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730620,
+      "constrained_node": 830620,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730621,
+      "constrained_node": 830621,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730622,
+      "constrained_node": 830622,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730623,
+      "constrained_node": 830623,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730624,
+      "constrained_node": 830624,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730625,
+      "constrained_node": 830625,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730626,
+      "constrained_node": 830626,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730627,
+      "constrained_node": 830627,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730628,
+      "constrained_node": 830628,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "retained_node": 730629,
+      "constrained_node": 830629,
+      "dofs": [
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}
