@@ -34,11 +34,12 @@ This project introduces a **surrogate-based, imprecise-probability fragility fra
 
 ### **Climate Scenarios**
 
-| Scenario | Velocity (m/s) | Erosion (mm/hr) | Mean Scour (m) | Max Scour (m) | Description |
-|----------|------------------|---------------------|---------------|-------------|
-| **Missouri** | 2.9 | 100 | 2-4 | 3-4 | Moderate river with slow erosion |
-| **Colorado** | 6.5 | 500 | 4-8 | 10-12 | Fast-flow river |
-| **Extreme** | 10.0 | 1000 | 8-15 | 15-17 | Extreme flood events |
+| Scenario    | Velocity (m/s) | Erosion (mm/hr) | Mean Scour (m) | Max Scour (m) | Description                     |
+|-------------|----------------|------------------|---------------|---------------|---------------------------------|
+| **Missouri** | 2.9            | 100              | 2–4           | 3–4           | Moderate river with slow erosion |
+| **Colorado** | 6.5            | 500              | 4–8           | 10–12         | Fast-flow river                  |
+| **Extreme**  | 10.0           | 1000             | 8–15          | 15–17         | Extreme flood events             |
+
 
 These scenarios represent **fundamentally different hazard regimes** with divergent stochastic properties, not merely different parameter sets.
 
