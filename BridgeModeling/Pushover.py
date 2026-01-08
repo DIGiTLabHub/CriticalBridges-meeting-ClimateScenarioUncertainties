@@ -6,7 +6,14 @@ Pushover analysis - Automated batch pushover analysis for multiple samples.
 Refactored to use central configuration and new module structure.
 """
 
-import openseespy.opensees as op
+try:
+    import openseespy.opensees as op
+except ImportError as e:
+    raise ImportError(
+        "OpenSeesPy is required but not installed. "
+        "Install with: pip install openseespy>=3.5.0\n"
+        f"Original error: {e}"
+    ) from e
 import pandas as pd
 from pathlib import Path
 import sys

@@ -53,7 +53,14 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
     # Compute the final scour depth assuming a lognormal distribution.
     # The division by 1000 converts the unit from mm to m.
     z50Final = (np.exp(-0.085) * z50 * np.exp(0.407 * lhs_err)) / 1000
-    z50Final = np.clip(z50Final, None, 20.0)  # meters - my the piers of my model are max 20m thats why i caped the z50final to 20m
+
+    # Data validation: ensure scour depths are physically reasonable
+    if np.any(z50Final < 0):
+        raise ValueError("Scour depths cannot be negative")
+    if np.any(z50Final > 20.0):  # pier height limit
+        import warnings
+        warnings.warn(f"Some scour depths exceed pier height (20.0m). Capping to maximum pier height.")
+        z50Final = np.clip(z50Final, 0, 20.0)  # meters - pier height limit
 
     # Statistical parameters
     z50Mean = np.mean(z50Final)

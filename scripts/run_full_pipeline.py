@@ -16,15 +16,24 @@ logging.basicConfig(
 # Add paths
 PROJECT_ROOT = Path(__file__).parent.absolute()
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
+sys.path.insert(0, str(PROJECT_ROOT / 'config'))
 
 from scour import LHS_scour_hazard
+from parameters import SCOUR, MATERIALS
 
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Run scour pipeline")
     parser.add_argument('--scenario', required=True, choices=['missouri', 'colorado', 'extreme'])
-    parser.add_argument('--samples', type=int, default=10)
+    parser.add_argument('--samples', type=int, default=10,
+                       help='Number of LHS samples to generate (1-10000)')
     args = parser.parse_args()
+
+    # Input validation
+    if args.samples < 1 or args.samples > 10000:
+        parser.error("Number of samples must be between 1 and 10000")
+    if args.samples > 1000:
+        logging.warning(f"Large sample size ({args.samples}) may take significant time to process")
 
     logging.info("=" * 50)
     logging.info("SCOUR BRIDGE SIMULATION PIPELINE")
@@ -32,13 +41,12 @@ def main():
     logging.info(f"Scenario: {args.scenario}")
     logging.info(f"Samples: {args.samples}")
 
-    # Scenario parameters
-    scenarios = {
-        'missouri': {'vel': 2.9, 'zDot': 100},
-        'colorado': {'vel': 6.5, 'zDot': 500},
-        'extreme': {'vel': 10.0, 'zDot': 1000}
+    # Scenario parameters from config
+    scenario_config = SCOUR['scenarios'][args.scenario]
+    params = {
+        'vel': scenario_config['velocity_m_s'],
+        'zDot': scenario_config['erosion_rate_mm_hr']
     }
-    params = scenarios[args.scenario]
     logging.info(f"Velocity: {params['vel']} m/s, Erosion: {params['zDot']} mm/hr")
     logging.info("")
 
@@ -55,8 +63,14 @@ def main():
     # Generate material samples
     logging.info("Phase 2: Material property sampling...")
     np.random.seed(42)
-    fc_samples = np.random.normal(27.0, 1.0, args.samples)
-    fy_samples = np.random.lognormal(np.log(420.0), 4.2/420.0, args.samples)
+    # Use parameters from config
+    fc_mean = MATERIALS['concrete']['mean_MPa']
+    fc_std = MATERIALS['concrete']['std_MPa']
+    fy_mean = MATERIALS['steel']['mean_MPa']
+    fy_std = MATERIALS['steel']['std_MPa']
+
+    fc_samples = np.random.normal(fc_mean, fc_std, args.samples)
+    fy_samples = np.random.lognormal(np.log(fy_mean), fy_std/fy_mean, args.samples)
 
     df = pd.DataFrame({
         'Sample_ID': range(1, args.samples + 1),

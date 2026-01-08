@@ -11,10 +11,16 @@
 
 
 import os
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+
+# Add config path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / 'config'))
+from parameters import PATHS
 
 # ── Bilinear Fit Logic ──────────────────────────────────────────
 def profile_fit(d, f, dy_grid):
@@ -46,10 +52,11 @@ def fit_bilinear_profile(d, f, num_grid=200):
     return k1, k2, dy, Vy
 
 # ── File Paths ─────────────────────────────────────────────────
-folder = "RecorderData/Missouri/scour_7602.2"
-disp_file = os.path.join(folder, "Displacement.5201.out")
-col_disp_file = os.path.join(folder, "ColDisplacement.3201.out")
-frc_file_3201 = os.path.join(folder, "ColLocForce.3201.out")
+# Use configurable paths - update these variables for different scenarios/depths
+folder = PATHS['recorder_data'] / "Missouri" / "scour_7602.2"  # TODO: Make dynamic
+disp_file = folder / "Displacement.5201.out"
+col_disp_file = folder / "ColDisplacement.3201.out"
+frc_file_3201 = folder / "ColLocForce.3201.out"
 element_ids = [3101, 3201, 3301]
 cols_forces = [
     "time", "P_i", "V2_i", "V3_i", "T_i", "M2_i", "M3_i",
@@ -187,7 +194,7 @@ def fit_bilinear_profile(d, f, num_grid=200):
     return k1, k2, dy, Vy, records
 
 # ── Example Inputs (Replace with Your File Paths) ─────────────────────────────
-folder = "RecorderData/Missouri/scour_7602.2"
+    folder = PATHS['recorder_data'] / "Missouri" / "scour_7602.2"  # TODO: Make dynamic
 disp_file = os.path.join(folder, "Displacement.5201.out")
 col_disp_file = os.path.join(folder, "ColDisplacement.3201.out")
 frc_file_3201 = os.path.join(folder, "ColLocForce.3201.out")

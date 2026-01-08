@@ -6,7 +6,14 @@ Model setup - Build complete OpenSeesPy bridge model.
 Refactored to use JSON data files instead of hardcoded Python lists.
 """
 
-import openseespy.opensees as ops
+try:
+    import openseespy.opensees as ops
+except ImportError as e:
+    raise ImportError(
+        "OpenSeesPy is required but not installed. "
+        "Install with: pip install openseespy>=3.5.0\n"
+        f"Original error: {e}"
+    ) from e
 from .os_model_functions import *
 from .geometry.geometry_loader import GeometryLoader
 from .GeoTrans import defineGeoTrans

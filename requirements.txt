@@ -24,4 +24,4 @@ jupyter>=1.0.0
 ipykernel>=6.0
 
 # Python Version
-python>=3.8
+# python>=3.8
