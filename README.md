@@ -136,7 +136,8 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 │
 ├── scripts/                     # Automation
 │   ├── run_full_pipeline.py   # Pipeline orchestrator
-│   └── run_single_simulation.py # Single simulation runner
+│   ├── run_single_simulation.py # Single simulation runner
+│   └── test_surrogate_modeling.py # Surrogate model testing tool
 │
 ├── RecorderData/              # Legacy simulation outputs
 ├── archive/old_scripts/        # Archived Jupyter notebooks
@@ -185,7 +186,13 @@ python scripts/run_single_simulation.py --scenario missouri
 # Output: Capacity point (Vy, Dy, My, Thy) for one bridge analysis
 # Example: ✅ Capacity point: Vy=1523.4kN, Dy=48.2mm, My=19802.1kNm, Thy=0.0037rad
 
-# Option 2: Generate scour samples and material inputs for batch analysis
+# Option 2: Test surrogate models on existing simulation results
+python scripts/test_surrogate_modeling.py --scenario missouri --methods gbr,svr --plots
+
+# Output: Credal bounds, model performance, distribution plots, trajectory analysis
+# Creates: model_performance_missouri.xlsx, capacity_trajectories_missouri.png, etc.
+
+# Option 3: Generate scour samples and material inputs for batch analysis
 python scripts/run_full_pipeline.py --scenario missouri --samples 1000
 
 # This creates data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
@@ -214,6 +221,31 @@ missouri_params = SCOUR['scenarios']['missouri']
 print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 ```
 
+### **Surrogate Model Testing**
+
+Test and validate surrogate models using existing simulation results:
+
+```python
+# Test surrogate models for a specific scenario
+from scripts.test_surrogate_modeling import main
+
+# Or run from command line:
+# python scripts/test_surrogate_modeling.py --scenario missouri --methods gbr,svr --plots
+```
+
+**Features:**
+- **Credal Set Analysis**: Bootstrap ensembles for uncertainty quantification
+- **Model Comparison**: Evaluate GBR vs SVR performance with R² and RMSE metrics
+- **Capacity Trajectories**: Analyze (Vy,Dy) and (My,Thy) relationships with uncertainty bounds
+- **Critical Point Analysis**: Identify and visualize distributions at key capacity levels
+- **Distribution Plots**: Histograms showing variability in capacity parameters
+
+**Output Files:**
+- `model_performance_[scenario].xlsx` - Performance metrics and credal widths
+- `capacity_trajectories_[scenario].png` - Trajectory plots with uncertainty bounds
+- `distributions_scour_[depth]mm_[scenario].png` - Distribution histograms at critical points
+- Trained model files for each bootstrap sample
+
 ### **Pipeline Workflow**
 
 | Phase | Status | Description |
@@ -223,9 +255,9 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 | **3a: Single Simulate** | ✅ Available | Run one OpenSees pushover analysis |
 | **3b: Batch Simulate** | ⏳ Manual | OpenSees pushover analysis for multiple samples |
 | **4: Post-process** | ⏳ Manual | Yield point extraction |
-| **5: Train** | ⏳ Manual | Surrogate models |
-| **6: Bootstrap** | ⏳ Manual | Credal bounds |
-| **7: Visualize** | ⏳ Manual | Plots & figures |
+| **5: Train** | ✅ Available | Surrogate models (`scripts/test_surrogate_modeling.py`) |
+| **6: Bootstrap** | ✅ Available | Credal bounds (integrated in testing tool) |
+| **7: Visualize** | ✅ Available | Plots & figures (integrated in testing tool) |
 
 ---
 
