@@ -2,15 +2,15 @@
 
 ## 🎯 **Project Overview**
 
-A probabilistic framework for assessing bridge fragility under **progressive scour conditions** across three distinct climate scenarios (Missouri River, Colorado River, Extreme Floods).
+A distribution-agnostic framework for predicting transverse capacities and quantifying uncertainties of scour-critical bridges under climate-driven deep uncertainties. Scour-critical bridges are among the most vulnerable transportation infrastructure systems, with failure risks increasingly uncertain due to climate change and climate-driven flood hazards.
 
-**Core Innovation:** Replaces traditional point-estimate fragility with **scenario-bounded credal sets** that quantify model uncertainty without assuming precise probabilities.
+**Core Innovation:** Combines surrogate modeling of bridge capacities from nonlinear pushover simulations with credal-set uncertainty quantification, providing bounded predictions without assuming precise probabilistic distributions.
 
 ---
 
 ## 🌊 **Problem Statement**
 
-Scour-critical bridges represent a dominant failure mode in transportation infrastructure, but existing fragility frameworks face a critical limitation: **they assume static or stationary climate conditions**. This is increasingly unjustified under nonstationary climate change where flood magnitudes and frequencies are rising dramatically.
+Scour-critical bridges represent a dominant failure mode in transportation infrastructure. Traditional approaches often overlook the effects of deep uncertainties from climate change, computing scour hazards assuming a single probabilistic distribution to analyze bridge capacity and collapse potential. This is increasingly unjustified under nonstationary climate conditions where flood magnitudes and frequencies are rising dramatically.
 
 ### **Key Limitations Addressed**
 
@@ -24,13 +24,13 @@ Scour-critical bridges represent a dominant failure mode in transportation infra
 
 ## 🔬 **Core Contribution: Credal-Bounded Fragility**
 
-This project introduces a **surrogate-based, imprecise-probability fragility framework** that:
+This project introduces a **distribution-agnostic framework** for assessing scour-critical bridge capacity under climate-driven deep uncertainty, featuring:
 
-1. **Models three distinct climate scenarios** - Each representing different hydrologic regimes
-2. **Quantifies model uncertainty** via bootstrap ensembles (30 GBR/SVR models)
-3. **Provides credal bounds** (2.5% - 97.5% intervals) instead of confidence intervals
-4. **Separates aleatoric vs. epistemic uncertainty** - Distinguishes inherent variability from knowledge uncertainty
-5. **Enables scenario comparison** - Direct comparison of risk profiles without inappropriate averaging
+1. **Surrogate modeling** of bridge capacities trained on nonlinear pushover simulations with climate-scenario-based scour profiles
+2. **Credal-set uncertainty quantification** providing bounded predictions without assuming precise probabilities
+3. **Bootstrap ensembles** (30 GBR/SVR models) to quantify model uncertainty and separate aleatoric vs. epistemic uncertainty
+4. **Climate scenario modeling** across three distinct hydrologic regimes (Missouri, Colorado, Extreme)
+5. **Scenario comparison** enabling direct comparison of risk profiles for resilient decision-making
 
 ### **Climate Scenarios**
 
@@ -90,6 +90,7 @@ These scenarios represent **fundamentally different hazard regimes** with diverg
 ### **Post-Processing**
 - **Bilinear capacity curve fitting** with energy criterion
 - **Yield point extraction** (Vy, Dy, My, Thy)
+- **Single simulation support** - Run individual analyses with immediate capacity results
 - **Batch processing** - Excel consolidation of results by scenario
 
 ### **Surrogate Modeling**
@@ -134,7 +135,8 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 │   └── output/                # Simulation results
 │
 ├── scripts/                     # Automation
-│   └── run_full_pipeline.py   # Pipeline orchestrator
+│   ├── run_full_pipeline.py   # Pipeline orchestrator
+│   └── run_single_simulation.py # Single simulation runner
 │
 ├── RecorderData/              # Legacy simulation outputs
 ├── archive/old_scripts/        # Archived Jupyter notebooks
@@ -177,7 +179,13 @@ pip install -e .
 ### **Quick Start**
 
 ```bash
-# Generate scour samples and material inputs (automated phases)
+# Option 1: Run a single simulation with sampled parameters
+python scripts/run_single_simulation.py --scenario missouri
+
+# Output: Capacity point (Vy, Dy, My, Thy) for one bridge analysis
+# Example: ✅ Capacity point: Vy=1523.4kN, Dy=48.2mm, My=19802.1kNm, Thy=0.0037rad
+
+# Option 2: Generate scour samples and material inputs for batch analysis
 python scripts/run_full_pipeline.py --scenario missouri --samples 1000
 
 # This creates data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
@@ -212,7 +220,8 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 |--------|--------|-------------|
 | **1: Hazard** | ✅ Automated | Scour depth samples |
 | **2: Sample** | ✅ Automated | Material Excel file |
-| **3: Simulate** | ⏳ Manual | OpenSees pushover analysis |
+| **3a: Single Simulate** | ✅ Available | Run one OpenSees pushover analysis |
+| **3b: Batch Simulate** | ⏳ Manual | OpenSees pushover analysis for multiple samples |
 | **4: Post-process** | ⏳ Manual | Yield point extraction |
 | **5: Train** | ⏳ Manual | Surrogate models |
 | **6: Bootstrap** | ⏳ Manual | Credal bounds |
@@ -300,7 +309,7 @@ This framework transforms **experimental research code** into **scientific softw
 - ✅ **Provides decision-relevant risk bounds** for resilience planning under deep uncertainty
 - ✅ **Is reproducible** with clear documentation and modular structure
 
-**The framework establishes a precedent for climate-aware structural risk assessment that accounts for scenario dominance and tail uncertainty - a critical need for infrastructure planning under nonstationary climate.**
+**The framework establishes a precedent for climate-aware structural risk assessment that accounts for scenario dominance and tail uncertainty - a critical need for infrastructure planning under nonstationary climate. Results reveal how variable uncertainties propagate through the nonlinear soil–foundation–structure bridge system when expressing the capacity tuple (Vy, Dy, My, Thy).**
 
 ---
 

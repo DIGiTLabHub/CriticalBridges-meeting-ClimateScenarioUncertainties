@@ -1,7 +1,6 @@
 from .parameters import *
-from .paths import PATHS as PARAM_PATHS
+from .parameters import PATHS as PARAM_PATHS
 from .paths import *
-from .logger_setup import *
 
 __all__ = [
     'GEOMETRY',
