@@ -2,12 +2,20 @@
 
 ## System Description
 
-The Scour-Critical Bridge Simulator is a probabilistic framework for assessing bridge fragility under progressive scour conditions. It combines:
+The Scour-Critical Bridge Simulator is a distribution-agnostic framework for predicting transverse capacities and quantifying uncertainties of scour-critical bridges under climate-driven deep uncertainties. It develops a novel analytics toolkit supporting engineers and transportation agencies in making resilient asset management decisions.
 
-1. **Structural mechanics** - OpenSeesPy 3D nonlinear finite element analysis
-2. **Hazard modeling** - Latin Hypercube Sampling for scour depth prediction
-3. **Machine learning** - Gradient Boosting & Support Vector Regression surrogates
-4. **Uncertainty quantification** - Bootstrap ensembles for credal set bounds
+**Key Components:**
+1. **Structural mechanics** - OpenSeesPy 3D nonlinear finite element analysis for bridge capacity simulation
+2. **Hazard modeling** - Climate-scenario-based scour profiles using Latin Hypercube Sampling
+3. **Machine learning** - Surrogate models trained on nonlinear pushover simulations (GBR & SVR)
+4. **Uncertainty quantification** - Credal-set bounds ensuring objective capacity estimation without precise probabilistic assumptions
+
+## Research Highlights
+
+- **Distribution-agnostic framework** for scour-critical bridge capacity assessment under climate-driven deep uncertainty
+- **Surrogate models trained** using nonlinear pushover simulations with climate-scenario-based scour inputs
+- **Credal-set uncertainty quantification** introduced to provide bounded predictions, ensuring objective capacity estimation
+- **Results support resilient decision-making** for infrastructure adaptation and asset management under uncertain climate futures
 
 ---
 
