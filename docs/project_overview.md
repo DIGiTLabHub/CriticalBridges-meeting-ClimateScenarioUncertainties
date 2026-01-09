@@ -2,7 +2,7 @@
 
 ## System Description
 
-The Scour-Critical Bridge Simulator is a probabilistic framework for assessing bridge fragility under progressive scour conditions. It combines:
+The 'CriticalBridges-meeting-ClimateScenarioUncertainties' project provides a probabilistic framework for assessing bridge fragility under progressive scour conditions. It combines:
 
 1. **Structural mechanics** - OpenSeesPy 3D nonlinear finite element analysis
 2. **Hazard modeling** - Latin Hypercube Sampling for scour depth prediction
