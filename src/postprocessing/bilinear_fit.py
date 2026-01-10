@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
-def profile_fit(d, f, dy_grid):
+def profile_fit(d, f, dy_grid, plot=False):
     best_J = np.inf
     best_params = (None, None, None)
     for dy in dy_grid:
@@ -29,7 +28,7 @@ def profile_fit(d, f, dy_grid):
 def fit_bilinear_profile(d, f, num_grid=200):
     dy_min, dy_max = d.min(), d.max()
     dy_grid = np.linspace(dy_min + 1e-6, dy_max - 1e-6, num_grid)
-    k1, k2, dy = profile_fit(d, f, dy_grid)
+    k1, k2, dy = profile_fit(d, f, dy_grid, plot=False)
     fy = k1 * dy
     return k1, k2, dy, fy
 
@@ -55,32 +54,34 @@ if __name__ == "__main__":
           f"  d_y = {dy_hat:.6f}\n"
           f"  f_y = {fy_hat:.6f}")
 
-    # Plot data and fitted model
-    d_range = np.linspace(d.min(), d.max(), 500)
-    f_model = np.where(
-        d_range < dy_hat,
-        k1_hat * d_range,
-        k2_hat * d_range + (k1_hat - k2_hat) * dy_hat
-    )
+    if plot:
+        import matplotlib.pyplot as plt
+        # Plot data and fitted model
+        d_range = np.linspace(d.min(), d.max(), 500)
+        f_model = np.where(
+            d_range < dy_hat,
+            k1_hat * d_range,
+            k2_hat * d_range + (k1_hat - k2_hat) * dy_hat
+        )
 
-    plt.figure(figsize=(8,6))
-    plt.scatter(d, f, label="Data", alpha=0.7)
-    plt.plot(
-        d_range, f_model,
-        color="#0000FF",        # sharp blue
-        linewidth=2,
-        label="Fitted Model"
-    )
-    plt.scatter(
-        [dy_hat], [fy_hat],
-        color="red",
-        label="Yield Point",
-        zorder=5
-    )
-    plt.xlabel("d (Disp [m])")
-    plt.ylabel("f (Shear [kN])")
-    plt.title(f"Bilinear Model Fit  —  $d_y$={dy_hat:.3f},  $f_y$={fy_hat:.3f}")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+        plt.figure(figsize=(8,6))
+        plt.scatter(d, f, label="Data", alpha=0.7)
+        plt.plot(
+            d_range, f_model,
+            color="#0000FF",        # sharp blue
+            linewidth=2,
+            label="Fitted Model"
+        )
+        plt.scatter(
+            [dy_hat], [fy_hat],
+            color="red",
+            label="Yield Point",
+            zorder=5
+        )
+        plt.xlabel("d (Disp [m])")
+        plt.ylabel("f (Shear [kN])")
+        plt.title(f"Bilinear Model Fit  —  $d_y$={dy_hat:.3f},  $f_y$={fy_hat:.3f}")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()

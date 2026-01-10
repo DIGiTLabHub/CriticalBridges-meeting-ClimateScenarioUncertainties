@@ -20,6 +20,7 @@ from pathlib import Path
 import sys
 import os
 import tempfile
+import time
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
@@ -60,6 +61,9 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
     if random_seed is not None:
         np.random.seed(random_seed)
 
+    start_time = time.time()
+    print("⏱️  Starting simulation...")
+
     # === 1. Sample parameters ===
     # Scour depth sampling (lognormal distribution based on scenario)
     scenario_params = SCOUR['scenarios'][scenario]
@@ -84,11 +88,15 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
     print(f"🔄 Sampled parameters: Scour={scour_depth_m:.3f}m, fc={fc_MPa:.1f}MPa, fy={fy_MPa:.1f}MPa")
 
     # === 2. Build model ===
+    model_start = time.time()
+    print("🏗️  Building OpenSees model...")
     scour_depth_mm = scour_depth_m * 1000.0
     op.wipe()
     build_model(fc_MPa, fy_MPa, scour_depth_mm)
+    print(".1f")
 
     # === 3. Gravity analysis ===
+    print("⚖️  Running gravity analysis...")
     op.constraints("Transformation")
     op.numberer("RCM")
     op.system("BandGeneral")
@@ -103,6 +111,7 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
         return None
 
     op.loadConst("-time", 0.0)
+    print(".1f")
 
     # === 4. Pushover setup ===
     # Define pushover parameters (from config)
@@ -138,7 +147,13 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
 
         # Run pushover analysis
         max_steps = int(max_drift * 1000 / 0.1)  # Steps for 5% drift with 0.1mm increments
+        print(f"🏗️  Running pushover analysis ({max_steps} steps to {max_drift*100:.1f}% drift)...")
+        print(f"🕐 Pushover analysis start: {time.strftime('%H:%M:%S', time.localtime(time.time()))}")
+        pushover_start = time.time()
         ok = op.analyze(max_steps)
+        pushover_time = time.time() - pushover_start
+        print(f"🕐 Pushover analysis end: {time.strftime('%H:%M:%S', time.localtime(time.time()))} - Duration: {pushover_time:.2f}s")
+        print(".1f")
 
         if ok != 0:
             print(f"⚠️ Pushover analysis stopped at step {ok}, using available data")
@@ -154,46 +169,60 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
         # Read displacement data
         try:
             disp_data = pd.read_csv(disp_file, sep=r'\s+', header=None,
-                                  names=['time', 'ux', 'uy', 'uz', 'rx', 'ry', 'rz'])
+                                   names=['time', 'ux', 'uy', 'uz', 'rx', 'ry', 'rz'])
             displacement_mm = np.abs(disp_data['uy'].values) * 1000.0  # Convert to mm
+            rotation_rad = np.abs(disp_data['ry'].values)  # Rotation
         except Exception as e:
             print(f"❌ Failed to read displacement data: {e}")
             return None
 
-        # Read base shear data (sum of column forces)
+        # Read base shear and moment data (sum of column forces)
         base_shear_kN = None
+        base_moment_kNm = None
         for force_file in force_files:
             try:
                 force_data = pd.read_csv(force_file, sep=r'\s+', header=None,
                                        names=['time', 'P', 'V2', 'V3', 'T', 'M2', 'M3'])
                 Vi = np.abs(force_data['V2'].values) / 1000.0  # Convert to kN
                 base_shear_kN = Vi if base_shear_kN is None else base_shear_kN + Vi
+                Mi = np.abs(force_data['M2'].values) / 1000.0  # Convert to kNm
+                base_moment_kNm = Mi if base_moment_kNm is None else base_moment_kNm + Mi
             except Exception as e:
                 print(f"❌ Failed to read force data: {e}")
                 return None
 
-        if base_shear_kN is None:
+        if base_shear_kN is None or base_moment_kNm is None:
             print("❌ No force data available")
             return None
 
         # Ensure arrays are same length
-        min_len = min(len(displacement_mm), len(base_shear_kN))
+        min_len = min(len(displacement_mm), len(base_shear_kN), len(rotation_rad), len(base_moment_kNm))
         displacement_mm = displacement_mm[:min_len]
         base_shear_kN = base_shear_kN[:min_len]
+        rotation_rad = rotation_rad[:min_len]
+        base_moment_kNm = base_moment_kNm[:min_len]
 
         # Remove duplicate displacements (if any)
         unique_indices = np.unique(displacement_mm, return_index=True)[1]
         displacement_mm = displacement_mm[unique_indices]
         base_shear_kN = base_shear_kN[unique_indices]
+        rotation_rad = rotation_rad[unique_indices]
+        base_moment_kNm = base_moment_kNm[unique_indices]
 
         # Filter out zero or negative displacements
         valid_idx = displacement_mm > 0
         displacement_mm = displacement_mm[valid_idx]
         base_shear_kN = base_shear_kN[valid_idx]
+        rotation_rad = rotation_rad[valid_idx]
+        base_moment_kNm = base_moment_kNm[valid_idx]
 
         if len(displacement_mm) < 10:
             print("❌ Insufficient data points for regression")
             return None
+
+        # === 6. Post-processing ===
+        print("📊 Processing results and fitting bilinear model...")
+        post_start = time.time()
 
         # === 7. Bilinear regression ===
         try:
@@ -209,116 +238,18 @@ def run_single_pushover_simulation(scenario='missouri', random_seed=None):
 
             capacity_point = (vy_kN, dy_mm, my_kNm, thy_rad)
 
-            print(f"✅ Capacity point: Vy={vy_kN:.1f}kN, Dy={dy_mm:.1f}mm, My={my_kNm:.1f}kNm, Thy={thy_rad:.4f}rad")
+            post_time = time.time() - post_start
+            total_time = time.time() - start_time
 
-            return capacity_point
+            print(".1f")
+            print(f"✅ Capacity point: Vy={vy_kN:.1f}kN, Dy={dy_mm:.1f}mm, My={my_kNm:.1f}kNm, Thy={thy_rad:.4f}rad")
+            print(".1f")
+
+            return capacity_point, displacement_mm, base_shear_kN, rotation_rad, base_moment_kNm
 
         except Exception as e:
             print(f"❌ Bilinear regression failed: {e}")
             return None
-
-
-# === Loop through each scenario ===
-for label, sheet_name in scenario_sheets.items():
-    print(f"\n🟦 Processing scenario: {label}")
-    df = pd.read_excel(excel_path, sheet_name=sheet_name)
-
-    for i, row in df.iterrows():
-        scourDepth = row["Scour_Depth_mm"] / 1000.0
-        scourDepthmm = round(row["Scour_Depth_mm"] + LCol, 1)
-        fc = row["fc'_MPa"]
-        fy = row["fy_MPa"]
-
-        print(f"\n🔄 {label} | Sample {i+1}: Scour = {scourDepth:.3f} m | fc' = {fc:.2f} MPa | fy = {fy:.2f} MPa")
-
-        # === 1. Build model ===
-        op.wipe()
-        build_model(fc, fy, scourDepthmm)
-
-        # === 2. Gravity analysis ===
-        op.constraints("Transformation")
-        op.numberer("RCM")
-        op.system("BandGeneral")
-        op.algorithm("Newton")
-        op.test("NormDispIncr", 1.0e-6, 1000)
-        op.integrator("LoadControl", 1.0)
-        op.analysis("Static")
-
-        result = op.analyze(1)
-        if result != 0:
-            print(f"❌ Gravity failed for {label} sample {i+1}")
-            continue
-        op.reactions()
-        op.loadConst("-time", 0.0)
-
-        # === 3. Lateral load ===
-        op.timeSeries('Linear', 2)
-        op.pattern('Plain', patternTag, 2)
-        op.load(loadNodeTag, *load_vector)
-
-        # === 4. Recorders ===
-        depth = round(row["Scour_Depth_mm"], 1)
-        folder = f"RecorderData/{label}/scour_{depth:.1f}"
-        define_recorders(folder=folder)
-        define_displacement_recorders(folder=folder)
-
-        # === 5. Analysis setup ===
-        op.wipeAnalysis()
-        op.constraints('Transformation')
-        op.numberer('RCM')
-        op.system('BandGeneral')
-        op.test('EnergyIncr', tol, maxNumIter)
-        op.algorithm('Newton')
-        op.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr)
-        op.analysis('Static')
-
-        ok = op.analyze(Nsteps)
-        print(f"Initial result: {ok}")
-
-        # === 6. Fallback if failed ===
-        if ok != 0:
-            test_dict = {
-                1: 'NormDispIncr',
-                2: 'RelativeEnergyIncr',
-                4: 'RelativeNormUnbalance',
-                5: 'RelativeNormDispIncr',
-                6: 'NormUnbalance'
-            }
-            algo_dict = {
-                1: 'KrylovNewton',
-                2: 'SecantNewton',
-                4: 'RaphsonNewton',
-                5: 'PeriodicNewton',
-                6: 'BFGS',
-                7: 'Broyden',
-                8: 'NewtonLineSearch'
-            }
-
-            for test_type in test_dict.values():
-                for algo_type in algo_dict.values():
-                    if ok != 0:
-                        if algo_type in ['KrylovNewton', 'SecantNewton']:
-                            op.algorithm(algo_type, '-initial')
-                        else:
-                            op.algorithm(algo_type)
-                        op.test(test_type, tol, 1000)
-                        ok = op.analyze(Nsteps)
-                        print(f"Trying {test_type} + {algo_type} → Result: {ok}")
-                        if ok == 0:
-                            break
-                if ok == 0:
-                    break
-
-        # === 7. Final results ===
-        try:
-            u = op.nodeDisp(IDctrlNode, IDctrlDOF)
-            print(f"✅ Final uy @ Node {IDctrlNode}: u = {u:.6f} m")
-        except:
-            print("❌ Displacement retrieval failed.")
-
-        print("--------------------------------------------------")
-
-print("✅ All scenarios processed.")
 
 
 # In[ ]:
