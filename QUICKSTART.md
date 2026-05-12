@@ -1,9 +1,22 @@
 # Quick Start Guide
 
+> **Snapshot note:** this repository still mixes fast smoke-testable stages with long-running OpenSees workflows, but the user-facing CLI surface is now more coherent. `scripts/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `scripts/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs.
+
+## ✅ Supported Workflow at a Glance
+
+| Stage | Current Support | Primary Entry Point |
+|-------|-----------------|---------------------|
+| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
+| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python scripts/run_single_simulation.py --scenario missouri --seed 42` |
+| Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
+| Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
+| Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
+| Phase 7: Visualization | ✅ Available CLI | `python -m src.visualization.visualization` |
+
 ## 📦 Installation
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.10+ recommended for new environments (this repo is also used in a legacy Python 3.8 setup)
 - pip package manager
 
 ### Install from Source
@@ -11,7 +24,7 @@
 ```bash
 # Clone repository
 git clone <repository-url>
-cd ScourCriticalBridgeSimulators
+cd CriticalBridges-meeting-ClimateScenarioUncertainties
 
 # Install dependencies
 pip install -r requirements.txt
@@ -25,9 +38,7 @@ python -c "from src.scour import LHS_scour_hazard; print('✅ Installation succe
 
 ### Install from PyPI (Future)
 
-```bash
-pip install scour-critical-bridge-simulator
-```
+This project is not currently documented as a published PyPI package release. Prefer source installation for now.
 
 ---
 
@@ -37,7 +48,7 @@ pip install scour-critical-bridge-simulator
 
 ```bash
 # Run complete automated workflow
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000
+python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # This creates:
 # - Phase 1: Scour hazard samples
@@ -45,39 +56,41 @@ python scripts/run_full_pipeline.py --scenario missouri --samples 1000
 # Output: data/input/Scour_Materials_{scenario}_{timestamp}.xlsx
 ```
 
+**Current status:** this command now works as the supported Phase 1-2 entry point and supports `--seed` for reproducibility.
+
 **Available Scenarios:**
 - `missouri` - Moderate flow (2.9 m/s, 100 mm/hr erosion)
 - `colorado` - Fast flow (6.5 m/s, 500 mm/hr erosion)
 - `extreme` - Extreme flow (10.0 m/s, 1000 mm/hr erosion)
 
-### Phase 3-7: Manual (Requires Sequential Execution)
+### Phase 3-7: Sequential Execution
 
-After Phase 1-2, run the remaining phases manually:
+After Phase 1-2, continue with the remaining stages in order:
 
 ```bash
-# Step 3: Bridge Modeling & Pushover Analysis (~3.5 hours for 1000 samples)
-python BridgeModeling/Pushover.py
-# Uses: data/input/Scour_Materials_{scenario}_{timestamp}.xlsx
+# Step 3: Single OpenSees simulation (long-running)
+python scripts/run_single_simulation.py --scenario missouri --seed 42
 # Output: RecorderData/{scenario}/scour_{depth}/*.out
+# Note: for batch simulation, the legacy/manual BridgeModeling path still applies.
 
-# Step 4: Post-Processing & Capacity Extraction (~5 minutes)
+# Step 4: Post-Processing & Capacity Extraction
 python src/postprocessing/processing.py
 # Uses: RecorderData/{scenario}/scour_{depth}/*.out
 # Output: RecorderData/Yield_Results_by_Scenario.xlsx
 
-# Step 5: Surrogate Model Training (~5 minutes)
-python src/surrogate_modeling/training.py
+# Step 5: Surrogate Model Training
+python -m src.surrogate_modeling.training
 # Uses: RecorderData/Yield_Results_by_Scenario.xlsx
-# Output: data/output/models/*.pkl
+# Output: RecorderData/results/Tuple_Data_Process/*
 
 # Step 6: Bootstrap Uncertainty Quantification (included in Step 5)
-# Uses: data/output/models/*.pkl
+# Uses: RecorderData/results/Tuple_Data_Process/*
 # Output: Credal bounds (2.5% - 97.5% intervals)
 
-# Step 7: Visualization (~2 minutes)
-python src/visualization/visualization.py
+# Step 7: Visualization
+python -m src.visualization.visualization
 # Uses: Credal bounds from Step 6
-# Output: data/output/plots/*.pdf
+# Output: RecorderData/results/visualizations/**/*.png
 ```
 
 ---
@@ -85,7 +98,7 @@ python src/visualization/visualization.py
 ## 📁 Project Structure Overview
 
 ```
-ScourCriticalBridgeSimulators/
+CriticalBridges-meeting-ClimateScenarioUncertainties/
 ├── config/                      # Configuration management
 ├── src/                         # Main package
 │   ├── scour/                 # Scour hazard modeling
@@ -109,12 +122,12 @@ ScourCriticalBridgeSimulators/
 ### Generate Scour Samples
 
 ```python
-from scour import LHS_scour_hazard
+from src.scour import LHS_scour_hazard
 
 # Generate 1000 samples for Missouri scenario
 result = LHS_scour_hazard(lhsN=1000, vel=2.9, dPier=1.5, gama=1e-6, zDot=100)
 print(f"Mean scour: {result['z50Mean']:.3f} m")
-print(f"Max scour: {result['zMax']:.3f} m")
+print(f"Max scour: {result['z50Final'].max():.3f} m")
 ```
 
 ### Load Geometry Data
@@ -159,13 +172,11 @@ print(f"Max drift: {pushover['max_drift_ratio']}")
 **Issue:** ModuleNotFoundError when running scripts
 ```bash
 # Run from project root, not from scripts/ directory
-cd ScourCriticalBridgeSimulators
-python scripts/run_full_pipeline.py --scenario missouri
-
-# OR use python -m
-cd scripts
-python -m run_full_pipeline --scenario missouri
+cd CriticalBridges-meeting-ClimateScenarioUncertainties
+python scripts/run_full_pipeline.py --scenario missouri --help
 ```
+
+If imports still fail, verify you are using the project root and that dependencies were installed into the active environment.
 
 **Issue:** ImportError: No module named 'openpyxl'
 ```bash
@@ -188,7 +199,7 @@ pip install scikit-learn
 
 - **Technical Overview:** See [project_overview.md](project_overview.md)
 - **Pipeline Workflow:** See [PIPELINE_WORKFLOW.md](PIPELINE_WORKFLOW.md)
-- **API Reference:** See [docs/api_reference.md](docs/api_reference.md) (coming soon)
+- **Docs Status:** `docs/api_reference.md` is not present in the current snapshot
 
 ---
 
@@ -202,7 +213,7 @@ If you use this code in research, please cite:
   author={Chen, Z. and others},
   year={2025},
   version={0.3.0},
-  url={https://github.com/yourusername/ScourCriticalBridgeSimulators},
+  url={https://github.com/<owner>/CriticalBridges-meeting-ClimateScenarioUncertainties},
   note={A probabilistic framework for assessing bridge fragility under progressive scour conditions using OpenSeesPy and machine learning surrogates}
 }
 ```

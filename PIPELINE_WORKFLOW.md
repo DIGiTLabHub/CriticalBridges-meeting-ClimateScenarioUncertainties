@@ -2,11 +2,13 @@
 
 This document describes the complete workflow for running the scour bridge simulation pipeline.
 
+> **Snapshot note:** the workflow surface is now more coherent than earlier repo snapshots. `scripts/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `scripts/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs. Full OpenSees runtime is still long-running and was not re-verified in this documentation pass.
+
 ## 🚀 **Quick Start**
 
 ```bash
 # Generate scour samples and material inputs
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000
+python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # This creates:
 # - Phase 1: Scour hazard samples
@@ -21,11 +23,14 @@ python scripts/run_full_pipeline.py --scenario missouri --samples 1000
 
 **Purpose:** Generate probabilistic scour depth samples using Latin Hypercube Sampling
 
-**Script:** `scripts/run_full_pipeline.py --phases hazard`
+**Script:** `scripts/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
+
+**Implementation note:** the current script does not expose a `--phases` argument; Phase 1 and Phase 2 are both part of the same intended run.
 
 **Input Parameters:**
 - `--scenario`: One of [missouri, colorado, extreme]
 - `--samples`: Number of LHS samples (default: 1000)
+- `--seed`: Optional random seed for reproducible hazard/material sampling
 - Scenario parameters from `config/parameters.py`:
   - Velocity (m/s): Missouri=2.9, Colorado=6.5, Extreme=10.0
   - Erosion rate (mm/hr): Missouri=100, Colorado=500, Extreme=1000
@@ -62,7 +67,9 @@ Generated 1000 scour samples
 
 **Purpose:** Generate concrete and steel strength samples paired with scour depths
 
-**Script:** `scripts/run_full_pipeline.py --phases sample`
+**Script:** `scripts/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
+
+**Implementation note:** material sampling is coupled to the same script execution as hazard generation in the current code.
 
 **Input Parameters:**
 - Scour depths from Phase 1
@@ -99,13 +106,19 @@ Material samples saved to: data/input/Scour_Materials_missouri_20250106_220842.x
 
 ---
 
-### **Phase 3: Bridge Modeling & Pushover** ⏳ MANUAL
+### **Phase 3: Bridge Modeling & Pushover** ⚠️ PARTIALLY SCRIPTED
 
 **Purpose:** Build OpenSeesPy bridge model and run pushover analysis
 
-**Script:** `python BridgeModeling/Pushover.py`
+**Preferred single-run script:** `python scripts/run_single_simulation.py --scenario <scenario> [--seed <seed>]`
 
-**Input:**
+**Batch path:** legacy/manual via `BridgeModeling/Pushover.py`
+
+**Input (preferred single-run path):**
+- Scenario name and optional seed passed to `scripts/run_single_simulation.py`
+- Geometry from JSON files: `data/geometry/*.json`
+
+**Input (legacy batch path):**
 - Excel file from Phase 2: `data/input/Scour_Materials_{scenario}_{timestamp}.xlsx`
 - Geometry from JSON files: `data/geometry/*.json`
 
@@ -127,8 +140,8 @@ Material samples saved to: data/input/Scour_Materials_missouri_20250106_220842.x
    - Continue until max drift ratio (0.05) or convergence
 
 4. **Output Recording:**
-   - Save to: `RecorderData/{scenario}/scour_{depth}/*.out`
-   - Files: Displacement.5201.out, ColDisplacement.3201.out, ColLocForce.3201.out
+    - Save to: `RecorderData/{scenario}/scour_{depth}/*.out`
+    - Files include: `Displacement.5201.out`, `ColDisplacement.3201.out`, `ColLocForce.3101.out`, `ColLocForce.3201.out`, `ColLocForce.3301.out`
 
 **Output Files:**
 ```
@@ -150,11 +163,11 @@ RecorderData/
 **Files Created:**
 - `RecorderData/{scenario}/scour_{depth}/*.out` (per sample)
 
-**Time:** ~120 seconds per sample (60s build + 60s analysis)
+**Time:** long-running OpenSees job; wall-clock time depends on convergence and environment
 
 ---
 
-### **Phase 4: Post-Processing** ⏳ MANUAL
+### **Phase 4: Post-Processing** ✅ AVAILABLE CLI
 
 **Purpose:** Extract yield points from pushover results
 
@@ -190,11 +203,11 @@ RecorderData/
 
 ---
 
-### **Phase 5: Surrogate Model Training** ⏳ MANUAL
+### **Phase 5: Surrogate Model Training** ✅ AVAILABLE CLI
 
 **Purpose:** Train GBR and SVR surrogate models for rapid capacity evaluation
 
-**Script:** `python src/surrogate_modeling/training.py`
+**Preferred script:** `python -m src.surrogate_modeling.training`
 
 **Input:**
 - Excel file from Phase 4: `RecorderData/Yield_Results_by_Scenario.xlsx`
@@ -224,19 +237,18 @@ RecorderData/
    - Separate aleatoric (inherent variance) vs epistemic (model uncertainty)
 
 **Output:**
-- Trained models: `data/output/models/`
-- Performance metrics: R², MSE
-- Ensemble statistics: mean, std, percentiles
+- Trained models, credal bounds, performance metrics, and plots under `RecorderData/results/Tuple_Data_Process/`
 
 **Files Created:**
-- `data/output/models/*.pkl` (saved models)
-- `RecorderData/Tuple_Data_Process/ML_Surrogate_Credal_SVR/` (SVR outputs)
+- `RecorderData/results/Tuple_Data_Process/ML_Surrogate_Credal/` (GBR outputs)
+- `RecorderData/results/Tuple_Data_Process/ML_Surrogate_Credal_SVR/` (SVR outputs)
+- `RecorderData/results/Tuple_Data_Process/Credal_Model_Performance_*.xlsx`
 
 **Speedup:** Surrogate evaluation ~0.001s vs. ~120s FEM (60,000x faster)
 
 ---
 
-### **Phase 6: Bootstrap Uncertainty Quantification** ⏳ MANUAL
+### **Phase 6: Bootstrap Uncertainty Quantification** ✅ INTEGRATED
 
 **Purpose:** Generate credal bounds and quantify uncertainty
 
@@ -267,15 +279,15 @@ RecorderData/
 - Scenario comparison plots
 
 **Files Created:**
-- `data/output/credal_bounds/` (scenario comparison data)
+- Credal-bound workbooks and summaries under `RecorderData/results/Tuple_Data_Process/`
 
 ---
 
-### **Phase 7: Visualization** ⏳ MANUAL
+### **Phase 7: Visualization** ✅ AVAILABLE CLI
 
 **Purpose:** Generate publication-quality plots and figures
 
-**Script:** `python src/visualization/visualization.py`
+**Preferred script:** `python -m src.visualization.visualization`
 
 **Input:**
 - Credal bounds from Phase 6
@@ -299,14 +311,14 @@ RecorderData/
    - Scenario crossover points
 
 **Output:**
-- Figures: `data/output/plots/`
+- Figures: `RecorderData/results/visualizations/`
   - Hazard curves
   - Fragility with uncertainty
   - Credal bounds
   - Scenario comparisons
 
 **Files Created:**
-- `data/output/plots/*.pdf` or `*.png`
+- `RecorderData/results/visualizations/**/*.png`
 
 ---
 
@@ -314,31 +326,33 @@ RecorderData/
 
 ```bash
 # Step 1: Generate input data (automated)
-python scripts/run_full_pipeline.py --scenario missouri --samples 100
+python scripts/run_full_pipeline.py --scenario missouri --samples 100 --seed 42
 
 # Output: data/input/Scour_Materials_missouri_20250106_HHMMSS.xlsx
 
-# Step 2: Run pushover analysis (manual, ~3.3 hours for 100 samples)
-python BridgeModeling/Pushover.py
-# Uses: data/input/Scour_Materials_missouri_*.xlsx
+# Step 2: Run a single pushover analysis (long-running OpenSees job)
+python scripts/run_single_simulation.py --scenario missouri --seed 42
+# Note: this single-run wrapper samples its own parameters; it does not directly
+# consume the Phase-2 Excel workbook. The workbook is mainly for legacy/manual
+# batch simulation flows.
 # Output: RecorderData/missouri/scour_*/Displacement.5201.out
 
 # Step 3: Extract yield points (manual, ~1 minute)
 python src/postprocessing/processing.py
-# Uses: RecorderData/*/ColLocForce.3201.out
+# Uses: RecorderData/*/ColLocForce.*.out
 # Output: RecorderData/Yield_Results_by_Scenario.xlsx
 
-# Step 4: Train surrogate models (manual, ~5 minutes)
-python src/surrogate_modeling/training.py
+# Step 4: Train surrogate models
+python -m src.surrogate_modeling.training
 # Uses: RecorderData/Yield_Results_by_Scenario.xlsx
-# Output: data/output/models/*.pkl
+# Output: RecorderData/results/Tuple_Data_Process/*
 
 # Step 5: Generate credal bounds (included in training)
 # Output: Credal bounds, 95% intervals
 
-# Step 6: Generate visualizations (manual, ~2 minutes)
-python src/visualization/visualization.py
-# Output: data/output/plots/*.pdf
+# Step 6: Generate visualizations
+python -m src.visualization.visualization
+# Output: RecorderData/results/visualizations/**/*.png
 ```
 
 **Total Time:**
@@ -369,9 +383,9 @@ python src/visualization/visualization.py
 
 ### **Common Issues**
 
-**Issue: ModuleNotFoundError: No module named 'config'**
-- **Solution:** Run from project root, not from scripts/ directory
-- **Check:** `cd .. && python scripts/run_full_pipeline.py`
+**Issue: ModuleNotFoundError when running scripts**
+- **Solution:** Run from project root, not from nested subdirectories
+- **Check:** `python scripts/run_full_pipeline.py --help`
 
 **Issue: openpyxl not found**
 - **Solution:** `pip install openpyxl`
@@ -382,6 +396,7 @@ python src/visualization/visualization.py
 **Issue: Pipeline stalls at Phase 3**
 - **Check:** Verify Excel file exists from Phase 2
 - **Check:** OpenSees model convergence (non-zero exit codes)
+- **Note:** Phase 3 is still the slowest and least smoke-test-friendly part of the workflow
 
 **Issue: Memory errors with large samples**
 - **Solution:** Reduce sample count, use chunk processing

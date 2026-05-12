@@ -2,10 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm, lognorm
 
-def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
+
+def LHS_scour_hazard(
+    lhsN, vel=10, dPier=2.0, gama=1e-6, zDot=8, Rey=None, random_seed=None, rng=None
+):
     """
     Computes the final scour depth (z50Final) using Latin Hypercube Sampling.
-    
+
     Parameters:
         lhsN (int): Number of Latin Hypercube Samples.
         vel (float): Upstream velocity (m/s). Default is 10.
@@ -13,7 +16,7 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
         gama (float): Water viscosity. Default is 1e-6.
         zDot (float): Initial rate of scour (N/mm). Default is 8.
         Rey (float or None): Reynolds number. If None, computed as (vel * dPier / gama).
-        
+
     Returns:
         results (dict): A dictionary containing computed variables including:
             - z50Final: Final scour depths (in m)
@@ -25,6 +28,11 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
             - taoMax: Maximum hydraulic shear stress
             - zMax: Maximum scour depth (in mm)
     """
+    if rng is not None and random_seed is not None:
+        raise ValueError("Provide either rng or random_seed, not both.")
+
+    generator = rng if rng is not None else np.random.default_rng(random_seed)
+
     # Compute Reynolds number if not provided
     if Rey is None:
         Rey = vel * dPier / gama
@@ -38,17 +46,17 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
     zMax = 0.18 * (Rey**0.635)
 
     # Scour depth at 50 years (z50) in mm
-    tYear = 50  
+    tYear = 50
     tEq = 73 * (tYear**0.126) * (vel**1.706) * (zDot**-0.2)
-    z50 = tEq / (1/zDot + tEq/zMax)
+    z50 = tEq / (1 / zDot + tEq / zMax)
 
     # Latin Hypercube Sampling:
     # Create a series of probabilities partitioning the unit interval into lhsN segments.
-    randp = (np.arange(lhsN) / lhsN) + (np.random.rand(lhsN) / lhsN)
+    randp = (np.arange(lhsN) / lhsN) + (generator.random(lhsN) / lhsN)
     # Inverse CDF of the standard normal distribution (ppf)
     lhs_err_ = norm.ppf(randp, loc=0, scale=1)
     # Random permutation to further randomize the sample order
-    lhs_err = np.random.permutation(lhs_err_)
+    lhs_err = generator.permutation(lhs_err_)
 
     # Compute the final scour depth assuming a lognormal distribution.
     # The division by 1000 converts the unit from mm to m.
@@ -59,7 +67,10 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
         raise ValueError("Scour depths cannot be negative")
     if np.any(z50Final > 20.0):  # pier height limit
         import warnings
-        warnings.warn(f"Some scour depths exceed pier height (20.0m). Capping to maximum pier height.")
+
+        warnings.warn(
+            f"Some scour depths exceed pier height (20.0m). Capping to maximum pier height."
+        )
         z50Final = np.clip(z50Final, 0, 20.0)  # meters - pier height limit
 
     # Statistical parameters
@@ -76,13 +87,13 @@ def LHS_scour_hazard(lhsN, vel=10, dPier=2, gama=1e-6, zDot=8, Rey=None):
     zP = lognorm.cdf(z50Final_sort, s=z50LogStd, scale=np.exp(z50LogMean))
 
     results = {
-        'z50Final': z50Final,
-        'z50Final_sort': z50Final_sort,
-        'zP': zP,
-        'z50Mean': z50Mean,
-        'z50std': z50std,
-        'z50LogMean': z50LogMean,
-        'z50LogStd': z50LogStd,
+        "z50Final": z50Final,
+        "z50Final_sort": z50Final_sort,
+        "zP": zP,
+        "z50Mean": z50Mean,
+        "z50std": z50std,
+        "z50LogMean": z50LogMean,
+        "z50LogStd": z50LogStd,
         #'z50': z50,
         #'taoMax': taoMax,
         #'zMax': zMax
@@ -109,7 +120,7 @@ def combine_simulated_samples(simulation_results):
             - z50LogStd: Standard deviation of the logarithm of the combined z50Final
     """
     # Concatenate all z50Final arrays from each simulation
-    combined_z50 = np.concatenate([sim['z50Final'] for sim in simulation_results])
+    combined_z50 = np.concatenate([sim["z50Final"] for sim in simulation_results])
     # Sort the combined data
     combined_z50_sort = np.sort(combined_z50)
     # Calculate overall statistical parameters
@@ -119,62 +130,74 @@ def combine_simulated_samples(simulation_results):
     z50LogStd = np.std(np.log(combined_z50))
     # Compute the lognormal CDF for the sorted combined data
     zP = lognorm.cdf(combined_z50_sort, s=z50LogStd, scale=np.exp(z50LogMean))
-    
+
     results = {
-        'z50Final': combined_z50,
-        'z50Final_sort': combined_z50_sort,
-        'zP': zP,
-        'z50Mean': z50Mean,
-        'z50std': z50std,
-        'z50LogMean': z50LogMean,
-        'z50LogStd': z50LogStd
+        "z50Final": combined_z50,
+        "z50Final_sort": combined_z50_sort,
+        "zP": zP,
+        "z50Mean": z50Mean,
+        "z50std": z50std,
+        "z50LogMean": z50LogMean,
+        "z50LogStd": z50LogStd,
     }
-    
+
     return results
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Number of Latin Hypercube Samples
     lhsN = 1000  # Adjust as needed
 
     # Call the function using default parameter values
     results = LHS_scour_hazard(lhsN)
-    z50Final = results['z50Final']
-    z50Final_sort = results['z50Final_sort']
-    zP = results['zP']
+    z50Final = results["z50Final"]
+    z50Final_sort = results["z50Final_sort"]
+    zP = results["zP"]
 
     # Plot 1: Probabilistic Prediction of Final Scour Depth
     plt.figure()
-    plt.plot(z50Final, 'ro')
-    plt.title('Probabilistic Prediction of Final Scour Depth', fontsize=12, fontname='Times New Roman')
-    plt.ylabel('Probabilistic Scour Depth (m)', fontsize=10, fontname='Times New Roman')
-    plt.xlabel('Latin Hypercube Samples', fontsize=10, fontname='Times New Roman')
+    plt.plot(z50Final, "ro")
+    plt.title(
+        "Probabilistic Prediction of Final Scour Depth",
+        fontsize=12,
+        fontname="Times New Roman",
+    )
+    plt.ylabel("Probabilistic Scour Depth (m)", fontsize=10, fontname="Times New Roman")
+    plt.xlabel("Latin Hypercube Samples", fontsize=10, fontname="Times New Roman")
     plt.grid(True)
 
     # Plot 2: Probabilistic Scour Hazard Curve
     plt.figure()
-    plt.plot(z50Final_sort, 1 - zP, '-k', linewidth=2)
+    plt.plot(z50Final_sort, 1 - zP, "-k", linewidth=2)
     plt.xlim([0.9, 16])
     plt.ylim([0, 0.98])
-    plt.yticks([0, 0.2, 0.4, 0.6, 0.8, 0.98], ['0', '0.2', '0.4', '0.6', '0.8', '1.0'])
-    plt.ylabel('Probability of Exceedance', fontsize=10, fontname='Times New Roman')
-    plt.xlabel('Scour Depth (m)', fontsize=10, fontname='Times New Roman')
+    plt.yticks([0, 0.2, 0.4, 0.6, 0.8, 0.98], ["0", "0.2", "0.4", "0.6", "0.8", "1.0"])
+    plt.ylabel("Probability of Exceedance", fontsize=10, fontname="Times New Roman")
+    plt.xlabel("Scour Depth (m)", fontsize=10, fontname="Times New Roman")
     plt.grid(True)
 
     # Plot 3: Histogram with Lognormal Fit
     plt.figure()
-    n, bins, patches = plt.hist(z50Final, bins=20, density=False, alpha=0.6,
-                                color='lightblue', edgecolor='black')
+    n, bins, patches = plt.hist(
+        z50Final,
+        bins=20,
+        density=False,
+        alpha=0.6,
+        color="lightblue",
+        edgecolor="black",
+    )
     bin_centers = 0.5 * (bins[1:] + bins[:-1])
-    pdf = lognorm.pdf(bin_centers, s=results['z50LogStd'], scale=np.exp(results['z50LogMean']))
+    pdf = lognorm.pdf(
+        bin_centers, s=results["z50LogStd"], scale=np.exp(results["z50LogMean"])
+    )
     bin_width = bins[1] - bins[0]
     pdf_scaled = pdf * bin_width * lhsN
-    plt.plot(bin_centers, pdf_scaled, 'k--', linewidth=2, label='Lognormal Distribution')
-    plt.ylabel('Frequency', fontsize=10, fontname='Times New Roman')
-    plt.xlabel('Scour Depth (m)', fontsize=10, fontname='Times New Roman')
+    plt.plot(
+        bin_centers, pdf_scaled, "k--", linewidth=2, label="Lognormal Distribution"
+    )
+    plt.ylabel("Frequency", fontsize=10, fontname="Times New Roman")
+    plt.xlabel("Scour Depth (m)", fontsize=10, fontname="Times New Roman")
     plt.legend()
     plt.grid(True)
 
     plt.show()
-
-

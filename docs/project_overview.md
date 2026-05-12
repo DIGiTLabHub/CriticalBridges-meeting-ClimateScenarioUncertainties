@@ -2,11 +2,7 @@
 
 ## System Description
 
-<<<<<<< HEAD
-The Scour-Critical Bridge Simulator is a distribution-agnostic framework for predicting transverse capacities and quantifying uncertainties of scour-critical bridges under climate-driven deep uncertainties. It develops a novel analytics toolkit supporting engineers and transportation agencies in making resilient asset management decisions.
-=======
-The 'CriticalBridges-meeting-ClimateScenarioUncertainties' project provides a probabilistic framework for assessing bridge fragility under progressive scour conditions. It combines:
->>>>>>> fb11340784eac9829381763022e351ea5d229dc5
+The `CriticalBridges-meeting-ClimateScenarioUncertainties` project is a distribution-agnostic framework for predicting transverse capacities and quantifying uncertainties of scour-critical bridges under climate-driven deep uncertainties. It combines physics-based OpenSeesPy simulation, climate-scenario-based scour hazard modeling, and surrogate machine-learning models for faster uncertainty-aware capacity assessment.
 
 **Key Components:**
 1. **Structural mechanics** - OpenSeesPy 3D nonlinear finite element analysis for bridge capacity simulation

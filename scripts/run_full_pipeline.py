@@ -9,43 +9,60 @@ import logging
 # Setup
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 # Add paths
-PROJECT_ROOT = Path(__file__).parent.absolute()
-sys.path.insert(0, str(PROJECT_ROOT / 'src'))
-sys.path.insert(0, str(PROJECT_ROOT / 'config'))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
-from scour import LHS_scour_hazard
-from parameters import SCOUR, MATERIALS
+from src.scour import LHS_scour_hazard
+from config.parameters import SCOUR, MATERIALS
+
 
 def main():
     import argparse
+
     parser = argparse.ArgumentParser(description="Run scour pipeline")
-    parser.add_argument('--scenario', required=True, choices=['missouri', 'colorado', 'extreme'])
-    parser.add_argument('--samples', type=int, default=10,
-                       help='Number of LHS samples to generate (1-10000)')
+    parser.add_argument(
+        "--scenario", required=True, choices=["missouri", "colorado", "extreme"]
+    )
+    parser.add_argument(
+        "--samples",
+        type=int,
+        default=10,
+        help="Number of LHS samples to generate (1-10000)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Random seed for reproducible hazard and material sampling.",
+    )
     args = parser.parse_args()
 
     # Input validation
     if args.samples < 1 or args.samples > 10000:
         parser.error("Number of samples must be between 1 and 10000")
     if args.samples > 1000:
-        logging.warning(f"Large sample size ({args.samples}) may take significant time to process")
+        logging.warning(
+            f"Large sample size ({args.samples}) may take significant time to process"
+        )
 
     logging.info("=" * 50)
     logging.info("SCOUR BRIDGE SIMULATION PIPELINE")
     logging.info("=" * 50)
     logging.info(f"Scenario: {args.scenario}")
     logging.info(f"Samples: {args.samples}")
+    if args.seed is not None:
+        logging.info(f"Seed: {args.seed}")
 
     # Scenario parameters from config
-    scenario_config = SCOUR['scenarios'][args.scenario]
+    scenario_config = SCOUR["scenarios"][args.scenario]
     params = {
-        'vel': scenario_config['velocity_m_s'],
-        'zDot': scenario_config['erosion_rate_mm_hr']
+        "vel": scenario_config["velocity_m_s"],
+        "zDot": scenario_config["erosion_rate_mm_hr"],
     }
     logging.info(f"Velocity: {params['vel']} m/s, Erosion: {params['zDot']} mm/hr")
     logging.info("")
@@ -53,7 +70,12 @@ def main():
     # Generate scour samples
     logging.info("Phase 1: Scour hazard generation...")
     result = LHS_scour_hazard(
-        lhsN=args.samples, vel=params['vel'], dPier=1.5, gama=1e-6, zDot=params['zDot']
+        lhsN=args.samples,
+        vel=params["vel"],
+        dPier=1.5,
+        gama=1e-6,
+        zDot=params["zDot"],
+        random_seed=args.seed,
     )
     logging.info(f"Generated {args.samples} scour samples")
     logging.info(f"   Mean 50-year scour: {result['z50Mean']:.3f} m")
@@ -62,26 +84,28 @@ def main():
 
     # Generate material samples
     logging.info("Phase 2: Material property sampling...")
-    np.random.seed(42)
+    material_rng = np.random.default_rng(None if args.seed is None else args.seed + 1)
     # Use parameters from config
-    fc_mean = MATERIALS['concrete']['mean_MPa']
-    fc_std = MATERIALS['concrete']['std_MPa']
-    fy_mean = MATERIALS['steel']['mean_MPa']
-    fy_std = MATERIALS['steel']['std_MPa']
+    fc_mean = MATERIALS["concrete"]["mean_MPa"]
+    fc_std = MATERIALS["concrete"]["std_MPa"]
+    fy_mean = MATERIALS["steel"]["mean_MPa"]
+    fy_std = MATERIALS["steel"]["std_MPa"]
 
-    fc_samples = np.random.normal(fc_mean, fc_std, args.samples)
-    fy_samples = np.random.lognormal(np.log(fy_mean), fy_std/fy_mean, args.samples)
+    fc_samples = material_rng.normal(fc_mean, fc_std, args.samples)
+    fy_samples = material_rng.lognormal(np.log(fy_mean), fy_std / fy_mean, args.samples)
 
-    df = pd.DataFrame({
-        'Sample_ID': range(1, args.samples + 1),
-        'Scour_Depth_mm': result['z50Final'] * 1000,
-        'fc_MPa': fc_samples,
-        'fy_MPa': fy_samples,
-        'Scenario': [args.scenario] * args.samples
-    })
+    df = pd.DataFrame(
+        {
+            "Sample_ID": range(1, args.samples + 1),
+            "Scour_Depth_mm": result["z50Final"] * 1000,
+            "fc_MPa": fc_samples,
+            "fy_MPa": fy_samples,
+            "Scenario": [args.scenario] * args.samples,
+        }
+    )
 
     # Save
-    input_dir = PROJECT_ROOT / 'data' / 'input'
+    input_dir = PROJECT_ROOT / "data" / "input"
     input_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filepath = input_dir / f"Scour_Materials_{args.scenario}_{timestamp}.xlsx"
@@ -92,9 +116,17 @@ def main():
     logging.info("AUTOMATED PHASES COMPLETE!")
     logging.info("=" * 50)
     logging.info("Next steps:")
-    logging.info("  1. Run: python BridgeModeling/Pushover.py")
-    logging.info("  2. Run: python src/postprocessing/processing.py")
-    logging.info("  3. Run: python src/surrogate_modeling/training.py")
+    logging.info(
+        "  1. Run OpenSees simulations manually or via scripts/run_single_simulation.py"
+    )
+    logging.info(
+        "  2. Aggregate recorder outputs with: python src/postprocessing/processing.py"
+    )
+    logging.info(
+        "  3. Train surrogates with: python -m src.surrogate_modeling.training"
+    )
+    logging.info("  4. Create plots with: python -m src.visualization.visualization")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

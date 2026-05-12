@@ -1,4 +1,4 @@
-# Scour-Critical Bridge Simulator - Project Overview
+# CriticalBridges-meeting-ClimateScenarioUncertainties - Project Overview
 
 ## 🏗️ **Architecture**
 
@@ -11,7 +11,7 @@ This project implements a climate-aware bridge fragility assessment framework us
 ### **Project Structure**
 
 ```
-ScourCriticalBridgeSimulators/
+CriticalBridges-meeting-ClimateScenarioUncertainties/
 ├── config/                      # Centralized configuration
 │   ├── parameters.py            # All project parameters (materials, scour, analysis)
 │   ├── paths.py                # File path management
@@ -22,9 +22,8 @@ ScourCriticalBridgeSimulators/
 │   │   ├── __init__.py
 │   │   └── scour_hazard.py   # LHS sampling for scour depths
 │   │
-│   ├── bridge_modeling/        # Bridge model building
+│   ├── bridge_modeling/        # Refactored bridge-modeling namespace
 │   │   ├── __init__.py
-│   │   ├── model_setup.py       # Main model building function
 │   │   ├── geometry/            # Geometry data (JSON-based)
 │   │   │   ├── __init__.py
 │   │   │   └── geometry_loader.py
@@ -66,14 +65,15 @@ ScourCriticalBridgeSimulators/
 │   │   ├── restraints.json   # 1,152 restraints
 │   │   ├── constraints.json  # 615 constraints
 │   │   └── masses.json       # 49 masses
-│   ├── input/                 # Input data (material samples)
-│   ├── output/                # Output data (simulation results)
-│   └── logs/                  # Simulation logs
+│   ├── input/                 # Runtime-created input data (material samples)
+│   └── output/                # Runtime-created output data
 │
 ├── scripts/                     # Automation scripts
-│   └── run_full_pipeline.py   # Main workflow orchestrator
+│   ├── run_full_pipeline.py   # Phase 1-2 workflow generator
+│   ├── run_single_simulation.py # Single OpenSees simulation runner
+│   └── test_surrogate_modeling.py # Compatibility/testing wrapper
 │
-├── RecorderData/              # Legacy simulation outputs
+├── RecorderData/              # Legacy simulation outputs (runtime-generated)
 ├── archive/old_scripts/        # Archived Jupyter notebooks
 ├── tests/                     # Unit tests (future)
 ├── docs/                      # Documentation (future)
@@ -123,9 +123,12 @@ Output:
 ### **Phase 3: Bridge Modeling & Pushover**
 ```
 Input:
-  - Material samples from Phase 2
+  - Scenario name and optional seed for the preferred single-run wrapper
   - Geometry data from JSON files
   - Scour depth (applied to pier supports)
+
+Legacy batch path:
+  - Material samples from Phase 2 workbook
 
 Process:
   - Build OpenSeesPy model
@@ -151,7 +154,7 @@ Process:
   - Extract yield parameters: Vy, Dy, My, Thy
 
 Output:
-  - Excel file: Yield_Results_by_Scenario.xlsx
+  - Excel file: RecorderData/Yield_Results_by_Scenario.xlsx
   - Summary table by scenario
 ```
 
@@ -168,7 +171,7 @@ Process:
   - Generate credal bounds
 
 Output:
-  - Trained models: data/output/models/
+  - Trained models and summaries: RecorderData/results/Tuple_Data_Process/
   - Ensemble predictions: credal bounds
   - R2 scores, MSE metrics
 ```
@@ -203,7 +206,7 @@ Process:
   - Generate comparison plots
 
 Output:
-  - Figures: data/output/plots/
+  - Figures: RecorderData/results/visualizations/
   - Publication-quality figures
 ```
 
@@ -302,19 +305,16 @@ All paths centralized in `PATHS` dictionary:
 
 ## 🚀 **Workflow Automation**
 
-The `scripts/run_full_pipeline.py` orchestrates the full workflow:
+The `scripts/run_full_pipeline.py` automates Phase 1-2 of the workflow. The later postprocessing, training, and visualization stages now have cleaned CLI surfaces, while OpenSees execution remains the slowest and most manual-sensitive part of the stack.
 
 ### **Usage**
 
 ```bash
-# Run all automated phases
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000
+# Automated Phase 1-2 workflow
+python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
-# Run specific phase
-python scripts/run_full_pipeline.py --scenario colorado --samples 500 --phases hazard
-
-# Run all phases (automated + manual)
-python scripts/run_full_pipeline.py --scenario extreme --phases all
+# The current script does not support --phases.
+# Later stages are sequential and partially manual around OpenSees execution.
 ```
 
 ### **Pipeline Phases**
@@ -323,11 +323,11 @@ python scripts/run_full_pipeline.py --scenario extreme --phases all
 |--------|----------|-------------|--------|
 | 1: Hazard | ✅ Automated | Scour depth samples |
 | 2: Sample | ✅ Automated | Material Excel file |
-| 3: Simulate | ⏳ Manual | OpenSees results |
-| 4: Post-process | ⏳ Manual | Yield results |
-| 5: Train | ⏳ Manual | Surrogate models |
-| 6: Bootstrap | ⏳ Manual | Credal bounds |
-| 7: Visualize | ⏳ Manual | Plots & figures |
+| 3: Simulate | ⚠️ Partially scripted | OpenSees results |
+| 4: Post-process | ✅ Available CLI | Yield results |
+| 5: Train | ✅ Available CLI | Surrogate models |
+| 6: Bootstrap | ✅ Integrated | Credal bounds |
+| 7: Visualize | ✅ Available CLI | Plots & figures |
 
 ### **Phase 1-2 Flow**
 
@@ -343,11 +343,12 @@ Save to Excel → data/input/Scour_Materials_{scenario}_{timestamp}.xlsx
 
 ### **Phase 3-7 Flow**
 
-Each phase requires manual execution with specific scripts:
-- `BridgeModeling/Pushover.py`: Runs pushover analysis
+The later stages are executed sequentially with these preferred entry points:
+- `scripts/run_single_simulation.py`: Runs one OpenSees pushover simulation
+- `BridgeModeling/Pushover.py`: Legacy/manual batch-oriented simulation path
 - `src/postprocessing/processing.py`: Extracts yield points
-- `src/surrogate_modeling/training.py`: Trains ML models
-- `src/visualization/visualization.py`: Generates plots
+- `python -m src.surrogate_modeling.training`: Trains ML models
+- `python -m src.visualization.visualization`: Generates plots
 
 ---
 

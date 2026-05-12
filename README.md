@@ -6,6 +6,17 @@ A distribution-agnostic framework for predicting transverse capacities and quant
 
 **Core Innovation:** Combines surrogate modeling of bridge capacities from nonlinear pushover simulations with credal-set uncertainty quantification, providing bounded predictions without assuming precise probabilistic distributions.
 
+### **Supported Workflow at a Glance**
+
+| Stage | Current Support | Primary Entry Point |
+|-------|-----------------|---------------------|
+| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
+| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python scripts/run_single_simulation.py --scenario missouri --seed 42` |
+| Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
+| Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
+| Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
+| Phase 7: Visualization | ✅ Available CLI | `python -m src.visualization.visualization` |
+
 ---
 
 ## 🌊 **Problem Statement**
@@ -177,26 +188,52 @@ pip install -e .
 - **Development (optional):** jupyter>=1.0.0, ipykernel>=6.0.0
 - **Python:** >=3.8
 
+> **Environment note (current snapshot):** this repository is presently being used in a legacy Python 3.8 environment, but current OpenSeesPy wheels on PyPI may require Python 3.10+ for a fresh install. For new environments, prefer Python 3.10+ unless you are intentionally reproducing an older setup.
+
 ### **Quick Start**
 
 ```bash
-# Option 1: Run a single simulation with sampled parameters
+# Option 1: Smoke-test the main imports
+python -c "from src.scour import LHS_scour_hazard; from src.bridge_modeling.geometry.geometry_loader import GeometryLoader; from config.parameters import SCOUR, MATERIALS, ANALYSIS; print('imports-ok')"
+
+# Option 2: Generate reproducible scour + material samples (Phases 1-2)
+python scripts/run_full_pipeline.py --scenario missouri --samples 10 --seed 42
+
+# Option 3: Inspect the single-simulation CLI before launching OpenSees
+python scripts/run_single_simulation.py --help
+
+# Option 4: Run a single OpenSees simulation (long-running; not a smoke test)
 python scripts/run_single_simulation.py --scenario missouri
 
-# Output: Capacity point (Vy, Dy, My, Thy) for one bridge analysis
-# Example: ✅ Capacity point: Vy=1523.4kN, Dy=48.2mm, My=19802.1kNm, Thy=0.0037rad
+# Option 5: Aggregate recorder outputs after simulations finish
+python src/postprocessing/processing.py --help
 
-# Option 2: Test surrogate models on existing simulation results
-python scripts/test_surrogate_modeling.py --scenario missouri --methods gbr,svr --plots
+# Option 6: Train surrogate models from Yield_Results_by_Scenario.xlsx
+python -m src.surrogate_modeling.training --help
 
-# Output: Credal bounds, model performance, distribution plots, trajectory analysis
-# Creates: model_performance_missouri.xlsx, capacity_trajectories_missouri.png, etc.
+# Option 7: Generate plots from postprocessing / surrogate outputs
+python -m src.visualization.visualization --help
+```
 
-# Option 3: Generate scour samples and material inputs for batch analysis
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000
+### **Current Script Status (verified in this review)**
 
-# This creates data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
-# Ready for bridge modeling (Phase 3)
+| Script | Status | Notes |
+|--------|--------|-------|
+| `scripts/run_full_pipeline.py` | ✅ Available | CLI works; generates Phase 1-2 scour/material inputs and supports `--seed` for reproducibility |
+| `scripts/run_single_simulation.py` | ⚠️ Long-running | CLI works; full OpenSees execution is intentionally not treated as a lightweight smoke test |
+| `src/postprocessing/processing.py` | ✅ Available | Import-safe CLI for aggregating `RecorderData/<scenario>/scour_*` into `Yield_Results_by_Scenario.xlsx` |
+| `src/surrogate_modeling/training.py` | ✅ Available | Import-safe CLI for GBR/SVR bootstrap surrogate training |
+| `src/visualization/visualization.py` | ✅ Available | Import-safe CLI for supported postprocessing / surrogate plots |
+| `scripts/test_surrogate_modeling.py` | ✅ Compatibility wrapper | CLI/help path works; requires existing yield-results data and is secondary to `src.surrogate_modeling.training` |
+
+### **What the workflow is intended to do**
+
+```bash
+# Phase 1-2: Generate scour samples and material inputs
+python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
+
+# Output: data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
+# Next: run OpenSees simulations, then aggregate + train + visualize
 ```
 
 ### **Module Import Examples**
@@ -223,28 +260,9 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 
 ### **Surrogate Model Testing**
 
-Test and validate surrogate models using existing simulation results:
+The repository includes `scripts/test_surrogate_modeling.py`, intended to train/test bootstrap GBR/SVR surrogate models on `RecorderData/Yield_Results_by_Scenario.xlsx`.
 
-```python
-# Test surrogate models for a specific scenario
-from scripts.test_surrogate_modeling import main
-
-# Or run from command line:
-# python scripts/test_surrogate_modeling.py --scenario missouri --methods gbr,svr --plots
-```
-
-**Features:**
-- **Credal Set Analysis**: Bootstrap ensembles for uncertainty quantification
-- **Model Comparison**: Evaluate GBR vs SVR performance with R² and RMSE metrics
-- **Capacity Trajectories**: Analyze (Vy,Dy) and (My,Thy) relationships with uncertainty bounds
-- **Critical Point Analysis**: Identify and visualize distributions at key capacity levels
-- **Distribution Plots**: Histograms showing variability in capacity parameters
-
-**Output Files:**
-- `model_performance_[scenario].xlsx` - Performance metrics and credal widths
-- `capacity_trajectories_[scenario].png` - Trajectory plots with uncertainty bounds
-- `distributions_scour_[depth]mm_[scenario].png` - Distribution histograms at critical points
-- Trained model files for each bootstrap sample
+**Current status:** the script now exposes a working CLI/help path and can still be used as a compatibility/testing wrapper. For the cleaned primary workflow, prefer `python -m src.surrogate_modeling.training`.
 
 ### **Pipeline Workflow**
 
@@ -252,12 +270,12 @@ from scripts.test_surrogate_modeling import main
 |--------|--------|-------------|
 | **1: Hazard** | ✅ Automated | Scour depth samples |
 | **2: Sample** | ✅ Automated | Material Excel file |
-| **3a: Single Simulate** | ✅ Available | Run one OpenSees pushover analysis |
-| **3b: Batch Simulate** | ⏳ Manual | OpenSees pushover analysis for multiple samples |
-| **4: Post-process** | ⏳ Manual | Yield point extraction |
-| **5: Train** | ✅ Available | Surrogate models (`scripts/test_surrogate_modeling.py`) |
-| **6: Bootstrap** | ✅ Available | Credal bounds (integrated in testing tool) |
-| **7: Visualize** | ✅ Available | Plots & figures (integrated in testing tool) |
+| **3a: Single Simulate** | ⚠️ Available | `scripts/run_single_simulation.py` exists, but is a long-running OpenSees job |
+| **3b: Batch Simulate** | ⏳ Manual / legacy | Driven by `BridgeModeling/Pushover.py` rather than a clean scripted batch entry point |
+| **4: Post-process** | ✅ Available | `src/postprocessing/processing.py` is an import-safe CLI for recorder aggregation |
+| **5: Train** | ✅ Available | `src/surrogate_modeling/training.py` provides the primary surrogate-training CLI |
+| **6: Bootstrap** | ✅ Integrated | Credal/bootstrap workflow is built into the training module |
+| **7: Visualize** | ✅ Available | `src/visualization/visualization.py` provides a clean plotting CLI |
 
 ---
 

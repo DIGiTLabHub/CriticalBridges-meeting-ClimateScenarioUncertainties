@@ -1,9 +1,10 @@
 """
 Logging configuration for project.
 """
-from pathlib import Path
+
 from datetime import datetime
 import logging
+
 
 def setup_logging(log_level=logging.INFO, log_to_file=True):
     """
@@ -21,23 +22,23 @@ def setup_logging(log_level=logging.INFO, log_to_file=True):
     None
         Sets up logging configuration
     """
-    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    date_format = '%Y-%m-%d %H:%M:%S'
+    log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    date_format = "%Y-%m-%d %H:%M:%S"
 
-    handlers = [logging.StreamHandler()]
+    handlers: list[logging.Handler] = [logging.StreamHandler()]
 
     if log_to_file:
-        from .paths import PATHS
-        log_dir = PATHS['output_data'] / "logs"
+        from .parameters import PATHS
+
+        log_dir = PATHS["output_data"] / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
-        log_file = log_dir / f"simulation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        log_file = (
+            log_dir / f"simulation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        )
         handlers.append(logging.FileHandler(log_file))
 
     logging.basicConfig(
-        level=log_level,
-        format=log_format,
-        datefmt=date_format,
-        handlers=handlers
+        level=log_level, format=log_format, datefmt=date_format, handlers=handlers
     )
 
 

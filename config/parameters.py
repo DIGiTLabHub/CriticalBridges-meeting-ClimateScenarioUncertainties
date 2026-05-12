@@ -18,16 +18,8 @@ GEOMETRY = {
 # 2. MATERIAL PROPERTIES
 # ============================================
 MATERIALS = {
-    "concrete": {
-        "mean_MPa": 27.0,
-        "std_MPa": 1.0,
-        "distribution": "normal"
-    },
-    "steel": {
-        "mean_MPa": 420.0,
-        "std_MPa": 4.2,
-        "distribution": "lognormal"
-    }
+    "concrete": {"mean_MPa": 27.0, "std_MPa": 1.0, "distribution": "normal"},
+    "steel": {"mean_MPa": 420.0, "std_MPa": 4.2, "distribution": "lognormal"},
 }
 
 # ============================================
@@ -42,19 +34,19 @@ SCOUR = {
         "missouri": {
             "velocity_m_s": 2.9,
             "erosion_rate_mm_hr": 100,
-            "description": "Missouri River"
+            "description": "Missouri River",
         },
         "colorado": {
             "velocity_m_s": 6.5,
             "erosion_rate_mm_hr": 500,
-            "description": "Colorado River"
+            "description": "Colorado River",
         },
         "extreme": {
             "velocity_m_s": 10.0,
             "erosion_rate_mm_hr": 1000,
-            "description": "Extreme Case"
-        }
-    }
+            "description": "Extreme Case",
+        },
+    },
 }
 
 # ============================================
@@ -65,18 +57,15 @@ ANALYSIS = {
         "tolerance": 1.0e-8,
         "max_iterations": 3000,
         "load_increment": 0.1,
-        "num_increments": 10
+        "num_increments": 10,
     },
     "pushover": {
         "max_drift_ratio": 0.05,
         "control_dof": 2,
         "tolerance": 1.0e-6,
-        "max_iterations": 100
+        "max_iterations": 100,
     },
-    "dynamic": {
-        "tolerance": 1.0e-8,
-        "max_iterations": 10
-    }
+    "dynamic": {"tolerance": 1.0e-8, "max_iterations": 10},
 }
 
 # ============================================
@@ -89,15 +78,10 @@ SURROGATE = {
         "n_estimators": 700,
         "max_depth": 3,
         "learning_rate": 0.015,
-        "subsample": 0.85
+        "subsample": 0.85,
     },
-    "svr": {
-        "kernel": "rbf",
-        "C": 100,
-        "epsilon": 0.01,
-        "gamma": 0.1
-    },
-    "bootstrap_ensemble_size": 30
+    "svr": {"kernel": "rbf", "C": 100, "epsilon": 0.01, "gamma": 0.1},
+    "bootstrap_ensemble_size": 30,
 }
 
 # ============================================
@@ -105,12 +89,12 @@ SURROGATE = {
 # ============================================
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 GEOMETRY_DIR = DATA_DIR / "geometry"
 INPUT_DATA_DIR = DATA_DIR / "input"
 OUTPUT_DATA_DIR = DATA_DIR / "output"
-RECORDER_DATA_DIR = Path("RecorderData")  # Keep for backward compatibility
+RECORDER_DATA_DIR = PROJECT_ROOT / "RecorderData"
 
 PATHS = {
     "project_root": PROJECT_ROOT,
@@ -123,7 +107,7 @@ PATHS = {
     "elements_file": GEOMETRY_DIR / "elements.json",
     "restraints_file": GEOMETRY_DIR / "restraints.json",
     "constraints_file": GEOMETRY_DIR / "constraints.json",
-    "masses_file": GEOMETRY_DIR / "masses.json"
+    "masses_file": GEOMETRY_DIR / "masses.json",
 }
 
 # ============================================
@@ -133,5 +117,5 @@ OUTPUT_VARIABLES = {
     "Vy": "yield_base_shear_kN",
     "Dy": "yield_displacement_mm",
     "My": "yield_moment_kNm",
-    "Thy": "yield_rotation_rad"
+    "Thy": "yield_rotation_rad",
 }
