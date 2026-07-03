@@ -1,10 +1,17 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from scipy.stats import norm, lognorm
 
 
 def LHS_scour_hazard(
-    lhsN, vel=10, dPier=2.0, gama=1e-6, zDot=8, Rey=None, random_seed=None, rng=None
+    lhsN,
+    vel=10,
+    dPier=1.5,
+    gama=1e-6,
+    zDot=8,
+    Rey=None,
+    random_seed=None,
+    rng=None,
+    max_scour_depth_m=None,
 ):
     """
     Computes the final scour depth (z50Final) using Latin Hypercube Sampling.
@@ -12,10 +19,12 @@ def LHS_scour_hazard(
     Parameters:
         lhsN (int): Number of Latin Hypercube Samples.
         vel (float): Upstream velocity (m/s). Default is 10.
-        dPier (float): Diameter of the pier (m). Default is 2.
-        gama (float): Water viscosity. Default is 1e-6.
-        zDot (float): Initial rate of scour (N/mm). Default is 8.
+        dPier (float): Diameter of the pier (m). Default is 1.5.
+        gama (float): Kinematic viscosity of water (m^2/s). Default is 1e-6.
+        zDot (float): Initial rate of scour (mm/h). Default is 8.
         Rey (float or None): Reynolds number. If None, computed as (vel * dPier / gama).
+        max_scour_depth_m (float or None): Optional upper bound for generated scour
+            samples. Defaults to None so the hazard distribution is not truncated.
 
     Returns:
         results (dict): A dictionary containing computed variables including:
@@ -65,13 +74,14 @@ def LHS_scour_hazard(
     # Data validation: ensure scour depths are physically reasonable
     if np.any(z50Final < 0):
         raise ValueError("Scour depths cannot be negative")
-    if np.any(z50Final > 20.0):  # pier height limit
+    if max_scour_depth_m is not None and np.any(z50Final > max_scour_depth_m):
         import warnings
 
         warnings.warn(
-            f"Some scour depths exceed pier height (20.0m). Capping to maximum pier height."
+            "Some scour depths exceed the configured maximum "
+            f"({max_scour_depth_m} m). Capping to that value."
         )
-        z50Final = np.clip(z50Final, 0, 20.0)  # meters - pier height limit
+        z50Final = np.clip(z50Final, 0, max_scour_depth_m)
 
     # Statistical parameters
     z50Mean = np.mean(z50Final)
@@ -145,6 +155,8 @@ def combine_simulated_samples(simulation_results):
 
 
 if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+
     # Number of Latin Hypercube Samples
     lhsN = 1000  # Adjust as needed
 

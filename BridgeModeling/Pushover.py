@@ -52,11 +52,47 @@ FORCE_COLUMNS = [
 def _load_force_response(force_file):
     force_data = pd.read_csv(force_file, sep=r"\s+", header=None, names=FORCE_COLUMNS)
     shear = np.abs(force_data["V2_j"].to_numpy()) / 1000.0
-    moment = np.abs(force_data["M3_j"].to_numpy()) / 1000.0
+    moment = np.abs(force_data["M3_j"].to_numpy()) / 1e6
     return shear, moment
 
 
-def run_single_pushover_simulation(scenario="missouri", random_seed=None):
+def _load_column_rotation(rotation_file):
+    col_disp_data = pd.read_csv(rotation_file, sep=r"\s+", header=None)
+    return np.abs(col_disp_data.iloc[:, 10].to_numpy())
+
+
+def _sample_material_properties(random_seed=None):
+    rng = np.random.default_rng(random_seed)
+    fc_mean = MATERIALS["concrete"]["mean_MPa"]
+    fc_std = MATERIALS["concrete"]["std_MPa"]
+    fy_mean = MATERIALS["steel"]["mean_MPa"]
+    fy_std = MATERIALS["steel"]["std_MPa"]
+
+    fc_MPa = float(rng.normal(fc_mean, fc_std))
+    fy_MPa = float(rng.lognormal(np.log(fy_mean), fy_std / fy_mean))
+    return fc_MPa, fy_MPa
+
+
+def _sample_scour_depth_m(scenario, random_seed=None):
+    rng = np.random.default_rng(random_seed)
+    scenario_params = SCOUR["scenarios"][scenario]
+    vel = scenario_params["velocity_m_s"]
+
+    # Compatibility sampler for the legacy single-run path. Scenario sweep tools
+    # should pass an explicit scour_depth_m from the hazard model instead.
+    scour_mean_m = 0.5 + 0.1 * vel
+    scour_std_m = 0.2
+    return float(rng.lognormal(np.log(scour_mean_m), scour_std_m / scour_mean_m))
+
+
+def run_single_pushover_simulation(
+    scenario="missouri",
+    random_seed=None,
+    *,
+    scour_depth_m=None,
+    fc_MPa=None,
+    fy_MPa=None,
+):
     """
     Run a single OpenSees-Py nonlinear pushover simulation with sampled parameters.
 
@@ -82,36 +118,21 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
         Capacity point (Vy_kN, Dy_mm, My_kNm, Thy_rad)
         Returns None if simulation fails
     """
-    if random_seed is not None:
-        np.random.seed(random_seed)
-
     start_time = time.time()
     print("⏱️  Starting simulation...")
 
     # === 1. Sample parameters ===
-    # Scour depth sampling (lognormal distribution based on scenario)
-    scenario_params = SCOUR["scenarios"][scenario]
-    vel = scenario_params["velocity_m_s"]
-    erosion_rate = scenario_params["erosion_rate_mm_hr"]
+    if scenario not in SCOUR["scenarios"]:
+        raise ValueError(f"Unknown scenario '{scenario}'. Expected one of {sorted(SCOUR['scenarios'])}.")
 
-    # Use simplified scour model - sample from lognormal with mean based on velocity
-    # Higher velocity -> higher scour depth
-    scour_mean_m = (
-        0.5 + 0.1 * vel
-    )  # Rough approximation: Missouri~0.6m, Colorado~1.1m, Extreme~2.1m
-    scour_std_m = 0.2
-    scour_depth_m = np.random.lognormal(
-        np.log(scour_mean_m), scour_std_m / scour_mean_m
-    )
+    if scour_depth_m is None:
+        scour_depth_m = _sample_scour_depth_m(scenario, random_seed=random_seed)
 
-    # Material property sampling
-    fc_mean = MATERIALS["concrete"]["mean_MPa"]
-    fc_std = MATERIALS["concrete"]["std_MPa"]
-    fc_MPa = np.random.normal(fc_mean, fc_std)
-
-    fy_mean = MATERIALS["steel"]["mean_MPa"]
-    fy_std = MATERIALS["steel"]["std_MPa"]
-    fy_MPa = np.random.lognormal(np.log(fy_mean), fy_std / fy_mean)
+    sampled_fc, sampled_fy = _sample_material_properties(random_seed=random_seed)
+    if fc_MPa is None:
+        fc_MPa = sampled_fc
+    if fy_MPa is None:
+        fy_MPa = sampled_fy
 
     print(
         f"🔄 Sampled parameters: Scour={scour_depth_m:.3f}m, fc={fc_MPa:.1f}MPa, fy={fy_MPa:.1f}MPa"
@@ -123,7 +144,7 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
     scour_depth_mm = scour_depth_m * 1000.0
     op.wipe()
     build_model(fc_MPa, fy_MPa, scour_depth_mm)
-    print(".1f")
+    print("✅ Model built")
 
     # === 3. Gravity analysis ===
     print("⚖️  Running gravity analysis...")
@@ -141,7 +162,7 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
         return None
 
     op.loadConst("-time", 0.0)
-    print(".1f")
+    print("✅ Gravity analysis complete")
 
     # === 4. Pushover setup ===
     # Define pushover parameters (from config)
@@ -192,13 +213,13 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
     print(
         f"🕐 Pushover analysis end: {time.strftime('%H:%M:%S', time.localtime(time.time()))} - Duration: {pushover_time:.2f}s"
     )
-    print(".1f")
 
     if ok != 0:
         print(f"⚠️ Pushover analysis stopped at step {ok}, using available data")
 
     # === 6. Extract data ===
     disp_file = output_dir / "Displacement.5201.out"
+    rotation_file = output_dir / "ColDisplacement.3201.out"
     force_files = [
         output_dir / "ColLocForce.3101.out",
         output_dir / "ColLocForce.3201.out",
@@ -214,9 +235,14 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
             names=["time", "ux", "uy", "uz", "rx", "ry", "rz"],
         )
         displacement_mm = np.abs(disp_data["uy"].values) * 1000.0  # Convert to mm
-        rotation_rad = np.abs(disp_data["ry"].values)  # Rotation
     except Exception as e:
         print(f"❌ Failed to read displacement data: {e}")
+        return None
+
+    try:
+        rotation_rad = _load_column_rotation(rotation_file)
+    except Exception as e:
+        print(f"❌ Failed to read column rotation data: {e}")
         return None
 
     # Read base shear and moment data (sum of column forces)
@@ -291,25 +317,19 @@ def run_single_pushover_simulation(scenario="missouri", random_seed=None):
             print("❌ Bilinear regression returned invalid yield parameters")
             return None
 
-        # Calculate additional capacity parameters
-        # My = moment at yield (approximated from shear and lever arm)
-        lever_arm_m = 13.0  # Approximate distance from base to center of mass
-        my_kNm = vy_kN * lever_arm_m
-
-        # Thy = rotation at yield (dy / lever_arm)
-        thy_rad = dy_mm / 1000.0 / lever_arm_m  # Convert mm to m first
+        i_yield = int(np.argmin(np.abs(displacement_mm - dy_mm)))
+        my_kNm = float(base_moment_kNm[i_yield])
+        thy_rad = float(rotation_rad[i_yield])
 
         capacity_point = (vy_kN, dy_mm, my_kNm, thy_rad)
 
         post_time = time.time() - post_start
         total_time = time.time() - start_time
 
-        print(".1f")
         print(
             f"✅ Capacity point: Vy={vy_kN:.1f}kN, Dy={dy_mm:.1f}mm, My={my_kNm:.1f}kNm, Thy={thy_rad:.4f}rad"
         )
         print(f"📁 Recorder files saved to: {output_dir}")
-        print(".1f")
 
         return (
             capacity_point,

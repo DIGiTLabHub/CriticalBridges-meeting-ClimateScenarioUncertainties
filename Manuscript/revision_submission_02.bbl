@@ -1,0 +1,452 @@
+\begin{thebibliography}{51}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Alipour et~al.(2013)Alipour, Shafei and Shinozuka}]{Alipour2013}
+\bibinfo{author}{Alipour, A.}, \bibinfo{author}{Shafei, B.},
+  \bibinfo{author}{Shinozuka, M.S.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Capacity loss evaluation of reinforced concrete
+  bridges located in extreme chloride-laden environments}.
+\newblock \bibinfo{journal}{Structure and Infrastructure Engineering}
+  \bibinfo{volume}{9}, \bibinfo{pages}{8--27}.
+%Type = Article
+\bibitem[{Alizadeh(2022)}]{alizadeh2022advances}
+\bibinfo{author}{Alizadeh, O.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Advances and challenges in climate modeling}.
+\newblock \bibinfo{journal}{Climatic Change} \bibinfo{volume}{170},
+  \bibinfo{pages}{18}.
+%Type = Article
+\bibitem[{Angelopoulos and Bates(2021)}]{Angelopoulos2021}
+\bibinfo{author}{Angelopoulos, A.N.}, \bibinfo{author}{Bates, S.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{A gentle introduction to conformal prediction and
+  distribution‑free uncertainty quantification}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2107.07511} .
+%Type = Article
+\bibitem[{Anisha et~al.(2022)Anisha, Jacob, Davis and Mangalathu}]{Anisha2022}
+\bibinfo{author}{Anisha, A.}, \bibinfo{author}{Jacob, A.},
+  \bibinfo{author}{Davis, R.}, \bibinfo{author}{Mangalathu, S.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Fragility functions for highway rc bridge under
+  various flood scenarios}.
+\newblock \bibinfo{journal}{Engineering Structures} \bibinfo{volume}{260},
+  \bibinfo{pages}{114244}.
+\newblock \DOIprefix\doi{10.1016/j.engstruct.2022.114244}.
+%Type = Article
+\bibitem[{Argyroudis and Mitoulis(2021)}]{Argyroudis2021}
+\bibinfo{author}{Argyroudis, S.A.}, \bibinfo{author}{Mitoulis, S.A.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Vulnerability of bridges to individual and multiple
+  hazards—floods and earthquakes}.
+\newblock \bibinfo{journal}{Reliability Engineering \& System Safety}
+  \bibinfo{volume}{210}, \bibinfo{pages}{107564}.
+\newblock \DOIprefix\doi{10.1016/j.ress.2021.107564}.
+%Type = Article
+\bibitem[{Atak et~al.(2014)Atak, Soyluk and Karahan}]{Atak2014}
+\bibinfo{author}{Atak, O.}, \bibinfo{author}{Soyluk, K.},
+  \bibinfo{author}{Karahan, S.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Nonlinear seismic performance evaluation of rc
+  bridges using opensees}.
+\newblock \bibinfo{journal}{KSCE Journal of Civil Engineering}
+  \bibinfo{volume}{18}, \bibinfo{pages}{482--491}.
+\newblock \DOIprefix\doi{10.1007/s12205-014-1446-1}.
+%Type = Article
+\bibitem[{Bignell et~al.(2005)Bignell, LaFave and Hawkins}]{Bignell2005}
+\bibinfo{author}{Bignell, J.L.}, \bibinfo{author}{LaFave, J.M.},
+  \bibinfo{author}{Hawkins, N.M.}, \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{Seismic vulnerability assessment of wall pier
+  supported highway bridges using nonlinear pushover analyses}.
+\newblock \bibinfo{journal}{Engineering Structures} \bibinfo{volume}{27},
+  \bibinfo{pages}{2044--2063}.
+\newblock \DOIprefix\doi{10.1016/j.engstruct.2005.06.003}.
+%Type = Article
+\bibitem[{Breiman(1996)}]{Breiman1996}
+\bibinfo{author}{Breiman, L.}, \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{Bagging predictors}.
+\newblock \bibinfo{journal}{Machine Learning} \bibinfo{volume}{24},
+  \bibinfo{pages}{123--140}.
+\newblock \DOIprefix\doi{10.1007/BF00058655}.
+%Type = Article
+\bibitem[{Briaud and Oh(2010)}]{Briaud2010}
+\bibinfo{author}{Briaud, J.L.}, \bibinfo{author}{Oh, S.J.},
+  \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Bridge foundation scour}.
+\newblock \bibinfo{journal}{Geotechnical Engineering Journal of the SEAGS \&
+  AGSSEA} \bibinfo{volume}{41}, \bibinfo{pages}{1--16}.
+%Type = Article
+\bibitem[{Briaud et~al.(1999)Briaud, Ting, Chen, Gudavalli, Perugu and
+  Wei}]{Briaud1999}
+\bibinfo{author}{Briaud, J.L.}, \bibinfo{author}{Ting, F.C.K.},
+  \bibinfo{author}{Chen, H.C.}, \bibinfo{author}{Gudavalli, R.},
+  \bibinfo{author}{Perugu, S.}, \bibinfo{author}{Wei, G.},
+  \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{Sricos: Prediction of scour rate in cohesive soils at
+  bridge piers}.
+\newblock \bibinfo{journal}{Journal of Geotechnical and Geoenvironmental
+  Engineering} \bibinfo{volume}{125}, \bibinfo{pages}{237--246}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)1090-0241(1999)125:4(237)}.
+%Type = Article
+\bibitem[{Cai and Shahawy(2003)}]{Cai2003}
+\bibinfo{author}{Cai, C.S.}, \bibinfo{author}{Shahawy, M.},
+  \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Understanding capacity rating of bridges from load
+  tests}.
+\newblock \bibinfo{journal}{Practice Periodical on Structural Design and
+  Construction} \bibinfo{volume}{8}, \bibinfo{pages}{209--216}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)1084-0680(2003)8:4(209)}.
+%Type = Article
+\bibitem[{Cranston and Smith(2022)}]{Cranston2022}
+\bibinfo{author}{Cranston, M.}, \bibinfo{author}{Smith, J.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Challenges and future directions in improving bridge
+  flood resilience}.
+\newblock \bibinfo{journal}{Natural Hazards and Earth System Sciences}
+  \bibinfo{volume}{22}, \bibinfo{pages}{370--385}.
+\newblock \DOIprefix\doi{10.5194/nhess-22-370-2022}.
+%Type = Misc
+\bibitem[{Dawson and Brunner(2009)}]{Dawson2009}
+\bibinfo{author}{Dawson, M.}, \bibinfo{author}{Brunner, G.},
+  \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Evaluation of colorado river flooding using field
+  survey data}.
+\newblock \bibinfo{note}{U.S. Army Corps of Engineers, Unpublished report}.
+%Type = Article
+\bibitem[{Dikanski et~al.(2018)Dikanski, Imam and Hagen-Zanker}]{Dikanski2018}
+\bibinfo{author}{Dikanski, H.}, \bibinfo{author}{Imam, B.},
+  \bibinfo{author}{Hagen-Zanker, A.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Effects of uncertain asset stock data on the
+  assessment of climate change risks: A case study of bridge scour in the u.k.}
+\newblock \bibinfo{journal}{Structural Safety} \bibinfo{volume}{71},
+  \bibinfo{pages}{1--12}.
+\newblock \DOIprefix\doi{10.1016/j.strusafe.2017.10.008}.
+%Type = Article
+\bibitem[{Fan et~al.(2021)Fan, Sun, Sun, Huang and Liu}]{Fan2021}
+\bibinfo{author}{Fan, W.}, \bibinfo{author}{Sun, Y.}, \bibinfo{author}{Sun,
+  W.}, \bibinfo{author}{Huang, X.}, \bibinfo{author}{Liu, B.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Effects of corrosion and scouring on barge impact
+  fragility of bridge structures considering nonlinear soil–pile
+  interaction}.
+\newblock \bibinfo{journal}{Journal of Bridge Engineering}
+  \bibinfo{volume}{26}, \bibinfo{pages}{04021058}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)BE.1943-5592.0001757}.
+%Type = Article
+\bibitem[{Friedman(2001)}]{Friedman2001GBR}
+\bibinfo{author}{Friedman, J.H.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Greedy function approximation: A gradient boosting
+  machine}.
+\newblock \bibinfo{journal}{Annals of Statistics} \bibinfo{volume}{29},
+  \bibinfo{pages}{1189--1232}.
+\newblock \DOIprefix\doi{10.1214/aos/1013203451}.
+%Type = Article
+\bibitem[{Gokce et~al.(2011)Gokce, Catbas and Frangopol}]{Gokce2011}
+\bibinfo{author}{Gokce, H.B.}, \bibinfo{author}{Catbas, F.N.},
+  \bibinfo{author}{Frangopol, D.M.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Evaluation of load rating and system reliability of
+  movable bridge}.
+\newblock \bibinfo{journal}{Transportation Research Record}
+  \bibinfo{volume}{2251}, \bibinfo{pages}{114--122}.
+\newblock \DOIprefix\doi{10.3141/2251-12}.
+%Type = Article
+\bibitem[{Gudavalli(1998)}]{Gudavalli1998}
+\bibinfo{author}{Gudavalli, R.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Scour predictions from flume studies in cohesive
+  soils}.
+\newblock \bibinfo{journal}{Technical Report} .
+%Type = Article
+\bibitem[{Guo et~al.(2023)Guo, Chen and Chen}]{guo2023probabilistic}
+\bibinfo{author}{Guo, X.}, \bibinfo{author}{Chen, W.}, \bibinfo{author}{Chen,
+  Z.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Probabilistic impact fragility analysis of bridges
+  under barge collision and local scour}.
+\newblock \bibinfo{journal}{Applied Ocean Research} \bibinfo{volume}{134},
+  \bibinfo{pages}{103495}.
+%Type = Article
+\bibitem[{Guo and Chen(2015)}]{Guo2015}
+\bibinfo{author}{Guo, X.}, \bibinfo{author}{Chen, Z.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Life-cycle multihazard framework for assessing flood
+  scour and earthquake effects on bridge failure}.
+\newblock \bibinfo{journal}{ASCE-ASME Journal of Risk and Uncertainty in
+  Engineering Systems, Part A: Civil Engineering} \bibinfo{volume}{2},
+  \bibinfo{pages}{C4015004}.
+\newblock \DOIprefix\doi{10.1061/AJRUA6.0000844}.
+%Type = Article
+\bibitem[{Guo et~al.(2016)Guo, Chen and Badroddin}]{Guo2016}
+\bibinfo{author}{Guo, X.}, \bibinfo{author}{Chen, Z.},
+  \bibinfo{author}{Badroddin, M.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Time-dependent seismic fragility of scour-critical
+  bridges considering stochastic scour and corrosion processes}.
+\newblock \bibinfo{journal}{Engineering Structures} \bibinfo{volume}{124},
+  \bibinfo{pages}{273--285}.
+\newblock \DOIprefix\doi{10.1016/j.engstruct.2016.06.010}.
+%Type = Article
+\bibitem[{Helmrich and Chester(2022)}]{helmrich2022reconciling}
+\bibinfo{author}{Helmrich, A.M.}, \bibinfo{author}{Chester, M.V.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Reconciling complexity and deep uncertainty in
+  infrastructure design for climate adaptation}.
+\newblock \bibinfo{journal}{Sustainable and Resilient Infrastructure}
+  \bibinfo{volume}{7}, \bibinfo{pages}{83--99}.
+%Type = Inproceedings
+\bibitem[{H{\"o}ffman et~al.(2022)H{\"o}ffman, Sale and
+  Hullermeier}]{Hofman2022}
+\bibinfo{author}{H{\"o}ffman, P.}, \bibinfo{author}{Sale, Y.},
+  \bibinfo{author}{Hullermeier, E.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Quantifying aleatoric and epistemic uncertainty: A
+  credal approach}, in: \bibinfo{booktitle}{Proceedings of the 39th Conference
+  on Uncertainty in Artificial Intelligence (UAI)}.
+%Type = Techreport
+\bibitem[{Hwang et~al.(2001)Hwang, Liu and Chiu}]{Hwang2000}
+\bibinfo{author}{Hwang, H.}, \bibinfo{author}{Liu, J.B.},
+  \bibinfo{author}{Chiu, Y.H.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Seismic fragility analysis of highway bridges}.
+\newblock \bibinfo{type}{Technical Report}. Mid-America Earthquake (MAE)
+  Center.
+%Type = Book
+\bibitem[{{IPCC}(2022)}]{IPCC2022}
+\bibinfo{author}{{IPCC}}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Climate Change 2022: Impacts, Adaptation and
+  Vulnerability}.
+\newblock \bibinfo{publisher}{Cambridge University Press}.
+\newblock \URLprefix \url{\url{https://www.ipcc.ch/report/ar6/wg2/}},
+  \DOIprefix\doi{10.1017/9781009325844}.
+%Type = Article
+\bibitem[{Kameshwar and Padgett(2018)}]{Kameshwar2018}
+\bibinfo{author}{Kameshwar, S.}, \bibinfo{author}{Padgett, J.E.},
+  \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Response and fragility assessment of a portfolio of
+  bridges subjected to barge collision and scour}.
+\newblock \bibinfo{journal}{Engineering Structures} \bibinfo{volume}{168},
+  \bibinfo{pages}{308--319}.
+\newblock \DOIprefix\doi{10.1016/j.engstruct.2018.04.082}.
+%Type = Article
+\bibitem[{Kandlikar et~al.(2005)Kandlikar, Risbey and
+  Dessai}]{kandlikar2005representing}
+\bibinfo{author}{Kandlikar, M.}, \bibinfo{author}{Risbey, J.},
+  \bibinfo{author}{Dessai, S.}, \bibinfo{year}{2005}.
+\newblock \bibinfo{title}{Representing and communicating deep uncertainty in
+  climate-change assessments}.
+\newblock \bibinfo{journal}{Comptes Rendus. G{\'e}oscience}
+  \bibinfo{volume}{337}, \bibinfo{pages}{443--455}.
+%Type = Article
+\bibitem[{Karriqi et~al.(2024)Karriqi, Matos, Dang and Xia}]{Karriqi2024}
+\bibinfo{author}{Karriqi, T.}, \bibinfo{author}{Matos, J.C.},
+  \bibinfo{author}{Dang, N.S.}, \bibinfo{author}{Xia, Y.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Bridge assessment under earthquake and flood-induced
+  scour}.
+\newblock \bibinfo{journal}{Applied Sciences} \bibinfo{volume}{14},
+  \bibinfo{pages}{5174}.
+\newblock \DOIprefix\doi{10.3390/app14125174}.
+%Type = Article
+\bibitem[{Khelifa et~al.(2013)Khelifa, Garrow, Higgins and Meyer}]{Khelifa2013}
+\bibinfo{author}{Khelifa, A.}, \bibinfo{author}{Garrow, L.A.},
+  \bibinfo{author}{Higgins, M.J.}, \bibinfo{author}{Meyer, M.D.},
+  \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Impacts of climate change on scour-vulnerable
+  bridges: Assessment based on hyrisk}.
+\newblock \bibinfo{journal}{Journal of Infrastructure Systems}
+  \bibinfo{volume}{19}, \bibinfo{pages}{138--146}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)IS.1943-555X.0000109}.
+%Type = Article
+\bibitem[{Lafferty and Sriver(2023)}]{Lafferty2023}
+\bibinfo{author}{Lafferty, D.}, \bibinfo{author}{Sriver, R.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Downscaling and bias-correction contribute
+  considerable uncertainty to local climate projections in cmip6}.
+\newblock \bibinfo{journal}{npj Climate and Atmospheric Science}
+  \bibinfo{volume}{6}, \bibinfo{pages}{158}.
+\newblock \DOIprefix\doi{10.1038/s41612-023-00486-0}.
+%Type = Article
+\bibitem[{Lempert et~al.(2024)Lempert, Mach, Keller, Hall, Scown and
+  Rosenbloom}]{Lempert2024}
+\bibinfo{author}{Lempert, R.}, \bibinfo{author}{Mach, K.},
+  \bibinfo{author}{Keller, K.}, \bibinfo{author}{Hall, J.},
+  \bibinfo{author}{Scown, M.}, \bibinfo{author}{Rosenbloom, D.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{The use of decision making under deep uncertainty in
+  the ipcc}.
+\newblock \bibinfo{journal}{Frontiers in Climate} \bibinfo{volume}{6},
+  \bibinfo{pages}{1380054}.
+\newblock \DOIprefix\doi{10.3389/fclim.2024.1380054}.
+%Type = Article
+\bibitem[{Liu et~al.(2020)Liu, Yang and Frangopol}]{Liu2020}
+\bibinfo{author}{Liu, L.}, \bibinfo{author}{Yang, D.Y.},
+  \bibinfo{author}{Frangopol, D.M.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Network-level risk-based framework for optimal bridge
+  adaptation management considering scour and climate change}.
+\newblock \bibinfo{journal}{Journal of Infrastructure Systems}
+  \bibinfo{volume}{26}, \bibinfo{pages}{04019039}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)IS.1943-555X.0000516}.
+%Type = Techreport
+\bibitem[{MDOT(2019)}]{modot2020tr202017}
+\bibinfo{author}{MDOT}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Scour Analysis at Missouri Bridges: Project
+  TR202017}.
+\newblock \bibinfo{type}{Technical Report} \bibinfo{number}{TR202017}. Missouri
+  Department of Transportation. \bibinfo{address}{Jefferson City, Missouri}.
+\newblock \URLprefix
+  \url{\url{https://www.modot.org/sites/default/files/documents/TR202017_RFP_Final_0.pdf}}.
+  \bibinfo{note}{final RFP published online}.
+%Type = Article
+\bibitem[{Nasr et~al.(2023)Nasr, Björnsson and Johansson}]{Nasr2023}
+\bibinfo{author}{Nasr, A.}, \bibinfo{author}{Björnsson, I.},
+  \bibinfo{author}{Johansson, J.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{National-level analysis of the impact of climate
+  change on local scour under bridge piers in sweden}.
+\newblock \bibinfo{journal}{Journal of Infrastructure Systems}
+  \bibinfo{volume}{29}, \bibinfo{pages}{04023015}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)IS.1943-555X.0000654}.
+%Type = Article
+\bibitem[{O’Neill et~al.(2020)O’Neill, Carter, Ebi, Harrison,
+  Kemp-Benedict, Kok, Kriegler, Preston, Riahi, Sillmann
+  et~al.}]{o2020achievements}
+\bibinfo{author}{O’Neill, B.C.}, \bibinfo{author}{Carter, T.R.},
+  \bibinfo{author}{Ebi, K.}, \bibinfo{author}{Harrison, P.A.},
+  \bibinfo{author}{Kemp-Benedict, E.}, \bibinfo{author}{Kok, K.},
+  \bibinfo{author}{Kriegler, E.}, \bibinfo{author}{Preston, B.L.},
+  \bibinfo{author}{Riahi, K.}, \bibinfo{author}{Sillmann, J.}, et~al.,
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Achievements and needs for the climate change
+  scenario framework}.
+\newblock \bibinfo{journal}{Nature climate change} \bibinfo{volume}{10},
+  \bibinfo{pages}{1074--1084}.
+%Type = Book
+\bibitem[{Rasmussen and Williams(2006)}]{Rasmussen2006}
+\bibinfo{author}{Rasmussen, C.E.}, \bibinfo{author}{Williams, C.K.I.},
+  \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Gaussian Processes for Machine Learning}.
+\newblock \bibinfo{publisher}{MIT Press}, \bibinfo{address}{Cambridge, MA}.
+%Type = Article
+\bibitem[{Sasidharan et~al.(2023)Sasidharan, Parlikad, Schooling and
+  Hadjidemetriou}]{Sasidharan2023}
+\bibinfo{author}{Sasidharan, M.}, \bibinfo{author}{Parlikad, A.K.},
+  \bibinfo{author}{Schooling, J.M.}, \bibinfo{author}{Hadjidemetriou, G.M.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{A bridge scour risk management approach to deal with
+  uncertain climate future}.
+\newblock \bibinfo{journal}{Transportation Research Part D: Transport and
+  Environment} \bibinfo{volume}{114}, \bibinfo{pages}{103567}.
+\newblock \DOIprefix\doi{10.1016/j.trd.2022.103567}.
+%Type = Manual
+\bibitem[{{scikit-learn Developers}(2025)}]{scikit-learn}
+\bibinfo{author}{{scikit-learn Developers}}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{scikit-learn: Machine Learning in Python}.
+\newblock \URLprefix \url{\url{https://scikit-learn.org/stable/ }}.
+  \bibinfo{note}{accessed: 2025-07-08}.
+%Type = Article
+\bibitem[{Scott et~al.(2008)Scott, Kidarsa and Higgins}]{Scott2008}
+\bibinfo{author}{Scott, M.H.}, \bibinfo{author}{Kidarsa, A.},
+  \bibinfo{author}{Higgins, C.}, \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{Development of bridge rating applications using
+  opensees and tcl}.
+\newblock \bibinfo{journal}{Journal of Computing in Civil Engineering}
+  \bibinfo{volume}{22}, \bibinfo{pages}{264--271}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)0887-3801(2008)22:4(264)}.
+%Type = Article
+\bibitem[{Simpson and Byun(2019)}]{Sipson2019}
+\bibinfo{author}{Simpson, R.}, \bibinfo{author}{Byun, D.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Case studies of bridge failure due to scour}.
+\newblock \bibinfo{journal}{Journal of Bridge Engineering}
+  \bibinfo{volume}{24}, \bibinfo{pages}{1--12}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)BE.1943-5592.0001340}.
+%Type = Book
+\bibitem[{Sivapalan et~al.(2011)Sivapalan, Bl\"oschl, Merz and
+  Gutknecht}]{Sivapalan2011}
+\bibinfo{author}{Sivapalan, M.}, \bibinfo{author}{Bl\"oschl, G.},
+  \bibinfo{author}{Merz, R.}, \bibinfo{author}{Gutknecht, D.},
+  \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Runoff Prediction in Ungauged Basins: Synthesis
+  Across Processes, Places and Scales}.
+\newblock \bibinfo{publisher}{Cambridge University Press}.
+%Type = Article
+\bibitem[{Smola and Schölkopf(2004)}]{Smola2004SVR}
+\bibinfo{author}{Smola, A.J.}, \bibinfo{author}{Schölkopf, B.},
+  \bibinfo{year}{2004}.
+\newblock \bibinfo{title}{A tutorial on support vector regression}.
+\newblock \bibinfo{journal}{Statistics and Computing} \bibinfo{volume}{14},
+  \bibinfo{pages}{199--222}.
+\newblock \DOIprefix\doi{10.1023/B:STCO.0000035301.49549.88}.
+%Type = Book
+\bibitem[{Tukey(1977)}]{tukey1977exploratory}
+\bibinfo{author}{Tukey, J.W.}, \bibinfo{year}{1977}.
+\newblock \bibinfo{title}{Exploratory Data Analysis}.
+\newblock \bibinfo{publisher}{Addison-Wesley}, \bibinfo{address}{Reading, MA}.
+%Type = Techreport
+\bibitem[{USGS(2018)}]{USGS2018}
+\bibinfo{author}{USGS}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Streambed scour at bridges}.
+\newblock \bibinfo{type}{Technical Report}. U.S. Geological Survey, U.S.
+  Department of the Interior.
+%Type = Book
+\bibitem[{Walley(1991)}]{Walley1991}
+\bibinfo{author}{Walley, P.}, \bibinfo{year}{1991}.
+\newblock \bibinfo{title}{Statistical Reasoning with Imprecise Probabilities}.
+\newblock \bibinfo{publisher}{Chapman and Hall}, \bibinfo{address}{London}.
+%Type = Article
+\bibitem[{Wang et~al.(2022)Wang, Mazumder, Salarieh, Salman, Shafieezadeh and
+  Li}]{wang2022machine}
+\bibinfo{author}{Wang, X.}, \bibinfo{author}{Mazumder, R.K.},
+  \bibinfo{author}{Salarieh, B.}, \bibinfo{author}{Salman, A.M.},
+  \bibinfo{author}{Shafieezadeh, A.}, \bibinfo{author}{Li, Y.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Machine learning for risk and resilience assessment
+  in structural engineering: Progress and future trends}.
+\newblock \bibinfo{journal}{Journal of Structural Engineering}
+  \bibinfo{volume}{148}, \bibinfo{pages}{03122003}.
+%Type = Article
+\bibitem[{Wang et~al.(2014)Wang, Dueñas-Osorio and Padgett}]{Wang2014}
+\bibinfo{author}{Wang, Z.}, \bibinfo{author}{Dueñas-Osorio, L.},
+  \bibinfo{author}{Padgett, J.E.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Influence of scour effects on the seismic response of
+  reinforced concrete bridges}.
+\newblock \bibinfo{journal}{Engineering Structures} \bibinfo{volume}{76},
+  \bibinfo{pages}{202--214}.
+\newblock \DOIprefix\doi{10.1016/j.engstruct.2014.06.026}.
+%Type = Article
+\bibitem[{Xu et~al.(2020)Xu, Kareem and Shen}]{xu2020surrogate}
+\bibinfo{author}{Xu, G.}, \bibinfo{author}{Kareem, A.}, \bibinfo{author}{Shen,
+  L.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Surrogate modeling with sequential updating:
+  applications to bridge deck--wave and bridge deck--wind interactions}.
+\newblock \bibinfo{journal}{Journal of Computing in Civil Engineering}
+  \bibinfo{volume}{34}, \bibinfo{pages}{04020023}.
+%Type = Article
+\bibitem[{Yang and Frangopol(2019)}]{Yang2019}
+\bibinfo{author}{Yang, D.Y.}, \bibinfo{author}{Frangopol, D.M.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Physics-based assessment of climate change impact on
+  long-term regional bridge scour risk using hydrologic modeling: Application
+  to lehigh river watershed}.
+\newblock \bibinfo{journal}{Journal of Bridge Engineering}
+  \bibinfo{volume}{24}, \bibinfo{pages}{04019099}.
+\newblock \DOIprefix\doi{10.1061/(ASCE)BE.1943-5592.0001479}.
+%Type = Article
+\bibitem[{Zhao et~al.(2023)Zhao, Zhang and Li}]{Zhao2023}
+\bibinfo{author}{Zhao, Y.}, \bibinfo{author}{Zhang, Y.}, \bibinfo{author}{Li,
+  Y.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Surrogate modeling of bridge fragility using hybrid
+  machine learning approaches}.
+\newblock \bibinfo{journal}{ASCE-ASME Journal of Risk and Uncertainty in
+  Engineering Systems, Part A: Civil Engineering} \bibinfo{volume}{9},
+  \bibinfo{pages}{04023035}.
+\newblock \DOIprefix\doi{10.1061/AJRUA6.RUENG-1550}.
+%Type = Manual
+\bibitem[{Zhu(2025)}]{OpenSeesPyDoc}
+\bibinfo{author}{Zhu, M.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{The OpenSeesPy Library}.
+\newblock \URLprefix \url{\url{https://openseespydoc.readthedocs.io/en/latest/
+  }}. \bibinfo{note}{accessed: 2025-07-08}.
+
+\end{thebibliography}

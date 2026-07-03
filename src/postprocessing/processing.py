@@ -82,7 +82,7 @@ def load_recorder_folder_data(
     moment = df_moment["M3_j"].abs()
 
     min_len = min(len(disp_y), len(base_shear), len(moment), len(theta_y))
-    d = disp_y[:min_len].to_numpy()
+    d = disp_y[:min_len].to_numpy() * 1000.0
     f = base_shear[:min_len].abs().to_numpy() / 1000.0
     m = moment[:min_len].to_numpy() / 1e6
     t = theta_y[:min_len].to_numpy()

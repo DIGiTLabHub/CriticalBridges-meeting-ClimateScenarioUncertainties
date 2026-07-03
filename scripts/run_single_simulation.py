@@ -37,6 +37,24 @@ def main():
         default=None,
         help="Random seed for reproducible sampling"
     )
+    parser.add_argument(
+        "--scour-depth-m",
+        type=float,
+        default=None,
+        help="Optional explicit scour depth in meters. If omitted, one depth is sampled.",
+    )
+    parser.add_argument(
+        "--fc-mpa",
+        type=float,
+        default=None,
+        help="Optional concrete compressive strength in MPa.",
+    )
+    parser.add_argument(
+        "--fy-mpa",
+        type=float,
+        default=None,
+        help="Optional steel yield strength in MPa.",
+    )
 
     args = parser.parse_args()
 
@@ -45,7 +63,10 @@ def main():
     # Run the simulation
     result = run_single_pushover_simulation(
         scenario=args.scenario,
-        random_seed=args.seed
+        random_seed=args.seed,
+        scour_depth_m=args.scour_depth_m,
+        fc_MPa=args.fc_mpa,
+        fy_MPa=args.fy_mpa,
     )
 
     if result is None:

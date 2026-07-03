@@ -15,6 +15,9 @@ depths = [
     -27050, -28050, -29050, -30050, -31050, -32050
 ]
 
+ORIGINAL_RIVERBED_ELEVATION_MM = max(depths)
+
+
 def get_soil_depth(mat_tag):
     """
     Returns the corresponding depth for mat_tag in 101..130 or 201..230.
@@ -26,6 +29,37 @@ def get_soil_depth(mat_tag):
         return depths[mat_tag - 201]
     else:
         return None
+
+
+def effective_scour_depth_mm(scourDepth):
+    """
+    Round a positive continuous scour depth to the next modeled soil-spring level.
+
+    The input scourDepth is measured downward from the original riverbed elevation,
+    not from global z = 0. The returned depth is therefore a discretized effective
+    scour depth measured from ORIGINAL_RIVERBED_ELEVATION_MM.
+    """
+    if scourDepth < 0:
+        raise ValueError(f"scourDepth must be nonnegative, got {scourDepth}")
+    if scourDepth == 0:
+        return 0.0
+
+    target_bed_elevation = ORIGINAL_RIVERBED_ELEVATION_MM - scourDepth
+    candidate_elevations = [
+        depth for depth in depths if depth <= target_bed_elevation
+    ]
+    if not candidate_elevations:
+        return float(ORIGINAL_RIVERBED_ELEVATION_MM - min(depths))
+
+    rounded_bed_elevation = max(candidate_elevations)
+    return float(ORIGINAL_RIVERBED_ELEVATION_MM - rounded_bed_elevation)
+
+
+def soil_spring_removed_by_scour(depth, effective_scour_depth):
+    if effective_scour_depth <= 0:
+        return False
+    scoured_bed_elevation = ORIGINAL_RIVERBED_ELEVATION_MM - effective_scour_depth
+    return depth >= scoured_bed_elevation
 
 
 # 2) Consolidate ALL zero-length definitions below into a single list of tuples.
@@ -1121,10 +1155,12 @@ zero_length_defs = [
 # 3) Define the function that loops over zero_length_defs & applies scour logic
 def defineZeroLengthElement(scourDepth):
     """
-    Creates zero-length elements in OpenSees, skipping any that are "above" scourDepth.
+    Creates zero-length elements in OpenSees, skipping soil springs eroded by scour.
 
-    :param scourDepth: Positive number (e.g., 13550). Anything with a soil depth > -scourDepth is skipped.
+    :param scourDepth: Positive scour depth in mm, measured downward from the original riverbed.
     """
+    effective_scour_depth = effective_scour_depth_mm(scourDepth)
+
     # Original zeroLength elements (kept unmodified)
     ops.element('zeroLength', 11101, 131, 101, '-mat', 51, '-dir', 1)
     ops.element('zeroLength', 12101, 131, 101, '-mat', 51, '-dir', 2)
@@ -1390,8 +1426,7 @@ def defineZeroLengthElement(scourDepth):
         for mtag in matList:
             depth = get_soil_depth(mtag)
             if depth is not None:  # i.e. this mat_tag is a soil mat
-                # If depth > -scourDepth => it lies above the scoured zone => skip
-                if depth > -scourDepth:
+                if soil_spring_removed_by_scour(depth, effective_scour_depth):
                     skip_this = True
                     break
 
@@ -1401,7 +1436,10 @@ def defineZeroLengthElement(scourDepth):
             dir_args = ["-dir"] + dirList
             ops.element('zeroLength', elemTag, iNode, jNode, *mat_args, *dir_args)
 
-    print(f"Finished creating zero-length elements (scourDepth = {scourDepth}).")
+    print(
+        "Finished creating zero-length elements "
+        f"(scourDepth = {scourDepth}, effective_scourDepth = {effective_scour_depth})."
+    )
 
 
 
@@ -1412,8 +1450,6 @@ def defineZeroLengthElement(scourDepth):
 
     # print("ZeroLengthElement defined.")
 # In[ ]:
-
-
 
 
 
