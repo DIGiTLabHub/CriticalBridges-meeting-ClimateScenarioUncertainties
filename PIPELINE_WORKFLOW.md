@@ -2,13 +2,13 @@
 
 This document describes the complete workflow for running the scour bridge simulation pipeline.
 
-> **Snapshot note:** the workflow surface is now more coherent than earlier repo snapshots. `scripts/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `scripts/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs. Full OpenSees runtime is still long-running and was not re-verified in this documentation pass.
+> **Snapshot note:** the workflow surface is now more coherent than earlier repo snapshots. `experiments/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `experiments/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs. Full OpenSees runtime is still long-running and was not re-verified in this documentation pass.
 
 ## 🚀 **Quick Start**
 
 ```bash
 # Generate scour samples and material inputs
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # This creates:
 # - Phase 1: Scour hazard samples
@@ -23,7 +23,7 @@ python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 **Purpose:** Generate probabilistic scour depth samples using Latin Hypercube Sampling
 
-**Script:** `scripts/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
+**Script:** `experiments/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
 
 **Implementation note:** the current script does not expose a `--phases` argument; Phase 1 and Phase 2 are both part of the same intended run.
 
@@ -67,7 +67,7 @@ Generated 1000 scour samples
 
 **Purpose:** Generate concrete and steel strength samples paired with scour depths
 
-**Script:** `scripts/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
+**Script:** `experiments/run_full_pipeline.py --scenario <scenario> --samples <N> [--seed <seed>]`
 
 **Implementation note:** material sampling is coupled to the same script execution as hazard generation in the current code.
 
@@ -110,12 +110,12 @@ Material samples saved to: data/input/Scour_Materials_missouri_20250106_220842.x
 
 **Purpose:** Build OpenSeesPy bridge model and run pushover analysis
 
-**Preferred single-run script:** `python scripts/run_single_simulation.py --scenario <scenario> [--seed <seed>]`
+**Preferred single-run script:** `python experiments/run_single_simulation.py --scenario <scenario> [--seed <seed>]`
 
 **Batch path:** legacy/manual via `BridgeModeling/Pushover.py`
 
 **Input (preferred single-run path):**
-- Scenario name and optional seed passed to `scripts/run_single_simulation.py`
+- Scenario name and optional seed passed to `experiments/run_single_simulation.py`
 - Geometry from JSON files: `data/geometry/*.json`
 
 **Input (legacy batch path):**
@@ -326,12 +326,12 @@ RecorderData/
 
 ```bash
 # Step 1: Generate input data (automated)
-python scripts/run_full_pipeline.py --scenario missouri --samples 100 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 100 --seed 42
 
 # Output: data/input/Scour_Materials_missouri_20250106_HHMMSS.xlsx
 
 # Step 2: Run a single pushover analysis (long-running OpenSees job)
-python scripts/run_single_simulation.py --scenario missouri --seed 42
+python experiments/run_single_simulation.py --scenario missouri --seed 42
 # Note: this single-run wrapper samples its own parameters; it does not directly
 # consume the Phase-2 Excel workbook. The workbook is mainly for legacy/manual
 # batch simulation flows.
@@ -385,7 +385,7 @@ python -m src.visualization.visualization
 
 **Issue: ModuleNotFoundError when running scripts**
 - **Solution:** Run from project root, not from nested subdirectories
-- **Check:** `python scripts/run_full_pipeline.py --help`
+- **Check:** `python experiments/run_full_pipeline.py --help`
 
 **Issue: openpyxl not found**
 - **Solution:** `pip install openpyxl`
@@ -407,7 +407,7 @@ python -m src.visualization.visualization
 ## 📚 **References**
 
 1. **Configuration:** `config/parameters.py`
-2. **Pipeline Script:** `scripts/run_full_pipeline.py`
+2. **Pipeline Script:** `experiments/run_full_pipeline.py`
 3. **Architecture:** `project_overview.md`
 4. **Scientific Context:** `README.md`
 5. **Research:** Preprint/PreprintStatement.md

@@ -68,7 +68,7 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 │   ├── input/                 # Runtime-created input data (material samples)
 │   └── output/                # Runtime-created output data
 │
-├── scripts/                     # Automation scripts
+├── experiments/                     # Automation scripts
 │   ├── run_full_pipeline.py   # Phase 1-2 workflow generator
 │   ├── run_single_simulation.py # Single OpenSees simulation runner
 │   └── test_surrogate_modeling.py # Compatibility/testing wrapper
@@ -305,13 +305,13 @@ All paths centralized in `PATHS` dictionary:
 
 ## 🚀 **Workflow Automation**
 
-The `scripts/run_full_pipeline.py` automates Phase 1-2 of the workflow. The later postprocessing, training, and visualization stages now have cleaned CLI surfaces, while OpenSees execution remains the slowest and most manual-sensitive part of the stack.
+The `experiments/run_full_pipeline.py` automates Phase 1-2 of the workflow. The later postprocessing, training, and visualization stages now have cleaned CLI surfaces, while OpenSees execution remains the slowest and most manual-sensitive part of the stack.
 
 ### **Usage**
 
 ```bash
 # Automated Phase 1-2 workflow
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # The current script does not support --phases.
 # Later stages are sequential and partially manual around OpenSees execution.
@@ -344,7 +344,7 @@ Save to Excel → data/input/Scour_Materials_{scenario}_{timestamp}.xlsx
 ### **Phase 3-7 Flow**
 
 The later stages are executed sequentially with these preferred entry points:
-- `scripts/run_single_simulation.py`: Runs one OpenSees pushover simulation
+- `experiments/run_single_simulation.py`: Runs one OpenSees pushover simulation
 - `BridgeModeling/Pushover.py`: Legacy/manual batch-oriented simulation path
 - `src/postprocessing/processing.py`: Extracts yield points
 - `python -m src.surrogate_modeling.training`: Trains ML models

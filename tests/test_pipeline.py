@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 def _bootstrap_repo_root() -> Path:
-    repo_root = Path(__file__).resolve().parent
+    repo_root = Path(__file__).resolve().parent.parent
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
     return repo_root

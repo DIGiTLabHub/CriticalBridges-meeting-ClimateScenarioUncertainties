@@ -11,12 +11,16 @@ the bilinear fit.
 from __future__ import annotations
 
 import argparse
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
 import numpy as np
 import pandas as pd
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from config.parameters import GEOMETRY, MATERIALS, SCOUR
 from src.postprocessing.bilinear_fit import fit_bilinear_profile

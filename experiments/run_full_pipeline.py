@@ -117,7 +117,7 @@ def main():
     logging.info("=" * 50)
     logging.info("Next steps:")
     logging.info(
-        "  1. Run OpenSees simulations manually or via scripts/run_single_simulation.py"
+        "  1. Run OpenSees simulations manually or via experiments/run_single_simulation.py"
     )
     logging.info(
         "  2. Aggregate recorder outputs with: python src/postprocessing/processing.py"

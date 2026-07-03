@@ -10,8 +10,8 @@ A distribution-agnostic framework for predicting transverse capacities and quant
 
 | Stage | Current Support | Primary Entry Point |
 |-------|-----------------|---------------------|
-| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
-| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python scripts/run_single_simulation.py --scenario missouri --seed 42` |
+| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
+| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python experiments/run_single_simulation.py --scenario missouri --seed 42` |
 | Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
 | Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
 | Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
@@ -145,7 +145,7 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 │   ├── input/                 # Material sample inputs
 │   └── output/                # Simulation results
 │
-├── scripts/                     # Automation
+├── experiments/                     # Automation
 │   ├── run_full_pipeline.py   # Pipeline orchestrator
 │   ├── run_single_simulation.py # Single simulation runner
 │   └── test_surrogate_modeling.py # Surrogate model testing tool
@@ -197,13 +197,13 @@ pip install -e .
 python -c "from src.scour import LHS_scour_hazard; from src.bridge_modeling.geometry.geometry_loader import GeometryLoader; from config.parameters import SCOUR, MATERIALS, ANALYSIS; print('imports-ok')"
 
 # Option 2: Generate reproducible scour + material samples (Phases 1-2)
-python scripts/run_full_pipeline.py --scenario missouri --samples 10 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 10 --seed 42
 
 # Option 3: Inspect the single-simulation CLI before launching OpenSees
-python scripts/run_single_simulation.py --help
+python experiments/run_single_simulation.py --help
 
 # Option 4: Run a single OpenSees simulation (long-running; not a smoke test)
-python scripts/run_single_simulation.py --scenario missouri
+python experiments/run_single_simulation.py --scenario missouri
 
 # Option 5: Aggregate recorder outputs after simulations finish
 python src/postprocessing/processing.py --help
@@ -219,18 +219,18 @@ python -m src.visualization.visualization --help
 
 | Script | Status | Notes |
 |--------|--------|-------|
-| `scripts/run_full_pipeline.py` | ✅ Available | CLI works; generates Phase 1-2 scour/material inputs and supports `--seed` for reproducibility |
-| `scripts/run_single_simulation.py` | ⚠️ Long-running | CLI works; full OpenSees execution is intentionally not treated as a lightweight smoke test |
+| `experiments/run_full_pipeline.py` | ✅ Available | CLI works; generates Phase 1-2 scour/material inputs and supports `--seed` for reproducibility |
+| `experiments/run_single_simulation.py` | ⚠️ Long-running | CLI works; full OpenSees execution is intentionally not treated as a lightweight smoke test |
 | `src/postprocessing/processing.py` | ✅ Available | Import-safe CLI for aggregating `RecorderData/<scenario>/scour_*` into `Yield_Results_by_Scenario.xlsx` |
 | `src/surrogate_modeling/training.py` | ✅ Available | Import-safe CLI for GBR/SVR bootstrap surrogate training |
 | `src/visualization/visualization.py` | ✅ Available | Import-safe CLI for supported postprocessing / surrogate plots |
-| `scripts/test_surrogate_modeling.py` | ✅ Compatibility wrapper | CLI/help path works; requires existing yield-results data and is secondary to `src.surrogate_modeling.training` |
+| `experiments/test_surrogate_modeling.py` | ✅ Compatibility wrapper | CLI/help path works; requires existing yield-results data and is secondary to `src.surrogate_modeling.training` |
 
 ### **What the workflow is intended to do**
 
 ```bash
 # Phase 1-2: Generate scour samples and material inputs
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # Output: data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
 # Next: run OpenSees simulations, then aggregate + train + visualize
@@ -260,7 +260,7 @@ print(f"Velocity: {missouri_params['velocity_m_s']} m/s")
 
 ### **Surrogate Model Testing**
 
-The repository includes `scripts/test_surrogate_modeling.py`, intended to train/test bootstrap GBR/SVR surrogate models on `RecorderData/Yield_Results_by_Scenario.xlsx`.
+The repository includes `experiments/test_surrogate_modeling.py`, intended to train/test bootstrap GBR/SVR surrogate models on `RecorderData/Yield_Results_by_Scenario.xlsx`.
 
 **Current status:** the script now exposes a working CLI/help path and can still be used as a compatibility/testing wrapper. For the cleaned primary workflow, prefer `python -m src.surrogate_modeling.training`.
 
@@ -270,7 +270,7 @@ The repository includes `scripts/test_surrogate_modeling.py`, intended to train/
 |--------|--------|-------------|
 | **1: Hazard** | ✅ Automated | Scour depth samples |
 | **2: Sample** | ✅ Automated | Material Excel file |
-| **3a: Single Simulate** | ⚠️ Available | `scripts/run_single_simulation.py` exists, but is a long-running OpenSees job |
+| **3a: Single Simulate** | ⚠️ Available | `experiments/run_single_simulation.py` exists, but is a long-running OpenSees job |
 | **3b: Batch Simulate** | ⏳ Manual / legacy | Driven by `BridgeModeling/Pushover.py` rather than a clean scripted batch entry point |
 | **4: Post-process** | ✅ Available | `src/postprocessing/processing.py` is an import-safe CLI for recorder aggregation |
 | **5: Train** | ✅ Available | `src/surrogate_modeling/training.py` provides the primary surrogate-training CLI |

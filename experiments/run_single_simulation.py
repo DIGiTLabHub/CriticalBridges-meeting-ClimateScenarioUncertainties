@@ -10,11 +10,10 @@ with sampled parameters and prints the capacity point.
 import sys
 import argparse
 from pathlib import Path
-import matplotlib.pyplot as plt
 import numpy as np
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from BridgeModeling.Pushover import run_single_pushover_simulation
 from src.postprocessing.bilinear_fit import fit_bilinear_profile
@@ -83,6 +82,8 @@ def main():
         print(f"   Thy (Yield Rotation): {thy:.4f} rad")
 
         # Create plots
+        import matplotlib.pyplot as plt
+
         plots_dir = Path('./Plots/single_simulation/')
         plots_dir.mkdir(parents=True, exist_ok=True)
 

@@ -1,13 +1,13 @@
 # Quick Start Guide
 
-> **Snapshot note:** this repository still mixes fast smoke-testable stages with long-running OpenSees workflows, but the user-facing CLI surface is now more coherent. `scripts/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `scripts/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs.
+> **Snapshot note:** this repository still mixes fast smoke-testable stages with long-running OpenSees workflows, but the user-facing CLI surface is now more coherent. `experiments/run_full_pipeline.py` supports reproducible Phase 1-2 generation, `experiments/run_single_simulation.py` is the preferred single-run OpenSees wrapper, and the postprocessing / training / visualization stages now have import-safe CLIs.
 
 ## ✅ Supported Workflow at a Glance
 
 | Stage | Current Support | Primary Entry Point |
 |-------|-----------------|---------------------|
-| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
-| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python scripts/run_single_simulation.py --scenario missouri --seed 42` |
+| Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
+| Phase 3a: Single OpenSees run | ⚠️ Long-running | `python experiments/run_single_simulation.py --scenario missouri --seed 42` |
 | Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
 | Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
 | Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
@@ -48,7 +48,7 @@ This project is not currently documented as a published PyPI package release. Pr
 
 ```bash
 # Run complete automated workflow
-python scripts/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
+python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42
 
 # This creates:
 # - Phase 1: Scour hazard samples
@@ -69,7 +69,7 @@ After Phase 1-2, continue with the remaining stages in order:
 
 ```bash
 # Step 3: Single OpenSees simulation (long-running)
-python scripts/run_single_simulation.py --scenario missouri --seed 42
+python experiments/run_single_simulation.py --scenario missouri --seed 42
 # Output: RecorderData/{scenario}/scour_{depth}/*.out
 # Note: for batch simulation, the legacy/manual BridgeModeling path still applies.
 
@@ -111,7 +111,7 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 │   ├── geometry/              # JSON geometry data
 │   ├── input/                 # Material sample inputs
 │   └── output/                # Simulation results
-├── scripts/                     # Automation
+├── experiments/                     # Automation
 └── README.md, project_overview.md, PIPELINE_WORKFLOW.md
 ```
 
@@ -171,9 +171,9 @@ print(f"Max drift: {pushover['max_drift_ratio']}")
 
 **Issue:** ModuleNotFoundError when running scripts
 ```bash
-# Run from project root, not from scripts/ directory
+# Run from project root, not from experiments/ directory
 cd CriticalBridges-meeting-ClimateScenarioUncertainties
-python scripts/run_full_pipeline.py --scenario missouri --help
+python experiments/run_full_pipeline.py --scenario missouri --help
 ```
 
 If imports still fail, verify you are using the project root and that dependencies were installed into the active environment.

@@ -4,18 +4,18 @@
 Continue reviewing and refactoring the scour-critical bridge simulation code so it matches the manuscript workflow: climate-scenario scour selection, OpenSees pushover simulation, bilinear capacity extraction, plotting, and optional surrogate modeling.
 
 ## Current State
-- Workspace: `/Users/chenzhiq/MyProjects/CriticalBridges-meeting-ClimateScenarioUncertainties`
+- Workspace: `/Users/chenzhiq/MyGitProjects/CriticalBridges-meeting-ClimateScenarioUncertainties`
 - Manuscript reviewed: `Manuscript/revision_submission_02.tex`
-- Main refactor target completed: `single_pushover_simulation.py` is now a modular scenario runner instead of a mock.
+- Main refactor target completed: `experiments/run_scenario_pushover_cases.py` is now a modular scenario runner instead of a mock.
 - Real OpenSees single-run was verified once with:
-  `python scripts/run_single_simulation.py --scenario missouri --seed 42 --scour-depth-m 0.5 --fc-mpa 27.0 --fy-mpa 420.0`
+  `python experiments/run_single_simulation.py --scenario missouri --seed 42 --scour-depth-m 0.5 --fc-mpa 27.0 --fy-mpa 420.0`
 - That run completed in about 402 seconds and generated:
   - `RecorderData/missouri/scour_500.0/*.out`
   - `Plots/single_simulation/pushover_D_V.pdf`
   - `Plots/single_simulation/pushover_Th_M.pdf`
 
 ## Important Code Changes
-- `single_pushover_simulation.py`
+- `experiments/run_scenario_pushover_cases.py`
   - Replaced placeholder/mock implementation.
   - Adds scenario case generation using `avg - 2 std` and `avg + 2 std` scour depths from LHS hazard statistics.
   - Runs explicit OpenSees pushover cases.
@@ -27,7 +27,7 @@ Continue reviewing and refactoring the scour-critical bridge simulation code so 
   - Keeps legacy random sampling when explicit values are omitted.
   - Extracts `My` and `Thy` from recorder data instead of lever-arm approximations.
   - Fixes base moment conversion to kNm using `/1e6`.
-- `scripts/run_single_simulation.py`
+- `experiments/run_single_simulation.py`
   - Adds CLI flags `--scour-depth-m`, `--fc-mpa`, `--fy-mpa`.
 - `src/postprocessing/processing.py`
   - Fixes yield displacement unit conversion: recorder displacement is meters, output `dy_mm` is now millimeters.
@@ -53,27 +53,27 @@ Note: the extreme scenario emitted a warning that some LHS scour samples exceed 
 ## Commands To Run
 - Six selected scenario pushover cases:
   ```bash
-  python single_pushover_simulation.py --scenarios missouri colorado extreme --hazard-samples 1000 --seed 42
+  python experiments/run_scenario_pushover_cases.py --scenarios missouri colorado extreme --hazard-samples 1000 --seed 42
   ```
 - Same, with selected-case surrogate training afterward:
   ```bash
-  python single_pushover_simulation.py --scenarios missouri colorado extreme --hazard-samples 1000 --seed 42 --train-surrogates
+  python experiments/run_scenario_pushover_cases.py --scenarios missouri colorado extreme --hazard-samples 1000 --seed 42 --train-surrogates
   ```
 - Explicit one-off pushover:
   ```bash
-  python scripts/run_single_simulation.py --scenario missouri --scour-depth-m 0.5 --fc-mpa 27.0 --fy-mpa 420.0
+  python experiments/run_single_simulation.py --scenario missouri --scour-depth-m 0.5 --fc-mpa 27.0 --fy-mpa 420.0
   ```
 
 ## Verification
 - Passed syntax checks:
   ```bash
-  python -m py_compile src/scour/scour_hazard.py single_pushover_simulation.py BridgeModeling/Pushover.py src/postprocessing/processing.py
+  python -m py_compile src/scour/scour_hazard.py experiments/run_scenario_pushover_cases.py BridgeModeling/Pushover.py src/postprocessing/processing.py
   ```
 - Passed lightweight Phase-1 smoke test:
   ```bash
-  python test_pipeline.py --scenario missouri --samples 5 --seed 1
+  python tests/test_pipeline.py --scenario missouri --samples 5 --seed 1
   ```
-- Verified `python single_pushover_simulation.py --help` works.
+- Verified `python experiments/run_scenario_pushover_cases.py --help` works.
 - Verified one real OpenSees run completes, but it is slow.
 
 ## Known Issues
