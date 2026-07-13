@@ -18,6 +18,7 @@
 
 ### Prerequisites
 - Python 3.10+ recommended for new environments (this repo is also used in a legacy Python 3.8 setup)
+- Python 3.12+ uses the latest OpenSeesPy Linux wheel; Python 3.8-3.11 is pinned by `requirements.txt` to the stable OpenSeesPy 3.7 line.
 - pip package manager
 
 ### Install from Source
@@ -35,6 +36,19 @@ pip install -e .
 
 # Verify installation
 python -c "from src.scour import LHS_scour_hazard; print('✅ Installation successful!')"
+```
+
+On a headless remote Linux box, use a writable Matplotlib cache before running
+the plotting scripts:
+
+```bash
+export MPLBACKEND=Agg
+export MPLCONFIGDIR="${TMPDIR:-/tmp}/matplotlib-${USER}"
+mkdir -p "$MPLCONFIGDIR"
+
+python -m pip check
+python -c "import numpy,pandas,scipy,matplotlib,sklearn,openpyxl,openseespy.opensees; print('deps-ok')"
+python -m compileall -q BridgeModeling config src experiments tests
 ```
 
 ### Install from PyPI (Future)

@@ -10,7 +10,10 @@ matplotlib>=3.4.0
 seaborn>=0.11.0
 
 # Finite Element Analysis
-openseespy>=3.5.0
+# OpenSeesPy is a platform-selecting meta-package. The 3.8.x Linux package
+# currently requires Python 3.12+, so keep Python <3.12 on the stable 3.7 line.
+openseespy>=3.7.0,<3.8.0; python_version < "3.12"
+openseespy>=3.8.0; python_version >= "3.12"
 
 # Machine Learning
 scikit-learn>=1.0.0
@@ -24,4 +27,6 @@ jupyter>=1.0.0
 ipykernel>=6.0
 
 # Python Version
-# python>=3.8
+# python>=3.8 is still supported by the repo code path; Python 3.10+ is
+# recommended for new installs, and Python 3.12+ uses the latest OpenSeesPy
+# Linux wheel.

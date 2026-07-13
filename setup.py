@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 
 from setuptools import find_packages, setup
@@ -47,6 +49,8 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Scientific/Engineering",
     ],
 )

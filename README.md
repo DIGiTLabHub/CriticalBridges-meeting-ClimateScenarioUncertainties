@@ -188,13 +188,26 @@ pip install -e .
 ### **Dependencies**
 - **Core:** numpy>=1.21.0, pandas>=1.3.0, scipy>=1.7.0
 - **Visualization:** matplotlib>=3.4.0, seaborn>=0.11.0
-- **Finite Element:** openseespy>=3.5.0
+- **Finite Element:** openseespy>=3.7.0,<3.8.0 for Python <3.12; openseespy>=3.8.0 for Python >=3.12
 - **Machine Learning:** scikit-learn>=1.0.0, joblib>=1.2.0
 - **File I/O:** openpyxl>=3.0.0
 - **Development (optional):** jupyter>=1.0.0, ipykernel>=6.0.0
 - **Python:** >=3.8
 
-> **Environment note (current snapshot):** this repository is presently being used in a legacy Python 3.8 environment, but current OpenSeesPy wheels on PyPI may require Python 3.10+ for a fresh install. For new environments, prefer Python 3.10+ unless you are intentionally reproducing an older setup.
+> **Environment note (current snapshot):** this repository is presently being used in a legacy Python 3.8 environment, but current OpenSeesPy packaging has moved forward. `requirements.txt` now keeps Python 3.8-3.11 on the stable OpenSeesPy 3.7 line and allows the latest OpenSeesPy line on Python 3.12+.
+
+For remote Linux boxes or clusters, set a writable Matplotlib cache and verify
+the environment before launching multi-day OpenSees sweeps:
+
+```bash
+export MPLBACKEND=Agg
+export MPLCONFIGDIR="${TMPDIR:-/tmp}/matplotlib-${USER}"
+mkdir -p "$MPLCONFIGDIR"
+
+python -m pip check
+python -c "import numpy,pandas,scipy,matplotlib,sklearn,openpyxl,openseespy.opensees; print('deps-ok')"
+python -m compileall -q BridgeModeling config src experiments tests
+```
 
 ### **Quick Start**
 
