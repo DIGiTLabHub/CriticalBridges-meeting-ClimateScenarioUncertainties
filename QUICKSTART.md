@@ -8,7 +8,8 @@
 |-------|-----------------|---------------------|
 | Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
 | Phase 3a: Single OpenSees run | ⚠️ Long-running | `python experiments/run_single_simulation.py --scenario missouri --seed 42` |
-| Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
+| Phase 3b: Deterministic scour sweep | ⚠️ Long-running / resumable | `python experiments/run_deterministic_scour_pushover.py --skip-existing` |
+| Phase 3c: Scenario stochastic pushover dataset | ⚠️ Multi-day / checkpointed | `python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5` |
 | Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
 | Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
 | Phase 7: Visualization | ✅ Available CLI | `python -m src.visualization.visualization` |
@@ -63,16 +64,57 @@ python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --see
 - `colorado` - Fast flow (6.5 m/s, 500 mm/hr erosion)
 - `extreme` - Extreme flow (10.0 m/s, 1000 mm/hr erosion)
 
-### Phase 3-7: Sequential Execution
+### Phase 3: Nonlinear Pushover Options
 
-After Phase 1-2, continue with the remaining stages in order:
+For a single sampled stochastic point, use:
 
 ```bash
 # Step 3: Single OpenSees simulation (long-running)
 python experiments/run_single_simulation.py --scenario missouri --seed 42
 # Output: RecorderData/{scenario}/scour_{depth}/*.out
-# Note: for batch simulation, the legacy/manual BridgeModeling path still applies.
+```
 
+For a deterministic sweep over every feasible spring-removal scour depth using
+nominal material properties:
+
+```bash
+# Dry-run first
+python experiments/run_deterministic_scour_pushover.py --dry-run
+
+# Full deterministic sweep; use --skip-existing to resume/rebuild summaries
+python experiments/run_deterministic_scour_pushover.py --skip-existing
+```
+
+For the scenario-based stochastic dataset used by downstream surrogate or
+nonparametric modeling:
+
+```bash
+# Generate only LHS input samples plus PDF histogram/CDF figures
+python experiments/run_scenario_stochastic_scour_pushover.py --input-only --samples 1000
+
+# Full 3-scenario nonlinear pushover dataset: 3 x 1000 = 3000 rows
+python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5
+
+# Resume/rebuild from existing raw curves if the multi-day run is interrupted
+python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5 --skip-existing
+```
+
+The stochastic runner saves:
+- `samples/all_scenario_samples.csv`
+- `capacity_tuples.csv`
+- `capacity_tuples_progress.csv` after every processed sample
+- raw pushover curves under `raw_curves/<scenario>/`
+- recorder files under per-sample recorder folders
+
+`capacity_tuples.csv` contains scenario ID/name, continuous and modeled scour
+depths, material values, status fields, raw curve path, and the capacity tuple
+`V_y_kN`, `Delta_y_mm`, `M_x_kNm`, and `theta_x_rad`.
+
+### Phase 4-7: Sequential Execution
+
+After OpenSees simulations finish, continue with the remaining stages in order:
+
+```bash
 # Step 4: Post-Processing & Capacity Extraction
 python src/postprocessing/processing.py
 # Uses: RecorderData/{scenario}/scour_{depth}/*.out
@@ -92,6 +134,23 @@ python -m src.visualization.visualization
 # Uses: Credal bounds from Step 6
 # Output: RecorderData/results/visualizations/**/*.png
 ```
+
+### Test and Smoke Checks
+
+```bash
+# Deterministic pushover manual test runner
+python tests/test_deterministic_scour_pushover.py --min-scour 4.5 --max-scour 4.5 --pushlimit 0.02
+
+# Scenario stochastic input-only smoke test
+python experiments/run_scenario_stochastic_scour_pushover.py --input-only --samples 8 --seed 42
+
+# Syntax checks for the new runners
+python -m py_compile experiments/run_deterministic_scour_pushover.py experiments/run_scenario_stochastic_scour_pushover.py tests/test_deterministic_scour_pushover.py
+```
+
+Generated outputs are intentionally not source artifacts. The repository
+`.gitignore` excludes `experiments/output/` and `tests/output/`; do not commit
+full-run output files unless a specific result artifact is intentionally curated.
 
 ---
 

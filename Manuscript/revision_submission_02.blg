@@ -5,45 +5,45 @@ The style file: elsarticle-harv.bst
 Database file #1: references_updated.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--empty pages in Hofman2022
-You've used 51 entries,
+You've used 52 entries,
             2990 wiz_defined-function locations,
-            995 strings with 15055 characters,
-and the built_in function-call counts, 33065 in all, are:
-= -- 2528
-> -- 1230
-< -- 26
-+ -- 484
-- -- 423
-* -- 3614
-:= -- 4812
-add.period$ -- 182
-call.type$ -- 51
-change.case$ -- 391
-chr.to.int$ -- 51
-cite$ -- 52
-duplicate$ -- 2506
-empty$ -- 2464
-format.name$ -- 582
-if$ -- 6118
+            1001 strings with 15242 characters,
+and the built_in function-call counts, 33681 in all, are:
+= -- 2576
+> -- 1248
+< -- 27
++ -- 491
+- -- 429
+* -- 3680
+:= -- 4900
+add.period$ -- 185
+call.type$ -- 52
+change.case$ -- 398
+chr.to.int$ -- 52
+cite$ -- 53
+duplicate$ -- 2555
+empty$ -- 2513
+format.name$ -- 593
+if$ -- 6234
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 488
-newline$ -- 299
-num.names$ -- 204
-pop$ -- 881
+missing$ -- 497
+newline$ -- 304
+num.names$ -- 208
+pop$ -- 898
 preamble$ -- 1
-purify$ -- 344
+purify$ -- 350
 quote$ -- 0
-skip$ -- 721
+skip$ -- 734
 stack$ -- 0
-substring$ -- 1392
-swap$ -- 1781
+substring$ -- 1421
+swap$ -- 1815
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 444
+type$ -- 453
 warning$ -- 1
-while$ -- 211
+while$ -- 215
 width$ -- 0
-write$ -- 781
+write$ -- 795
 (There was 1 warning)

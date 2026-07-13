@@ -61,6 +61,142 @@ def _load_column_rotation(rotation_file):
     return np.abs(col_disp_data.iloc[:, 10].to_numpy())
 
 
+def _close_recorders():
+    """Flush and close OpenSees recorders before reading recorder files."""
+    try:
+        op.record()
+    except Exception:
+        pass
+    try:
+        op.remove("recorders")
+    except Exception:
+        pass
+
+
+def _set_pushover_strategy(
+    load_node,
+    ctrl_dof,
+    step_mm,
+    num_iter,
+    min_step_mm,
+    max_step_mm,
+    test_type,
+    tol,
+    max_iter,
+    algorithm,
+):
+    op.test(test_type, tol, max_iter)
+    op.algorithm(*algorithm)
+    op.integrator(
+        "DisplacementControl",
+        load_node,
+        ctrl_dof,
+        step_mm,
+        num_iter,
+        min_step_mm,
+        max_step_mm,
+    )
+    op.analysis("Static")
+
+
+def _run_adaptive_pushover(
+    load_node,
+    ctrl_dof,
+    target_displacement_mm,
+    initial_increment_mm,
+    min_increment_mm,
+    max_increment_mm,
+    num_iter,
+):
+    """Run pushover using OpenSees adaptive DisplacementControl bounds."""
+    strategies = [
+        ("EnergyIncr", 1.0e-6, 100, ("Newton",)),
+        ("NormDispIncr", 1.0e-6, 100, ("NewtonLineSearch",)),
+        ("EnergyIncr", 1.0e-5, 200, ("KrylovNewton",)),
+        ("NormDispIncr", 1.0e-5, 200, ("Broyden", 8)),
+        ("NormDispIncr", 1.0e-4, 300, ("ModifiedNewton",)),
+    ]
+    completed_displacement_mm = abs(op.nodeDisp(load_node, ctrl_dof))
+    step_count = 0
+    current_increment_mm = min(initial_increment_mm, max_increment_mm)
+    chunk_steps = 25
+
+    while completed_displacement_mm < target_displacement_mm - 1.0e-9:
+        converged = False
+        remaining_mm = target_displacement_mm - completed_displacement_mm
+        current_increment_mm = min(current_increment_mm, remaining_mm, max_increment_mm)
+        remaining_steps = max(1, int(np.ceil(remaining_mm / max_increment_mm - 1.0e-9)))
+        trial_steps = min(chunk_steps, remaining_steps)
+
+        for test_type, tol, max_iter, algorithm in strategies:
+            _set_pushover_strategy(
+                load_node,
+                ctrl_dof,
+                current_increment_mm,
+                num_iter,
+                min_increment_mm,
+                max_increment_mm,
+                test_type,
+                tol,
+                max_iter,
+                algorithm,
+            )
+            before_displacement_mm = abs(op.nodeDisp(load_node, ctrl_dof))
+            ok = op.analyze(trial_steps)
+            after_displacement_mm = abs(op.nodeDisp(load_node, ctrl_dof))
+            completed_in_chunk = max(
+                0,
+                int(
+                    round(
+                        (after_displacement_mm - before_displacement_mm)
+                        / max(min(current_increment_mm, max_increment_mm), min_increment_mm)
+                    )
+                ),
+            )
+            step_count += completed_in_chunk
+            completed_displacement_mm = after_displacement_mm
+
+            if ok == 0:
+                last_increment_mm = max(
+                    (after_displacement_mm - before_displacement_mm) / trial_steps,
+                    min_increment_mm,
+                )
+                current_increment_mm = min(
+                    max(last_increment_mm, min_increment_mm), max_increment_mm
+                )
+                converged = True
+                break
+
+            if completed_displacement_mm > before_displacement_mm + 1.0e-9:
+                current_increment_mm = max(
+                    min(completed_displacement_mm - before_displacement_mm, max_increment_mm),
+                    min_increment_mm,
+                )
+                converged = True
+                break
+
+        if not converged and current_increment_mm > min_increment_mm + 1.0e-12:
+            reduced_increment_mm = max(0.5 * current_increment_mm, min_increment_mm)
+            print(
+                "⚠️ Adaptive pushover retrying with smaller displacement "
+                f"increment: {current_increment_mm:.6g} -> "
+                f"{reduced_increment_mm:.6g} mm"
+            )
+            current_increment_mm = reduced_increment_mm
+            continue
+
+        if not converged:
+            print(
+                "⚠️ Adaptive pushover could not converge beyond "
+                f"{completed_displacement_mm:.3f} mm "
+                f"(OpenSees DisplacementControl bounds: "
+                f"{min_increment_mm:.3f} to {max_increment_mm:.3f} mm)."
+            )
+            return -1, step_count, completed_displacement_mm
+
+    return 0, step_count, completed_displacement_mm
+
+
 def _sample_material_properties(random_seed=None):
     rng = np.random.default_rng(random_seed)
     fc_mean = MATERIALS["concrete"]["mean_MPa"]
@@ -168,6 +304,25 @@ def run_single_pushover_simulation(
     # Define pushover parameters (from config)
     pushover_config = ANALYSIS["pushover"]
     max_drift = pushover_config["max_drift_ratio"]  # 0.05
+    effective_bridge_height_m = pushover_config.get("effective_bridge_height_m", 13.05)
+    default_increment_mm = 0.05 * effective_bridge_height_m * 1000.0 / 100.0
+    displacement_increment_mm = pushover_config.get(
+        "displacement_increment_mm", default_increment_mm
+    )
+    displacement_increment_min_mm = pushover_config.get(
+        "displacement_increment_min_mm",
+        min(displacement_increment_mm, 0.02),
+    )
+    displacement_increment_max_mm = pushover_config.get(
+        "displacement_increment_max_mm",
+        displacement_increment_mm,
+    )
+    displacement_increment_mm = min(
+        displacement_increment_mm, displacement_increment_max_mm
+    )
+    displacement_control_num_iter = pushover_config.get(
+        "displacement_control_num_iter", 20
+    )
     ctrl_dof = pushover_config["control_dof"]  # 2 (Y-direction)
 
     # Pushover load pattern
@@ -192,30 +347,52 @@ def run_single_pushover_simulation(
     op.constraints("Transformation")
     op.numberer("RCM")
     op.system("BandGeneral")
-    op.test("EnergyIncr", 1.0e-6, 100)
-    op.algorithm("Newton")
-    op.integrator(
-        "DisplacementControl", load_node, ctrl_dof, 1.0e-4
-    )  # 0.1mm increments
-    op.analysis("Static")
-
     # Run pushover analysis
-    max_steps = int(max_drift * 1000 / 0.1)  # Steps for 5% drift with 0.1mm increments
+    target_displacement_mm = max_drift * effective_bridge_height_m * 1000.0
+    estimated_steps = int(
+        np.ceil(target_displacement_mm / displacement_increment_max_mm - 1.0e-9)
+    )
     print(
-        f"🏗️  Running pushover analysis ({max_steps} steps to {max_drift * 100:.1f}% drift)..."
+        f"🏗️  Running pushover analysis (~{estimated_steps} steps minimum to "
+        f"{max_drift * 100:.1f}% drift of effective bridge height, "
+        f"{target_displacement_mm:.1f} mm target displacement, "
+        f"adaptive step {displacement_increment_min_mm:.3f}-"
+        f"{displacement_increment_max_mm:.3f} mm, "
+        f"initial {displacement_increment_mm:.3f} mm)..."
     )
     print(
         f"🕐 Pushover analysis start: {time.strftime('%H:%M:%S', time.localtime(time.time()))}"
     )
     pushover_start = time.time()
-    ok = op.analyze(max_steps)
+    ok, completed_steps, completed_displacement_mm = _run_adaptive_pushover(
+        load_node,
+        ctrl_dof,
+        target_displacement_mm,
+        displacement_increment_mm,
+        displacement_increment_min_mm,
+        displacement_increment_max_mm,
+        displacement_control_num_iter,
+    )
     pushover_time = time.time() - pushover_start
     print(
         f"🕐 Pushover analysis end: {time.strftime('%H:%M:%S', time.localtime(time.time()))} - Duration: {pushover_time:.2f}s"
     )
 
     if ok != 0:
-        print(f"⚠️ Pushover analysis stopped at step {ok}, using available data")
+        print(
+            "⚠️ Pushover analysis stopped before target "
+            f"({completed_steps} converged steps, "
+            f"{completed_displacement_mm:.3f}/{target_displacement_mm:.1f} mm); "
+            "using available data"
+        )
+    else:
+        print(
+            "✅ Pushover target reached "
+            f"({completed_steps} converged steps, "
+            f"{completed_displacement_mm:.3f}/{target_displacement_mm:.1f} mm)"
+        )
+
+    _close_recorders()
 
     # === 6. Extract data ===
     disp_file = output_dir / "Displacement.5201.out"
@@ -234,7 +411,8 @@ def run_single_pushover_simulation(
             header=None,
             names=["time", "ux", "uy", "uz", "rx", "ry", "rz"],
         )
-        displacement_mm = np.abs(disp_data["uy"].values) * 1000.0  # Convert to mm
+        # Recorder displacements are already in mm because the model uses N-mm-MPa units.
+        displacement_mm = np.abs(disp_data["uy"].values)
     except Exception as e:
         print(f"❌ Failed to read displacement data: {e}")
         return None

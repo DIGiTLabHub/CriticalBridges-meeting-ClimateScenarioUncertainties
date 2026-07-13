@@ -12,7 +12,8 @@ A distribution-agnostic framework for predicting transverse capacities and quant
 |-------|-----------------|---------------------|
 | Phase 1-2: Hazard + material sampling | ✅ Smoke-testable / scripted | `python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --seed 42` |
 | Phase 3a: Single OpenSees run | ⚠️ Long-running | `python experiments/run_single_simulation.py --scenario missouri --seed 42` |
-| Phase 3b: Batch OpenSees runs | ⏳ Legacy / manual | `BridgeModeling/Pushover.py` |
+| Phase 3b: Deterministic scour sweep | ⚠️ Long-running / resumable | `python experiments/run_deterministic_scour_pushover.py --skip-existing` |
+| Phase 3c: Scenario stochastic pushover dataset | ⚠️ Multi-day / checkpointed | `python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5` |
 | Phase 4: Post-processing | ✅ Available CLI | `python src/postprocessing/processing.py` |
 | Phase 5-6: Surrogate training + bootstrap | ✅ Available CLI | `python -m src.surrogate_modeling.training` |
 | Phase 7: Visualization | ✅ Available CLI | `python -m src.visualization.visualization` |
@@ -148,7 +149,12 @@ CriticalBridges-meeting-ClimateScenarioUncertainties/
 ├── experiments/                     # Automation
 │   ├── run_full_pipeline.py   # Pipeline orchestrator
 │   ├── run_single_simulation.py # Single simulation runner
+│   ├── run_deterministic_scour_pushover.py # Deterministic scour sweep
+│   ├── run_scenario_stochastic_scour_pushover.py # Scenario stochastic dataset runner
 │   └── test_surrogate_modeling.py # Surrogate model testing tool
+│
+├── tests/
+│   └── test_deterministic_scour_pushover.py # Manual deterministic pushover test runner
 │
 ├── RecorderData/              # Legacy simulation outputs
 ├── archive/old_scripts/        # Archived Jupyter notebooks
@@ -205,13 +211,24 @@ python experiments/run_single_simulation.py --help
 # Option 4: Run a single OpenSees simulation (long-running; not a smoke test)
 python experiments/run_single_simulation.py --scenario missouri
 
-# Option 5: Aggregate recorder outputs after simulations finish
+# Option 5: Run the deterministic spring-removal scour sweep (long-running)
+python experiments/run_deterministic_scour_pushover.py --dry-run
+python experiments/run_deterministic_scour_pushover.py --skip-existing
+
+# Option 6: Generate the scenario stochastic input distributions only
+python experiments/run_scenario_stochastic_scour_pushover.py --input-only --samples 1000
+
+# Option 7: Run the full scenario stochastic nonlinear pushover dataset
+# Default scenarios x 1000 samples = 3000 capacity-tuple rows
+python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5
+
+# Option 8: Aggregate recorder outputs after simulations finish
 python src/postprocessing/processing.py --help
 
-# Option 6: Train surrogate models from Yield_Results_by_Scenario.xlsx
+# Option 9: Train surrogate models from Yield_Results_by_Scenario.xlsx
 python -m src.surrogate_modeling.training --help
 
-# Option 7: Generate plots from postprocessing / surrogate outputs
+# Option 10: Generate plots from postprocessing / surrogate outputs
 python -m src.visualization.visualization --help
 ```
 
@@ -221,6 +238,9 @@ python -m src.visualization.visualization --help
 |--------|--------|-------|
 | `experiments/run_full_pipeline.py` | ✅ Available | CLI works; generates Phase 1-2 scour/material inputs and supports `--seed` for reproducibility |
 | `experiments/run_single_simulation.py` | ⚠️ Long-running | CLI works; full OpenSees execution is intentionally not treated as a lightweight smoke test |
+| `tests/test_deterministic_scour_pushover.py` | ⚠️ Manual test runner | Runs focused deterministic scour pushover checks and writes under `tests/output/` |
+| `experiments/run_deterministic_scour_pushover.py` | ⚠️ Long-running | Sweeps all feasible spring-removal scour depths using nominal materials; supports `--dry-run` and `--skip-existing` |
+| `experiments/run_scenario_stochastic_scour_pushover.py` | ⚠️ Multi-day full run | Generates scenario LHS inputs, PDF histograms/CDFs, raw pushover curves, progress checkpoints, and final 3000-row capacity tuple CSV |
 | `src/postprocessing/processing.py` | ✅ Available | Import-safe CLI for aggregating `RecorderData/<scenario>/scour_*` into `Yield_Results_by_Scenario.xlsx` |
 | `src/surrogate_modeling/training.py` | ✅ Available | Import-safe CLI for GBR/SVR bootstrap surrogate training |
 | `src/visualization/visualization.py` | ✅ Available | Import-safe CLI for supported postprocessing / surrogate plots |
@@ -235,6 +255,30 @@ python experiments/run_full_pipeline.py --scenario missouri --samples 1000 --see
 # Output: data/input/Scour_Materials_missouri_TIMESTAMP.xlsx
 # Next: run OpenSees simulations, then aggregate + train + visualize
 ```
+
+### **Current Scenario Stochastic Pushover Dataset**
+
+```bash
+# Input distributions only: sample tables plus PDF histogram/CDF figures
+python experiments/run_scenario_stochastic_scour_pushover.py --input-only --samples 1000
+
+# Full nonlinear pushover dataset: 3 scenarios x 1000 samples = 3000 rows
+python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5
+
+# Resume/rebuild summaries from existing raw curves after interruption
+python experiments/run_scenario_stochastic_scour_pushover.py --samples 1000 --pushlimit 5 --skip-existing
+```
+
+Final capacity tuples are saved to
+`experiments/output/scenario_stochastic_scour_pushover/capacity_tuples.csv`.
+The progress checkpoint
+`experiments/output/scenario_stochastic_scour_pushover/capacity_tuples_progress.csv`
+is rewritten after every processed sample. The final tuple CSV contains scenario
+ID/name, continuous and modeled scour depths, material values, run status,
+raw curve path, and `V_y_kN`, `Delta_y_mm`, `M_x_kNm`, `theta_x_rad`.
+
+Generated output folders are intentionally excluded from source control:
+`experiments/output/` and `tests/output/` are listed in `.gitignore`.
 
 ### **Module Import Examples**
 
@@ -271,7 +315,8 @@ The repository includes `experiments/test_surrogate_modeling.py`, intended to tr
 | **1: Hazard** | ✅ Automated | Scour depth samples |
 | **2: Sample** | ✅ Automated | Material Excel file |
 | **3a: Single Simulate** | ⚠️ Available | `experiments/run_single_simulation.py` exists, but is a long-running OpenSees job |
-| **3b: Batch Simulate** | ⏳ Manual / legacy | Driven by `BridgeModeling/Pushover.py` rather than a clean scripted batch entry point |
+| **3b: Deterministic Sweep** | ⚠️ Available | `experiments/run_deterministic_scour_pushover.py` sweeps feasible spring-removal scour depths |
+| **3c: Stochastic Scenario Sweep** | ⚠️ Available | `experiments/run_scenario_stochastic_scour_pushover.py` builds the 3000-row scenario/material/scour/capacity dataset |
 | **4: Post-process** | ✅ Available | `src/postprocessing/processing.py` is an import-safe CLI for recorder aggregation |
 | **5: Train** | ✅ Available | `src/surrogate_modeling/training.py` provides the primary surrogate-training CLI |
 | **6: Bootstrap** | ✅ Integrated | Credal/bootstrap workflow is built into the training module |

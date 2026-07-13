@@ -10,6 +10,9 @@ GEOMETRY = {
     "span_length_m": 35,
     "deck_width_m": 12,
     "num_spans": 4,
+    # Backward-compatible name retained for existing scripts. This value is
+    # the effective bridge height from the unscoured riverbed to deck level,
+    # not the clear height of the column between cap and deck.
     "column_height_m": 13.05,
     "pier_diameter_m": 1.5,
 }
@@ -30,6 +33,44 @@ SCOUR = {
     "density_water_kg_m3": 1000,
     "years_of_exposure": 50,
     "num_lhs_samples_per_scenario": 1000,
+    # Discrete realized scour depths s_z (m) at which the FE soil-spring
+    # removal state changes. The grid follows the modeled p-y/t-z spring
+    # elevations: 0.5 m spacing to 10 m, then 1.0 m spacing to the deepest
+    # spring row at 19 m. The 20 m endpoint represents physical scour to the
+    # pile tip; it has the same modeled spring-removal state as 19 m.
+    "spring_removal_depths_m": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        5.0,
+        5.5,
+        6.0,
+        6.5,
+        7.0,
+        7.5,
+        8.0,
+        8.5,
+        9.0,
+        9.5,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0,
+        18.0,
+        19.0,
+        20.0,
+    ],
     "scenarios": {
         "missouri": {
             "velocity_m_s": 2.9,
@@ -61,6 +102,17 @@ ANALYSIS = {
     },
     "pushover": {
         "max_drift_ratio": 0.05,
+        # Effective bridge height from the unscoured riverbed (z = -13.05 m)
+        # to the deck level (z = 0 m), used only to set the pushover drift
+        # control target.
+        "effective_bridge_height_m": 13.05,
+        # Adaptive DisplacementControl settings in model units (mm). The
+        # previous 6.525 mm nominal step was backsolved for 100 steps at 5%
+        # drift, but that was too coarse for forceBeamColumn convergence.
+        "displacement_increment_mm": 1.0,
+        "displacement_increment_min_mm": 0.02,
+        "displacement_increment_max_mm": 1.0,
+        "displacement_control_num_iter": 20,
         "control_dof": 2,
         "tolerance": 1.0e-6,
         "max_iterations": 100,
